@@ -1,11 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
+const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = ({ development }) => ({
-    entry: './src/simpleSelect.ts',
+  entry: './src/simpleSelect.ts',
   devtool: development ? 'inline-source-map' : false,
   mode: development ? 'development' : 'production',
   output: {
@@ -31,7 +31,6 @@ module.exports = ({ development }) => ({
       scriptLoading: "blocking",
       inject: 'head',
     }),
-    new MiniCssExtractPlugin(),
   ],
 
   module: {
@@ -68,7 +67,10 @@ module.exports = ({ development }) => ({
 
   optimization: {
     minimize: !development,
-    minimizer: !development ? [new CssMinimizerPlugin()] : [],
+    minimizer: !development ? [
+      new CssMinimizerPlugin(),
+      new TerserPlugin()
+    ] : [],
   },
 });
 

@@ -1,9 +1,9 @@
 {
-	"name": "SimpSelect",
-	"version": "1.0.0",
-	"description": "SimpSelect - this plugin replaces the select",
+	"name": "simp-select",
+	"version": "1.0.1",
+	"description": "simp-select - this plugin replaces the select",
 	"main": "dist/simpleSelect.js",
-	"types": "dist/simpleSelect.d.ts",
+	"types": "src/types/simpleSelect.types.ts",
 	"module": "dist/simpleSelect.js",
 	"prepublish": "npm run build",
 	"scripts": {
@@ -12,7 +12,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "??git+https://github.com/"
+		"url": "https://github.com/yura-brd/SimpSelect"
 	},
 	"keywords": [
 		"webpack",
@@ -21,17 +21,18 @@
 		"library",
 		"es6",
 		"commonjs",
-		"BrooonS/timezz.git",
 		"plugin",
 		"typescript",
-		"ui"
+		"ui",
+		"select",
+		"multiselect"
 	],
 	"author": "Yurii Kopot <yura.brd@gmail.com> (https://yu-k.site/)",
 	"license": "MIT",
 	"bugs": {
-		"url": "??https://github.com/BrooonS/timezz/issues"
+		"url": "https://github.com/yura-brd/SimpSelect/issues"
 	},
-	"homepage": "??https://github.com/BrooonS/timezz#readme",
+	"homepage": "https://github.com/yura-brd/SimpSelect#readme",
 	"devDependencies": {
 		"@babel/core": "^7.22.20",
 		"@babel/preset-env": "^7.22.20",
