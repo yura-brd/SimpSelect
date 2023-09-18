@@ -1,6 +1,6 @@
 {
 	"name": "simp-select",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "simp-select - this plugin replaces the select",
 	"main": "dist/simpleSelect.js",
 	"types": "dist/simpleSelect.d.ts",

@@ -1,0 +1,42 @@
+/// <reference types="node" />
+import { IItemLocalOptions, ISimpleSelectOptions } from './types/simpleSelect.types';
+import { SimpleSelectItemDOM } from './simpleSelectItemDOM';
+export declare class SimpleSelectItem extends SimpleSelectItemDOM {
+    closeOutsideHandler: (e: MouseEvent) => void;
+    closeEscHandler: (e: KeyboardEvent) => void;
+    changeListener: (e: Event) => void;
+    searchHandler: (e: Event) => void;
+    handleResize: (e: MediaQueryList | null) => void;
+    mql: MediaQueryList | null;
+    countOpen: number;
+    multiDebounceTime: number;
+    timeoutDebounceId: NodeJS.Timeout | null;
+    constructor(select: HTMLSelectElement, options: ISimpleSelectOptions, localOptions: IItemLocalOptions);
+    init(): void;
+    private handleResizeInit;
+    private initAfterDom;
+    debounce<T extends (...args: never[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void;
+    confirmOkHandler(e: MouseEvent): void;
+    confirmOkBuild(): void;
+    confirmNoHandler(e: MouseEvent): void;
+    closeHandler(e: MouseEvent): void;
+    selectAllHandler(e: MouseEvent): void;
+    resetAllHandler(e: MouseEvent): void;
+    triggerSetup(e: MouseEvent): void;
+    changeClickItem(item: HTMLLIElement): void;
+    multiDebounceChange(): void;
+    triggerInit(): void;
+    clickToggleOpen(e: MouseEvent | KeyboardEvent): void;
+    closeOutsideHandlerInit(e: MouseEvent): void;
+    closeEscHandlerInit(e: KeyboardEvent): void;
+    keyBoardChangeChecked(isDown: boolean): void;
+    searchHandlerInit(e: Event): void;
+    toggleOpenHandler(): void;
+    private changeListenerInit;
+    getSelect(): HTMLSelectElement;
+    protected handlerChangeChecked(): void;
+    protected createList(isCompare?: boolean): void;
+    private filterList;
+    inputSearchHandler(): void;
+    detachItem(): void;
+}

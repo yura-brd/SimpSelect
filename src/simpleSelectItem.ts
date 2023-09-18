@@ -18,20 +18,6 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
   searchHandler!: (e:Event) => void; // not native
 
-  clickToggleOpen!: (e:MouseEvent | KeyboardEvent) => void; // not native
-
-  triggerSetup!: (e: MouseEvent) => void; // not native
-
-  confirmOkHandler!: (e: MouseEvent) => void; // not native
-
-  confirmNoHandler!: (e: MouseEvent) => void; // not native
-
-  selectAllHandler!: (e: MouseEvent) => void; // not native
-
-  resetAllHandler!: (e: MouseEvent) => void; // not native
-
-  closeHandler!: (e: MouseEvent) => void; // not native
-
   handleResize!: (e: MediaQueryList | null) => void; // not native
 
   mql: MediaQueryList | null = null;
@@ -60,17 +46,6 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     this.searchHandler = this.searchHandlerInit.bind(this);
     this.closeOutsideHandler = this.closeOutsideHandlerInit.bind(this);
     this.closeEscHandler = this.closeEscHandlerInit.bind(this);
-    this.clickToggleOpen = this.clickToggleOpenInit.bind(this);
-
-    this.triggerSetup = this.triggerSetupInit.bind(this);
-
-    this.confirmOkHandler = this.confirmOkHandlerInit.bind(this);
-    this.confirmNoHandler = this.confirmNoHandlerInit.bind(this);
-
-    this.selectAllHandler = this.selectAllHandlerInit.bind(this);
-    this.resetAllHandler = this.resetAllHandlerInit.bind(this);
-
-    this.closeHandler = this.closeHandlerInit.bind(this);
 
     this.handleResize = this.handleResizeInit.bind(this);
 
@@ -109,8 +84,8 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     });
 
     if (!this.isNative) {
-      this.elemTopBody.addEventListener('click', this.clickToggleOpen);
-      this.elemTopBody.addEventListener('keyup', this.clickToggleOpen);
+      this.elemTopBody.onclick = this.clickToggleOpen.bind(this);
+      this.elemTopBody.onkeyup = this.clickToggleOpen.bind(this);
     }
   }
 
@@ -128,10 +103,10 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
   private initAfterDom() {
     if (this.confirmOk) {
-      this.confirmOk.addEventListener('click', this.confirmOkHandler);
+      this.confirmOk.onclick = this.confirmOkHandler.bind(this);
     }
     if (this.confirmNo) {
-      this.confirmNo.addEventListener('click', this.confirmNoHandler);
+      this.confirmNo.onclick = this.confirmNoHandler.bind(this);
     }
 
     if (this.options.callbackInitialized) {
@@ -151,13 +126,13 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
 
     if (this.elemSelectAll) {
-      this.elemSelectAll.addEventListener('click', this.selectAllHandler);
+      this.elemSelectAll.onclick = this.selectAllHandler.bind(this);
     }
     if (this.elemResetAll) {
-      this.elemResetAll.addEventListener('click', this.resetAllHandler);
+      this.elemResetAll.onclick = this.resetAllHandler.bind(this);
     }
     if (this.elemDropDownClose) {
-      this.elemDropDownClose.addEventListener('click', this.closeHandler);
+      this.elemDropDownClose.onclick = this.closeHandler.bind(this);
     }
   }
 
@@ -178,7 +153,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     };
   }
 
-  confirmOkHandlerInit(e:MouseEvent) {
+  confirmOkHandler(e:MouseEvent) {
     e.preventDefault();
 
     this.confirmOkBuild();
@@ -205,17 +180,17 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     this.triggerInit();
   }
 
-  confirmNoHandlerInit(e:MouseEvent) {
+  confirmNoHandler(e:MouseEvent) {
     e.preventDefault();
     this.state.setState('isOpen', false);
   }
 
-  closeHandlerInit(e:MouseEvent) {
+  closeHandler(e:MouseEvent) {
     e.preventDefault();
     this.state.setState('isOpen', false);
   }
 
-  selectAllHandlerInit(e:MouseEvent) {
+  selectAllHandler(e:MouseEvent) {
     e.preventDefault();
     Array.from(this.$select.options).forEach((option) => {
       if (option.disabled) {
@@ -230,7 +205,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     this.triggerInit();
   }
 
-  resetAllHandlerInit(e:MouseEvent) {
+  resetAllHandler(e:MouseEvent) {
     e.preventDefault();
     Array.from(this.$select.options).forEach((option) => {
       if (option.disabled) {
@@ -246,7 +221,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
   }
 
   // click for LI
-  triggerSetupInit(e:MouseEvent) {
+  triggerSetup(e:MouseEvent) {
     if (e.button !== 0) return;
     const target = e.target as HTMLElement;
     const targetLi = target.closest('li');
@@ -293,7 +268,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     triggerInputEvent(this.$select);
   }
 
-  clickToggleOpenInit(e:MouseEvent | KeyboardEvent) {
+  clickToggleOpen(e:MouseEvent | KeyboardEvent) {
     e.preventDefault();
     if (this.isDisabled) {
       return;
@@ -400,7 +375,6 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
       if (this.elemInputSearch) {
         this.elemInputSearch.focus();
-        // this.elemInputSearch.tabIndex = 0;
       }
 
       if (this.options.callbackOpen) {
@@ -422,7 +396,6 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
         this.options.callbackClose(this);
       }
     }
-    // this.bodyElement.classList.toggle('SimpleSel--open', this.state.getState('isOpen'))
   }
 
   private changeListenerInit(e: Event) {
@@ -431,7 +404,6 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
 
     this.createList(true);
-    // alert(e.target.value);
   }
 
   public getSelect() {
@@ -440,8 +412,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
   protected handlerChangeChecked() {
     if (this.elemListBody) {
-      this.elemListBody.addEventListener('mouseup', this.triggerSetup);
-      // this.elemListBody.addEventListener('mouseup', (e) => {})
+      this.elemListBody.onmouseup = this.triggerSetup.bind(this);
     }
   }
 
@@ -504,20 +475,28 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
 
     if (this.confirmOk) {
-      this.confirmOk.removeEventListener('click', this.confirmOkHandler);
+      this.confirmOk.onclick = null;
     }
     if (this.confirmNo) {
-      this.confirmNo.removeEventListener('click', this.confirmNoHandler);
+      this.confirmNo.onclick = null;
     }
 
     parentElement!.replaceChild(this.$select, this.elemWrap);
     this.$select.classList.remove(this.classSelectInit);
 
+    if (this.elemTopBody) {
+      this.elemTopBody.onclick = null;
+      this.elemTopBody.onkeyup = null;
+    }
+    if (this.elemListBody) {
+      this.elemListBody.onmouseup = null;
+    }
+
     if (this.elemSelectAll) {
-      this.elemSelectAll.removeEventListener('click', this.selectAllHandler);
+      this.elemSelectAll.onclick = null;
     }
     if (this.elemResetAll) {
-      this.elemResetAll.removeEventListener('click', this.resetAllHandler);
+      this.elemResetAll.onclick = null;
     }
 
     if (this.options.callbackDestroy) {
@@ -525,7 +504,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
 
     if (this.elemDropDownClose) {
-      this.elemDropDownClose.removeEventListener('click', this.closeHandler);
+      this.elemDropDownClose.onclick = null;
     }
     if (this.mql) {
       this.mql.onchange = null;
