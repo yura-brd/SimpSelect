@@ -1,0 +1,29 @@
+{
+	"root": true,
+	"parser": "@typescript-eslint/parser",
+	"extends": [
+		"airbnb-base",
+		"airbnb-typescript/base",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"rules": {
+		"no-console": "off",
+		"no-param-reassign": "off",
+		"no-plusplus": "off",
+		"@typescript-eslint/no-this-alias": "off",
+		"@typescript-eslint/ban-ts-comment": "off",
+		"import/no-cycle": "off",
+		"import/prefer-default-export": "off",
+		"class-methods-use-this": "off",
+		"max-len": ["error", { "code": 140 }],
+		"@typescript-eslint/no-unused-vars": "off",
+		"@typescript-eslint/naming-convention": "off"
+	},
+	"plugins": [
+		"@typescript-eslint"
+	],
+	"parserOptions": {
+		"project": "./tsconfig.json"
+	}
+}

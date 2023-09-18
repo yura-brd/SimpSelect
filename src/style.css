@@ -1,0 +1,413 @@
+:root {
+	--simpS_bg: white;
+	--simpS_pad_hor: 15px;
+	--simpS_height_top: 40px;
+	--simpS_color: #27272a;
+	--simpS_color_light: #eae9e9;
+	--simpS_color_cheked: #d9d7d7;
+	--simpS_color_yes: green;
+	--simpS_color_no: red;
+	--simpS_color_placeholder: #5d5c5c;
+	--simpS_color_dis: #8b8b8b;
+	--simpS_radius: 4px;
+	--simpS_f_size: 16px;
+	--simpS_f_shadow: 0 0 3px 0 var(--simpS_color);
+
+
+	--simpS_size_check: 20px;
+
+	--simpS_li_h: 36px;
+
+	--simpS_btn_h: 34px;
+	--simpS_btn_bg: #f9f9f9;
+	--simpS_btn_bg_reverse: #eeecec;
+
+}
+.SimpleSel {
+	position: relative;
+	box-sizing: border-box;
+	color: var(--simpS_color);
+	font-size: var(--simpS_f_size);
+	user-select: none;
+}
+.SimpleSel--disabled {
+	color: var(--simpS_color_dis);
+	opacity: .8;
+
+}
+
+/* start all setting */
+
+.SimpleSel * {
+	box-sizing: border-box;
+}
+.SimpleSel :after,
+.SimpleSel :before {
+	box-sizing: border-box;
+}
+
+.SimpleSel__select_init {
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+	/*z-index: 2;*/
+	box-sizing: border-box;
+}
+.SimpleSel__select_init--native {
+	z-index: 5;
+}
+
+/* end all setting */
+
+/* start Buttons */
+.SimpleSel__bottom_control,
+.SimpleSel__control {
+	margin: 0;
+	width: auto;
+	overflow: visible;
+	color: inherit;
+	font: inherit;
+	line-height: normal;
+	-webkit-font-smoothing: inherit;
+	-moz-osx-font-smoothing: inherit;
+	-webkit-appearance: none;
+	outline: none;
+	cursor: pointer;
+
+	background-color: var(--simpS_btn_bg);
+	padding: 1px 10px;
+	text-align: center;
+	border-radius: 0;
+	border: none;
+	display: flex;
+	align-content: center;
+	align-items: center;
+	justify-content: center;
+	height: var(--simpS_btn_h);
+}
+.SimpleSel__bottom_control:hover,
+.SimpleSel__control:hover {
+	background-color: var(--simpS_btn_bg_reverse);
+}
+/* end Buttons */
+
+/* start Checkbox */
+.SimpleSel__select_all__icon,
+.SimpleSel__list_item_icon,
+.SimpleSel__reset_all__icon {
+	width: var(--simpS_size_check);
+	height: var(--simpS_size_check);
+	position: relative;
+	border: 1px solid currentColor;
+	margin-right: 7px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: var(--simpS_radius);
+}
+.SimpleSel__list_item_icon:before,
+.SimpleSel__select_all__icon:before {
+	content: "";
+	display: block;
+	transition: 0.25s all;
+	transform: rotate(45deg) translate(-17%, -10%);
+	top: 1px;
+	left: 4px;
+	/*width: 7px;*/
+	width: calc(var(--simpS_size_check) / 3);
+	height: calc(var(--simpS_size_check) / 2 + 1px);
+	border: solid currentColor;
+	border-width: 0 2px 2px 0;
+}
+/* end Checkbox */
+
+
+
+.SimpleSel__top {
+	position: relative;
+}
+.SimpleSel__top_body {
+	position: relative;
+
+	height: var(--simpS_height_top);
+	padding: 5px 0 5px var(--simpS_pad_hor);
+
+	background-color: var(--simpS_bg);
+	color: currentColor;
+	border: 2px solid currentColor;
+	border-radius: var(--simpS_radius);
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	cursor: pointer;
+}
+
+.SimpleSel--disabled .SimpleSel__top_body {
+	cursor: default;
+	user-select: none;
+}
+
+.SimpleSel__top_body:focus-visible {
+	box-shadow: var(--simpS_f_shadow);
+}
+
+.SimpleSel__title {
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: left;
+}
+
+.SimpleSel__icon {
+	width: var(--simpS_height_top);
+	height: var(--simpS_height_top);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+}
+.SimpleSel__icon:after {
+	content: '';
+	transition: .25s transform, .25s top;
+	width: 0.5em;
+	height: 0.5em;
+	border-bottom: 2px currentColor solid;
+	border-right: 2px currentColor solid;
+	display: inline;
+	position: absolute;
+	transform-origin: left top;
+	top: calc(50% - 2px);
+	left: 50%;
+	transform: rotate(45deg) translate(-50%,-50%);
+}
+.SimpleSel--open .SimpleSel__icon:after {
+	top: calc(50% + 2px);
+	transform: rotate(225deg) translate(-50%,-50%);
+}
+
+.SimpleSel__list_item--not_value,
+.SimpleSel--single[data-count-checked-full="0"] .SimpleSel__title,
+.SimpleSel__title--placeholder {
+	color: var(--simpS_color_placeholder);
+}
+
+
+.SimpleSel__body {
+	max-height: 0;
+	opacity: 0;
+	overflow: hidden;
+	overflow-y: auto;
+	position: absolute;
+	transition: .25s max-height, .1s opacity;
+	width: 100%;
+	border: 1px solid currentColor;
+	z-index: 3;
+	border-radius: var(--simpS_radius);
+	background-color: var(--simpS_bg);
+}
+
+.SimpleSel:not(.SimpleSel--up) .SimpleSel--multi {
+	top: 100%;
+	margin-top: 2px;
+}
+
+.SimpleSel--up:not(.SimpleSel--float) .SimpleSel__body {
+	bottom: 100%;
+	margin-bottom: 2px;
+}
+
+.SimpleSel--open .SimpleSel__body {
+	max-height: 230px;
+	opacity: 1;
+}
+
+.SimpleSel__search{
+	width: 100%;
+	border-radius: var(--simpS_radius);
+	padding: 2px var(--simpS_pad_hor);
+}
+.SimpleSel__search--top {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	opacity: 0;
+	display: none;
+}
+.SimpleSel--open .SimpleSel__search--top {
+	opacity: 1;
+	display: block;
+}
+.SimpleSel__search--dropdown {
+	border: none;
+	border-bottom: 1px solid currentColor;
+	border-radius: 0;
+	height: var(--simpS_btn_h);
+}
+
+/* controls */
+.SimpleSel__controls {
+	display: flex;
+	border-bottom: 1px solid currentColor;
+}
+.SimpleSel__control {
+	flex: 1;
+}
+.SimpleSel__control + .SimpleSel__control {
+	border-left: 1px solid;
+}
+.SimpleSel__select_all__icon {
+	color: var(--simpS_color_cheked);
+	border-radius: 50%;
+	border-color: var(--simpS_color_yes);
+}
+.SimpleSel[data-count-checked-full="0"] .SimpleSel__select_all__icon {
+	color: var(--simpS_color_light);
+}
+.SimpleSel[data-check-all-multi="yes"] .SimpleSel__select_all__icon {
+	color: var(--simpS_color_yes);
+}
+
+.SimpleSel__reset_all__icon {
+	position: relative;
+	border-radius: 50%;
+	color: var(--simpS_color_no);
+
+}
+.SimpleSel__reset_all__icon:before, .SimpleSel__reset_all__icon:after {
+	position: absolute;
+	left: calc(var(--simpS_f_size) / 2);
+	content: ' ';
+	height: 60%;
+	width: 2px;
+	background-color: currentColor;
+}
+.SimpleSel__reset_all__icon:before {
+	transform: rotate(45deg);
+}
+.SimpleSel__reset_all__icon:after {
+	transform: rotate(-45deg);
+}
+
+
+.SimpleSel__bottom_controls {
+	display: flex;
+	position: sticky;
+	border-top: 1px solid currentColor;
+	margin-top: 5px;
+	bottom: 0;
+}
+.SimpleSel__bottom_control--hide {
+	display: none;
+}
+.SimpleSel__bottom_control {
+	flex: 1;
+}
+.SimpleSel__bottom_control--ok{
+	text-transform: uppercase;
+}
+.SimpleSel__bottom_control + .SimpleSel__bottom_control {
+	border-left: 1px solid  ;
+}
+
+
+/**List*/
+.SimpleSel__list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+.SimpleSel__group_items:not(:first-child) {
+	margin-top: 5px;
+}
+.SimpleSel__group_title {
+	font-weight: bold;
+	display: block;
+	padding: 6px 10px ;
+	margin-bottom: 2px;
+	font-size: 1.02em;
+	background-color: var(--simpS_color_light);
+}
+
+.SimpleSel__group {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+
+
+.SimpleSel__list_item {
+	cursor: pointer;
+}
+.SimpleSel__list_item:not(:last-child) {
+	border-bottom: 1px solid var(--simpS_color_light);
+}
+
+.SimpleSel__list_item--disabled {
+	opacity: .5;
+	cursor: default;
+}
+
+.SimpleSel__list_item_body {
+	padding: 5px var(--simpS_pad_hor);
+	display: flex;
+	align-items: center;
+	min-height: var(--simpS_li_h);
+}
+.SimpleSel__list_item_body:hover {
+	background-color: var(--simpS_color_light);
+}
+
+.SimpleSel--single .SimpleSel__list_item--checked {
+	background-color: var(--simpS_color_cheked);
+}
+
+.SimpleSel__list_item:not(.SimpleSel__list_item--checked) .SimpleSel__list_item_icon:before {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.SimpleSel__close {
+	display: none;
+}
+
+/* FLOAT */
+.SimpleSel--body_open {
+	overflow: hidden;
+	position: relative;
+}
+
+
+.SimpleSel--float .SimpleSel__body {
+	position: fixed;
+	max-width: 90%;
+	max-height: 90%;
+	left: 50%;
+	top: 50%;
+	overflow: hidden;
+	overflow-y: auto;
+	transform: translate(-50%, -50%);
+	flex-direction: column;
+	display: none;
+}
+.SimpleSel--open {
+	z-index: 7;
+}
+.SimpleSel--float.SimpleSel--open .SimpleSel__body{
+	display: flex;
+}
+
+.SimpleSel--float .SimpleSel__bottom_control--hide {
+	display: flex;
+}
+.SimpleSel--float .SimpleSel__list {
+	flex: 1;
+}
