@@ -1,7 +1,9 @@
 import { ISimpleSelectOptions, ISimpleSelectProps } from './types/simpleSelect.types';
 import { selectorType } from './types/item.types';
+import { simpleSelectionOptions, simpleSelectLocale } from './const/simpleSelection.const';
 import { SimpleSelectItem } from './simpleSelectItem';
 import './style.css';
+export { simpleSelectionOptions, simpleSelectLocale, };
 export default class SimpleSelect {
     callCount: number;
     countInit: number;

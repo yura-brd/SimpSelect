@@ -1,10 +1,16 @@
 import { ISimpleSelectOptions, ISimpleSelectProps } from './types/simpleSelect.types';
 import { selectorType } from './types/item.types';
 
-import { nameMark, nameSelect, simpleSelectionOptions } from './const/simpleSelection.const';
+import {
+  nameMark, nameSelect, simpleSelectionOptions, simpleSelectLocale,
+} from './const/simpleSelection.const';
 import { createDataAttr, toCamelCase } from './utils/simpleSelection.utils';
 import { SimpleSelectItem } from './simpleSelectItem';
 import './style.css';
+
+export {
+  simpleSelectionOptions, simpleSelectLocale,
+};
 
 export default class SimpleSelect {
   callCount = Date.now();

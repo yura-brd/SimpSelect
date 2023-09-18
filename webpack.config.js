@@ -73,7 +73,3 @@ module.exports = ({ development }) => ({
     ] : [],
   },
 });
-
-/*
-
- */
