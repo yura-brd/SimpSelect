@@ -8,15 +8,14 @@ export const simpleSelectLocale: ISimpleSelectLocale = {
   all: 'all',
   ok: 'Ok',
   cansel: 'Cansel',
-
   selectAll: 'Select all',
   resetAll: 'Reset all',
 };
 export const simpleSelectionOptions: ISimpleSelectOptions = {
-  isSearch: true,
+  isSearch: false,
   isSearchInDropdown: false,
 
-  countShowSelected: 2,
+  countShowSelected: 3,
   isConfirmInMulti: false,
   isConfirmInMultiOkClickOutside: false,
 

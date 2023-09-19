@@ -54,7 +54,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
 
     if (!this.isNative && this.options.floatWidth) {
-      this.mql = window.matchMedia(`(max-width: ${this.options.floatWidth}px)`);
+      this.mql = window.matchMedia(`screen and (max-width: ${this.options.floatWidth}px)`);
       if (this.mql) {
         // @ts-ignore
         this.mql.onchange = this.handleResize;
@@ -67,16 +67,12 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       if (!val && this.options.isConfirmInMulti) {
         this.createList();
       }
-      if (val) {
+      if (!val) {
         if (this.elemInputSearch) {
           this.elemInputSearch.value = '';
+          this.state.setState('filterStr', '');
         }
       }
-      // if (!val) {
-      //   if (this.options.isConfirmInMulti) {
-      //     this.triggerInit();
-      //   }
-      // }
     });
 
     this.state.subscribe('filterStr', (val: string) => {
@@ -381,6 +377,11 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
         this.options.callbackOpen(this);
       }
       this.countOpen++;
+      if (this.elemDropDown) {
+        setTimeout(() => {
+          this.elemDropDown!.scrollTop = 0;
+        }, 10);
+      }
     } else {
       this.state.setState('filterList', '');
       this.elemWrap.classList.remove('SimpleSel--open');
@@ -444,7 +445,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     items.forEach((group) => {
       let isShowGroup = false;
       group.items.forEach((item) => {
-        if (item.title.toLowerCase().includes(val)) {
+        if (item.title.toLowerCase().indexOf(val) >= 0) {
           isShowGroup = true;
           item.isShowFilter = true;
         } else {

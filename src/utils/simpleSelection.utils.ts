@@ -13,11 +13,19 @@ export const ifTrueDataAttr = (attr: string | null): boolean => {
 };
 
 export function triggerInputEvent(element: HTMLElement, type = 'change') {
-  const event = new Event(type, {
-    bubbles: true,
-    cancelable: true,
-  });
-  element.dispatchEvent(event);
+  try {
+    const event = new Event(type, {
+      bubbles: true,
+      cancelable: true,
+    });
+    element.dispatchEvent(event);
+  } catch (e) {
+    const event = new CustomEvent(type, {
+      bubbles: true,
+      cancelable: true,
+    });
+    element.dispatchEvent(event);
+  }
 }
 
 export const getCreateListItem = (item: HTMLSelectElement | HTMLOptGroupElement, idGroup: string, isGroup: boolean) => {

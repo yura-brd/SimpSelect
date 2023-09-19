@@ -111,9 +111,8 @@ export class SimpleSelectItemDOM {
       this.options.changeBodyLi = options.changeBodyLi;
     }
 
-    const dataConfirm = this.$select.dataset[toCamelCase('simple-is-confirm')];
-    if (this.isMulti && dataConfirm) {
-      this.options.isConfirmInMulti = dataConfirm === '1' || dataConfirm === 'true';
+    if (this.isMulti && this.$select.hasAttribute('data-simple-is-confirm')) {
+      this.options.isConfirmInMulti = ifTrueDataAttr(this.$select.getAttribute('data-simple-is-confirm'));
     }
 
     this.optionOverride();
@@ -184,7 +183,11 @@ export class SimpleSelectItemDOM {
     this.state.subscribe('isFloat', (val: boolean) => {
       this.isFloatWidth = val;
       const cls = getClass('float', true);
-      this.elemWrap.classList.toggle(cls, val);
+      if (val) {
+        this.elemWrap.classList.add(cls);
+      } else {
+        this.elemWrap.classList.remove(cls);
+      }
     });
   }
 
@@ -192,7 +195,11 @@ export class SimpleSelectItemDOM {
     const tabIndex = isOpen ? 0 : -1;
 
     if (this.state.getState('isFloat')) {
-      document.body.classList.toggle(this.bodyOpenClass, isOpen);
+      if (isOpen) {
+        document.body.classList.add(this.bodyOpenClass);
+      } else {
+        document.body.classList.remove(this.bodyOpenClass);
+      }
     }
 
     if (this.elemInputSearch) {
@@ -224,7 +231,7 @@ export class SimpleSelectItemDOM {
     this.elemTopBody.tabIndex = this.isDisabled ? -1 : 0;
 
     this.createIcon();
-    this.elemTop.append(this.elemTopBody);
+    this.elemTop.appendChild(this.elemTopBody);
     let resClassesWrap = initClass;
     if (this.options.isCloneClass) {
       resClassesWrap += ` ${this.cloneClasses}`;
@@ -250,7 +257,7 @@ export class SimpleSelectItemDOM {
       parentElement.replaceChild(this.elemWrap, this.$select);
       this.elemWrap.appendChild(this.$select);
     }
-    this.elemWrap.append(this.elemTop);
+    this.elemWrap.appendChild(this.elemTop);
 
     if (this.isNative) {
       this.$select.classList.add(getClass('native', true, this.classSelectInit));
@@ -276,7 +283,8 @@ export class SimpleSelectItemDOM {
     this.elemControl = document.createElement('div');
     this.elemControl.classList.add(getClass('controls'));
 
-    this.elemDropDown.prepend(this.elemControl);
+    // this.elemDropDown.prepend(this.elemControl);
+    this.elemDropDown.insertBefore(this.elemControl, this.elemDropDown.childNodes[0]);
 
     const classControl = getClass('control');
     if (this.options.selectAll) {
@@ -285,7 +293,7 @@ export class SimpleSelectItemDOM {
 
       this.elemSelectAll.innerHTML = `<span class="${getClass('select_all__icon')}"></span> ${this.options.locale.selectAll}`;
 
-      this.elemControl.append(this.elemSelectAll);
+      this.elemControl.appendChild(this.elemSelectAll);
     }
 
     if (this.options.resetAll) {
@@ -294,14 +302,14 @@ export class SimpleSelectItemDOM {
 
       this.elemResetAll.innerHTML = `<span class="${getClass('reset_all__icon')}"></span> ${this.options.locale.resetAll}`;
 
-      this.elemControl.append(this.elemResetAll);
+      this.elemControl.appendChild(this.elemResetAll);
     }
   }
 
   private createIcon() {
     const icon = document.createElement('span');
     icon.className = getClass('icon');
-    this.elemTopBody.append(icon);
+    this.elemTopBody.appendChild(icon);
   }
 
   private createDropDown() {
@@ -314,13 +322,13 @@ export class SimpleSelectItemDOM {
 
     this.elemListBody.className = getClass('list');
 
-    this.elemWrap.append(this.elemDropDown);
-    this.elemDropDown.append(this.elemListBody);
+    this.elemWrap.appendChild(this.elemDropDown);
+    this.elemDropDown.appendChild(this.elemListBody);
 
     this.elemDropDownClose = createButton();
     this.elemDropDownClose.classList.add(getClass('close'));
 
-    this.elemDropDown.append(this.elemDropDownClose);
+    this.elemDropDown.appendChild(this.elemDropDownClose);
 
     if (this.isMulti) {
       this.createIsConfirmInMultiHTML();
@@ -334,8 +342,8 @@ export class SimpleSelectItemDOM {
     const classesItem = getClass('bottom_control');
     this.confirmOk = createButton();
     this.confirmNo = createButton();
-    confirm.append(this.confirmOk);
-    confirm.append(this.confirmNo);
+    confirm.appendChild(this.confirmOk);
+    confirm.appendChild(this.confirmNo);
 
     this.confirmOk.innerHTML = this.options.locale.ok;
     this.confirmNo.innerHTML = this.options.locale.cansel;
@@ -349,14 +357,15 @@ export class SimpleSelectItemDOM {
     }
     confirm.className = classes;
 
-    this.elemDropDown?.append(confirm);
+    this.elemDropDown?.appendChild(confirm);
   }
 
   private createTitleHTML() {
     if (!this.elemTitle) {
       this.elemTitle = document.createElement('div');
       this.elemTitle.className = getClass('title');
-      this.elemTopBody.prepend(this.elemTitle);
+      // this.elemTopBody.prepend(this.elemTitle);
+      this.elemTopBody.insertBefore(this.elemTitle, this.elemTopBody.childNodes[0]);
     }
 
     const itemsChecked = this.getChecked();
@@ -391,10 +400,15 @@ export class SimpleSelectItemDOM {
     }
 
     this.elemTitle.innerHTML = title;
-    this.elemTitle.classList.toggle('SimpleSel__title--placeholder', isPlaceholder);
-    this.elemTitle.classList.toggle('SimpleSel__title--fill', !isPlaceholder);
-
-    this.elemWrap.classList.toggle(getClass('fill', true), !isPlaceholder);
+    if (isPlaceholder) {
+      this.elemTitle.classList.add('SimpleSel__title--placeholder');
+      this.elemTitle.classList.remove('SimpleSel__title--fill');
+      this.elemWrap.classList.remove(getClass('fill', true));
+    } else {
+      this.elemTitle.classList.remove('SimpleSel__title--placeholder');
+      this.elemTitle.classList.add('SimpleSel__title--fill');
+      this.elemWrap.classList.add(getClass('fill', true));
+    }
   }
 
   protected createListHTML() {
@@ -471,11 +485,12 @@ export class SimpleSelectItemDOM {
     if (isSearchInDropdown) {
       if (this.elemDropDown) {
         this.elemInputSearch.className = `${className} ${getClass('dropdown', true, className)}`;
-        this.elemDropDown.prepend(this.elemInputSearch);
+        // this.elemDropDown.prepend(this.elemInputSearch);
+        this.elemDropDown.insertBefore(this.elemInputSearch, this.elemDropDown.childNodes[0]);
       }
     } else {
       this.elemInputSearch.className = `${className} ${getClass('top', true, className)}`;
-      this.elemTop.append(this.elemInputSearch);
+      this.elemTop.appendChild(this.elemInputSearch);
     }
 
     this.inputSearchHandler();

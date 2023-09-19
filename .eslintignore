@@ -2,3 +2,4 @@
 webpack.config.js
 store.ts
 postcss.config.js
+src/polyfill.js

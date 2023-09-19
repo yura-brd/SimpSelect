@@ -303,6 +303,9 @@
 	margin-top: 5px;
 	bottom: 0;
 }
+.SimpleSel__bottom_controls--hide {
+	display: none !important;
+}
 .SimpleSel__bottom_control--hide {
 	display: none;
 }
