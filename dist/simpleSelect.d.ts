@@ -15,7 +15,7 @@ export default class SimpleSelect {
     detectMobile(): void;
     private init;
     createMethods(select: SimpleSelectItem): {
-        getInstance: () => HTMLSelectElement;
+        getNativeSelect: () => HTMLSelectElement;
         reload(): void;
         update(): void;
         detach(): void;
@@ -27,13 +27,13 @@ export default class SimpleSelect {
     rebuild(selectsItems: SimpleSelectItem): void;
     getSelects(): SimpleSelectItem[];
     getSelectFirst(): {
-        getInstance: () => HTMLSelectElement;
+        getNativeSelect: () => HTMLSelectElement;
         reload(): void;
         update(): void;
         detach(): void;
     };
     getSelectById(id: string): {
-        getInstance: () => HTMLSelectElement;
+        getNativeSelect: () => HTMLSelectElement;
         reload(): void;
         update(): void;
         detach(): void;

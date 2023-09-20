@@ -16,6 +16,8 @@ export const simpleSelectionOptions: ISimpleSelectOptions = {
   isSearchInDropdown: false,
 
   countShowSelected: 3,
+  isOnlyPlaceholder: false,
+
   isConfirmInMulti: false,
   isConfirmInMultiOkClickOutside: false,
 
@@ -34,7 +36,7 @@ export const simpleSelectionOptions: ISimpleSelectOptions = {
 
 };
 
-export const nameSelect = 'SimSel';
+export const nameSelect = 'SimpSelect';
 const markPrefix = 'simple-select-';
 export const nameMark = `${markPrefix}init`;
 

@@ -46,7 +46,9 @@
 <div class="items">
 	<div class="item">
 		<select id="select_first"
-		        disabled
+
+		        data-simple-placeholder="Custom title"
+		        data-simple-is-only-placeholder="true"
 		        multiple>
 			<option value="a1">a 1</option>
 			<option value="a2">a 2</option>
@@ -58,7 +60,7 @@
 	<div class="item">
 		<select multiple
 		        data-simple-placeholder="custom placeholder"
-		        data-simple-is-confirm="false"
+		        data-simple-is-confirm="true"
 		        data-simple-count-shows-selected="3">
 			<option value="a1"
 			        data-simple-html-before="<span>|before| </span>"
@@ -135,15 +137,16 @@
 	<!--
 
 	<select
-		data-simple-select-search
-		data-simple-select-search-dropdown
+		data-simple-select-search="true"
+		data-simple-select-search-dropdown="true"
+		data-simple-is-only-placeholder="true"
 		data-simple-count-shows-selected="3"
 		data-simple-is-confirm="true" // only multiselect
 		data-simple-debounce-time="1000" // only multiselect
 		data-simple-placeholder="text"
 		data-simple-reset-all="true" // only multiselect
 		data-simple-select-all="true" // only multiselect
-		!data-simple-show-checkbox="true" // only not multiselect
+		data-simple-show-checkbox="true" // only not multiselect
 
 		!data-simple-item-html-before="<div>before</div>"
 		!data-simple-item-html-after="<div>after</div>"

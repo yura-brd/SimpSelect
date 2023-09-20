@@ -26,6 +26,7 @@ export interface ISimpleSelectOptions {
     resetAll: boolean;
     resetAllAfterClose: boolean;
     isCloneClass: boolean;
+    isOnlyPlaceholder: boolean;
     isUp: boolean;
     detectNative?: () => boolean;
     callbackInitialization?: (item: SimpleSelectItem) => void;

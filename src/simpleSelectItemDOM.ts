@@ -130,10 +130,8 @@ export class SimpleSelectItemDOM {
       this.titlePlaceholder = this.options.locale.title;
     }
 
-    const dataResetAll = toCamelCase('simple-reset-all');
-    if (dataResetAll in this.$select.dataset) {
-      const resReset = this.$select.dataset[dataResetAll];
-      this.options.resetAll = !(resReset === 'false' || resReset === '0');
+    if (this.$select.hasAttribute('data-simple-reset-all')) {
+      this.options.resetAll = ifTrueDataAttr(this.$select.getAttribute('data-simple-reset-all'));
     }
     // const dataSelect = toCamelCase('simple-select-all');
     // if (dataSelect in this.$select.dataset) {
@@ -163,6 +161,10 @@ export class SimpleSelectItemDOM {
 
     if (this.$select.hasAttribute('data-simple-up')) {
       this.options.isUp = ifTrueDataAttr(this.$select.getAttribute('data-simple-up'));
+    }
+
+    if (this.$select.hasAttribute('data-simple-is-only-placeholder')) {
+      this.options.isOnlyPlaceholder = ifTrueDataAttr(this.$select.getAttribute('data-simple-is-only-placeholder'));
     }
   }
 
@@ -363,7 +365,11 @@ export class SimpleSelectItemDOM {
   private createTitleHTML() {
     if (!this.elemTitle) {
       this.elemTitle = document.createElement('div');
-      this.elemTitle.className = getClass('title');
+      let classesTitle = getClass('title');
+      if (this.options.isOnlyPlaceholder) {
+        classesTitle += ` ${getClass('only-placeholder', true, classesTitle)}`;
+      }
+      this.elemTitle.className = classesTitle;
       // this.elemTopBody.prepend(this.elemTitle);
       this.elemTopBody.insertBefore(this.elemTitle, this.elemTopBody.childNodes[0]);
     }
@@ -371,9 +377,10 @@ export class SimpleSelectItemDOM {
     const itemsChecked = this.getChecked();
 
     this.elemTop.title = '';
+
     const isPlaceholder = !itemsChecked.length;
     let title:string = this.titlePlaceholder;
-    if (itemsChecked.length) {
+    if (itemsChecked.length && !this.options.isOnlyPlaceholder) {
       let attrTitle = '';
       itemsChecked.forEach((item, index) => {
         if (index !== 0) {

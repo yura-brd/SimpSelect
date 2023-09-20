@@ -80,7 +80,7 @@ export default class SimpleSelect {
   createMethods(select: SimpleSelectItem) {
     const self = this;
     return {
-      getInstance: () => select.getSelect(),
+      getNativeSelect: () => select.getSelect(),
       reload() {
         self.rebuild(select);
       },

@@ -35,6 +35,7 @@ export interface ISimpleSelectOptions {
   resetAllAfterClose: boolean;
   isCloneClass: boolean;
 
+  isOnlyPlaceholder: boolean;
   isUp: boolean;
 
   detectNative?: () => boolean;
