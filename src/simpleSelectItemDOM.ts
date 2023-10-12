@@ -491,9 +491,12 @@ export class SimpleSelectItemDOM {
     const className = getClass('search');
     if (isSearchInDropdown) {
       if (this.elemDropDown) {
+        const wrapSearch = document.createElement('div');
+        wrapSearch.className = getClass('search_wrap');
         this.elemInputSearch.className = `${className} ${getClass('dropdown', true, className)}`;
+        wrapSearch.appendChild(this.elemInputSearch);
         // this.elemDropDown.prepend(this.elemInputSearch);
-        this.elemDropDown.insertBefore(this.elemInputSearch, this.elemDropDown.childNodes[0]);
+        this.elemDropDown.insertBefore(wrapSearch, this.elemDropDown.childNodes[0]);
       }
     } else {
       this.elemInputSearch.className = `${className} ${getClass('top', true, className)}`;

@@ -227,6 +227,9 @@
 	opacity: 1;
 }
 
+.SimpleSel__search_wrap{
+	padding: 5px 10px;
+}
 .SimpleSel__search{
 	width: 100%;
 	border-radius: var(--simpS_radius);

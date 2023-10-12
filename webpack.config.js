@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = ({ development }) => ({
   entry: ['./src/simpleSelect.ts'],
@@ -21,7 +22,14 @@ module.exports = ({ development }) => ({
     extensions: ['.ts', '.css']
   },
   plugins: [
-
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/polyfill.js',
+          to: 'polyfill.js',
+        },
+      ],
+    }),
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),

@@ -1,7 +1,7 @@
 export function store<T>(obj:T) {
   const stateData: Record<string, any> = {};
-  const subscribers: Record<string, any> = {}; /** подписка на конкретное свойство */
-  let subscribersAll: any = []; /** подписка на все свойства */
+  const subscribers: Record<string, any> = {};
+  let subscribersAll: any = [];
 
   const getState = (k?:string) => {
     if (!k) {

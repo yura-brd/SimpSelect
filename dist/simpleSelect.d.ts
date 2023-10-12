@@ -1,6 +1,5 @@
 import { ISimpleSelectOptions, ISimpleSelectProps } from './types/simpleSelect.types';
 import { selectorType } from './types/item.types';
-import './polyfill.js';
 import { SimpleSelectItem } from './simpleSelectItem';
 import './style.css';
 export default class SimpleSelect {

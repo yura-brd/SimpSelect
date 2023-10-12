@@ -17,7 +17,8 @@ npm install simp-select --save
 ```
 Or you can load it via a script tag as follows:
 ```
-<script src="https://unpkg.com/simp-select@1.0.7/dist/simpleSelect.js" />
+<script src="https://unpkg.com/simp-select@1.0.8/dist/simpleSelect.js" />
+<script src="https://unpkg.com/simp-select@1.0.8/dist/polyfill.js" /> - for IE 11
 Or get last version
 <script src="https://unpkg.com/simp-select" />
 ```
@@ -110,4 +111,7 @@ import SimpleSelect from 'simp-select';
 new SimpleSelect('select');
 ```
 ## Browser Support
-Supported on all modern browsers (and IE 11)
+Supported on all modern browsers
+
+### For IE 11 need polyfills (Or Include file polyfill.js):
+#### window.CustomEvent, Array.from, Array.prototype.forEach, NodeList.prototype.forEach, Element.prototype.matches,Element.prototype.closest
