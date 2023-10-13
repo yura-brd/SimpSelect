@@ -3,6 +3,8 @@ import { initClass } from '../const/simpleSelection.const';
 
 export const toCamelCase = (input:string):string => input.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 
+export const removeExtraSpaces = (str:string):string => str.replace(/\s+/g, ' ').trim();
+
 export const createDataAttr = (name: string):string => `data-${name}`;
 
 export const ifTrueDataAttr = (attr: string | null): boolean => {

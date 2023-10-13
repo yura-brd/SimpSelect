@@ -226,6 +226,16 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
   }
 
+  changeClickItemDom(item: HTMLLIElement) {
+    if (item.dataset[toCamelCase('sel-opt-checked')] === 'true') {
+      item.dataset[toCamelCase('sel-opt-checked')] = 'false';
+      item.classList.remove('SimpleSel__list_item--checked');
+    } else {
+      item.dataset[toCamelCase('sel-opt-checked')] = 'true';
+      item.classList.add('SimpleSel__list_item--checked');
+    }
+  }
+
   changeClickItem(item: HTMLLIElement) {
     if (item) {
       const pos = Number(item.dataset[toCamelCase('sel-position')]) || 0;
@@ -233,15 +243,10 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       if (option && !option.disabled) {
         if (this.isMulti) {
           if (this.options.isConfirmInMulti || this.isFloatWidth) {
-            if (item.dataset[toCamelCase('sel-opt-checked')] === 'true') {
-              item.dataset[toCamelCase('sel-opt-checked')] = 'false';
-              item.classList.remove('SimpleSel__list_item--checked');
-            } else {
-              item.dataset[toCamelCase('sel-opt-checked')] = 'true';
-              item.classList.add('SimpleSel__list_item--checked');
-            }
+            this.changeClickItemDom(item);
           } else {
             option.selected = !option.selected;
+            this.changeClickItemDom(item);
             this.createList();
             this.multiDebounceChange();
           }

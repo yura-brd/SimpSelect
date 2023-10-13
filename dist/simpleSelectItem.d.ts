@@ -23,6 +23,7 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     selectAllHandler(e: MouseEvent): void;
     resetAllHandler(e: MouseEvent): void;
     triggerSetup(e: MouseEvent): void;
+    changeClickItemDom(item: HTMLLIElement): void;
     changeClickItem(item: HTMLLIElement): void;
     multiDebounceChange(): void;
     triggerInit(): void;

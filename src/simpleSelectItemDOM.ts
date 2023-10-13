@@ -1,6 +1,6 @@
 import { IItemLocalOptions, ISimpleSelectOptions } from './types/simpleSelect.types';
 import {
-  cloneObj, createButton, getClass, ifTrueDataAttr, toCamelCase,
+  cloneObj, createButton, getClass, ifTrueDataAttr, removeExtraSpaces, toCamelCase,
 } from './utils/simpleSelection.utils';
 import { ICreateLiReturn, IOptionItem, IOptionItems } from './types/item.types';
 import { store } from './utils/store';
@@ -470,7 +470,11 @@ export class SimpleSelectItemDOM {
     if (this.isMulti) {
       this.elemWrap.dataset.checkAllMulti = (this.$select.options.length === countCheckedItems) ? 'yes' : 'no';
     }
-    this.elemListBody.innerHTML = resBodyList;
+
+    resBodyList = removeExtraSpaces(resBodyList);
+    if (this.elemListBody.innerHTML !== resBodyList) {
+      this.elemListBody.innerHTML = resBodyList;
+    }
   }
 
   private createInputHTML(): void {
@@ -572,7 +576,7 @@ export class SimpleSelectItemDOM {
         dataAttr += ` data-sel-value="${option.value}"`;
       }
 
-      dataAttr += ' data-sel-opt-item';
+      dataAttr += ' data-sel-opt-item=""';
       dataAttr += ` data-sel-opt-checked="${option.checked}"`;
       dataAttr += ` data-sel-opt-disabled="${option.disabled}"`;
 

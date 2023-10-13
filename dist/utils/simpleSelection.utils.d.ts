@@ -1,5 +1,6 @@
 import { IOptionItems } from '../types/item.types';
 export declare const toCamelCase: (input: string) => string;
+export declare const removeExtraSpaces: (str: string) => string;
 export declare const createDataAttr: (name: string) => string;
 export declare const ifTrueDataAttr: (attr: string | null) => boolean;
 export declare function triggerInputEvent(element: HTMLElement, type?: string): void;
