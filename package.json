@@ -1,12 +1,14 @@
 {
 	"name": "simp-select",
-	"version": "1.0.8",
+	"version": "1.0.10",
 	"description": "simp-select - this plugin replaces the select",
 	"main": "dist/simpleSelect.js",
 	"types": "dist/simpleSelect.d.ts",
 	"module": "dist/simpleSelect.js",
 	"prepublish": "npm run build",
 	"scripts": {
+		"publish": "npm publish",
+
 		"dev": "webpack --env development --watch",
 		"build": "webpack --env production"
 	},

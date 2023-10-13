@@ -201,10 +201,11 @@
 .SimpleSel__body {
 	max-height: 0;
 	opacity: 0;
+	visibility: hidden;
 	overflow: hidden;
 	overflow-y: auto;
 	position: absolute;
-	transition: .25s max-height, .1s opacity;
+	transition: .25s all;
 	width: 100%;
 	border: 1px solid currentColor;
 	z-index: 3;
@@ -225,6 +226,7 @@
 .SimpleSel--open .SimpleSel__body {
 	max-height: 230px;
 	opacity: 1;
+	visibility: visible;
 }
 
 .SimpleSel__search_wrap{

@@ -370,7 +370,9 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       document.addEventListener('keyup', this.closeEscHandler);
 
       if (this.elemInputSearch) {
-        this.elemInputSearch.focus();
+        setTimeout(() => {
+          this.elemInputSearch!.focus();
+        }, 50);
       }
 
       if (this.options.callbackOpen) {

@@ -43,6 +43,8 @@ export class SimpleSelectItemDOM {
 
   elemTopBody: HTMLDivElement = document.createElement('div'); // all
 
+  elemDropDownWrap: HTMLDivElement | null = null; // not native
+
   elemDropDown: HTMLDivElement | null = null; // not native
 
   elemDropDownClose: HTMLButtonElement | null = null; // not native
@@ -318,13 +320,17 @@ export class SimpleSelectItemDOM {
     if (this.isNative) {
       return;
     }
+    this.elemDropDownWrap = document.createElement('div');
+    this.elemDropDownWrap.className = getClass('body');
+
     this.elemDropDown = document.createElement('div');
-    this.elemDropDown.className = getClass('body');
+    this.elemDropDown.className = getClass('body_wrap');
     this.elemListBody = document.createElement('ul');
 
     this.elemListBody.className = getClass('list');
 
-    this.elemWrap.appendChild(this.elemDropDown);
+    this.elemDropDownWrap.append(this.elemDropDown);
+    this.elemWrap.appendChild(this.elemDropDownWrap);
     this.elemDropDown.appendChild(this.elemListBody);
 
     this.elemDropDownClose = createButton();

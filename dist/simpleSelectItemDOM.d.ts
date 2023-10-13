@@ -19,6 +19,7 @@ export declare class SimpleSelectItemDOM {
     elemWrap: HTMLDivElement;
     elemTop: HTMLDivElement;
     elemTopBody: HTMLDivElement;
+    elemDropDownWrap: HTMLDivElement | null;
     elemDropDown: HTMLDivElement | null;
     elemDropDownClose: HTMLButtonElement | null;
     elemListBody: HTMLUListElement | null;

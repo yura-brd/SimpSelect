@@ -3,7 +3,7 @@
 Replacing native select, multiselect
 
 ## Features
-- ~38 KB
+- ~37 KB
 - no dependencies
 - select, multiselect
 - Optgroup
@@ -17,8 +17,8 @@ npm install simp-select --save
 ```
 Or you can load it via a script tag as follows:
 ```
-<script src="https://unpkg.com/simp-select@1.0.8/dist/simpleSelect.js" />
-<script src="https://unpkg.com/simp-select@1.0.8/dist/polyfill.js" /> - for IE 11
+<script src="https://unpkg.com/simp-select@1.0.10/dist/simpleSelect.js" />
+<script src="https://unpkg.com/simp-select@1.0.10/dist/polyfill.js" /> - for IE 11
 Or get last version
 <script src="https://unpkg.com/simp-select" />
 ```
