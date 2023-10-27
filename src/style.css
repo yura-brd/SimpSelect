@@ -46,6 +46,10 @@
 	box-sizing: border-box;
 }
 
+.SimpleSel--float .SimpleSel__select_init {
+	visibility: hidden;
+}
+
 .SimpleSel__select_init {
 	position: absolute;
 	opacity: 0;
@@ -191,6 +195,10 @@
 	transform: rotate(225deg) translate(-50%,-50%);
 }
 
+.SimpleSel--always_open .SimpleSel__icon {
+	display: none;
+}
+
 .SimpleSel__list_item--not_value,
 .SimpleSel--single[data-count-checked-full="0"] .SimpleSel__title,
 .SimpleSel__title--placeholder {
@@ -211,6 +219,13 @@
 	z-index: 3;
 	border-radius: var(--simpS_radius);
 	background-color: var(--simpS_bg);
+}
+.SimpleSel--body-always_open {
+	max-height: none;
+	position: relative;
+	top: auto;
+	opacity: 1;
+	visibility: visible;
 }
 
 .SimpleSel:not(.SimpleSel--up) .SimpleSel--multi {

@@ -17,8 +17,8 @@ npm install simp-select --save
 ```
 Or you can load it via a script tag as follows:
 ```
-<script src="https://unpkg.com/simp-select@1.0.11/dist/simpleSelect.js" />
-<script src="https://unpkg.com/simp-select@1.0.11/dist/polyfill.js" /> - for IE 11
+<script src="https://unpkg.com/simp-select@1.0.12/dist/simpleSelect.js" />
+<script src="https://unpkg.com/simp-select@1.0.12/dist/polyfill.js" /> - for IE 11
 Or get last version
 <script src="https://unpkg.com/simp-select" />
 ```
@@ -58,6 +58,7 @@ the variable `SimpSelect` attached to `window` or `this` depending on what envir
 | **resetAllAfterClose**:boolean                                       | <p>default: **true**</p>  Close dropdown after click for `Reset all`                                                                                                                          |
 | **isCloneClass**:boolean                                             | <p>default: **true**</p>  Clone class from native select to wrapper created select                                                                                                            |
 | **isUp**:boolean*                                                    | <p>default: **false**</p> Dropdown rendering  the direction in which to open the dropdown (default: false) <p>Or `data-simple-up="true"` in select</p>                                        |
+| **isAlwaysOpen**:boolean*                                            | <p>default: **false**</p> Dropdown always open (default: false) <p>Or `data-simple-always-open="true"` in select</p>                                                                          |
 | **isOnlyPlaceholder**:boolean*                                       | <p>default: **false**</p> Show only placeholder. Don't show selected options (default: false) <p>Or `data-simple-is-only-placeholder="true"` in select</p>                                    |
 | **detectNative**:function                                            | <p>default: **none**</p>  Return `true` if need rendering native select                                                                                                                       |
 | **changeBodyLi**:function                                            | <p>default: **none**</p>  Custom <li>(body) item renderer                                                                                                                                     |

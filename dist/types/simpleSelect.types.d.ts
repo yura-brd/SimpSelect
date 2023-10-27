@@ -28,6 +28,7 @@ export interface ISimpleSelectOptions {
     isCloneClass: boolean;
     isOnlyPlaceholder: boolean;
     isUp: boolean;
+    isAlwaysOpen: boolean;
     detectNative?: () => boolean;
     callbackInitialization?: (item: SimpleSelectItem) => void;
     callbackInitialized?: (item: SimpleSelectItem) => void;

@@ -164,9 +164,16 @@ export class SimpleSelectItemDOM {
     if (this.$select.hasAttribute('data-simple-up')) {
       this.options.isUp = ifTrueDataAttr(this.$select.getAttribute('data-simple-up'));
     }
-
     if (this.$select.hasAttribute('data-simple-is-only-placeholder')) {
       this.options.isOnlyPlaceholder = ifTrueDataAttr(this.$select.getAttribute('data-simple-is-only-placeholder'));
+    }
+
+    if (this.$select.hasAttribute('data-simple-always-open')) {
+      this.options.isAlwaysOpen = ifTrueDataAttr(this.$select.getAttribute('data-simple-always-open'));
+
+      this.isNative = false;
+      this.isFloatWidth = false;
+      this.options.floatWidth = 0;
     }
   }
 
@@ -246,6 +253,9 @@ export class SimpleSelectItemDOM {
     if (this.isDisabled) {
       resClassesWrap += ` ${getClass('disabled', true)}`;
     }
+    if (this.options.isAlwaysOpen) {
+      resClassesWrap += ` ${getClass('always_open', true)}`;
+    }
     if (this.options.isUp) {
       resClassesWrap += ` ${getClass('up', true)}`;
     }
@@ -322,6 +332,11 @@ export class SimpleSelectItemDOM {
     }
     this.elemDropDownWrap = document.createElement('div');
     this.elemDropDownWrap.className = getClass('body');
+
+    if (this.options.isAlwaysOpen) {
+      this.elemDropDownWrap.classList.add(getClass('body-always_open', true));
+      // resClassesWrap += ` ${getClass('always_open', true)}`;
+    }
 
     this.elemDropDown = document.createElement('div');
     this.elemDropDown.className = getClass('body_wrap');
@@ -490,7 +505,7 @@ export class SimpleSelectItemDOM {
       return;
     }
     this.elemInputSearch = document.createElement('input');
-    this.elemInputSearch.type = 'text';
+    this.elemInputSearch.type = 'search';
     this.elemInputSearch.tabIndex = -1;
     this.elemInputSearch.autocomplete = 'off';
     this.elemInputSearch.ariaAutoComplete = 'none';

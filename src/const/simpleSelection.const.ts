@@ -27,6 +27,8 @@ export const simpleSelectionOptions: ISimpleSelectOptions = {
   sepChars: ',',
   isUp: false,
 
+  isAlwaysOpen: false,
+
   floatWidth: 767,
   isCloneClass: true,
   selectAll: false,

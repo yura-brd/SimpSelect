@@ -79,7 +79,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       this.filterList(val);
     });
 
-    if (!this.isNative) {
+    if (!this.isNative && !this.options.isAlwaysOpen) {
       this.elemTopBody.onclick = this.clickToggleOpen.bind(this);
       this.elemTopBody.onkeyup = this.clickToggleOpen.bind(this);
     }

@@ -37,6 +37,7 @@
 		max-width: 600px;
 	}
 	.item {
+		display: block;
 		width: 250px;
 	}
 </style>
@@ -133,6 +134,58 @@
 		</select>
 	</div>
 
+</div>
+
+	<div>
+		<p>Group checkbox</p>
+
+		<div class="items">
+			<label class="item">
+				<select
+						data-simple-select-search-dropdown="true"
+						data-simple-show-checkbox="true"
+						data-simple-always-open="true"
+						class="color_red"
+						data-simple-add-classes="class1"
+
+						data-simple-select-search="false"
+				>
+					<optgroup label="Группа 1">
+						<option value="1">Опция 6.1</option>
+					</optgroup>
+					<optgroup label="Группа 2">
+						<option value="1">Опция 6.1</option>
+						<option value="1">Опция 6.2</option>
+					</optgroup>
+					<optgroup label="Группа 3" disabled>
+						<option value="1">Опция 6.1</option>
+						<option value="1">Опция 6.2</option>
+						<option value="1">Опция 6.3</option>
+					</optgroup>
+				</select>
+			</label>
+			<label class="item">
+				<select
+						data-simple-select-search="true"
+						data-simple-always-open="true"
+						multiple
+				>
+					<optgroup label="Группа 1">
+						<option value="1">Опция 7.1</option>
+					</optgroup>
+					<optgroup label="Группа 2">
+						<option value="1">Опция 7.1</option>
+						<option value="1">Опция 7.2</option>
+					</optgroup>
+					<optgroup label="Группа 3" disabled>
+						<option value="1">Опция 7.1</option>
+						<option value="1">Опция 7.2</option>
+						<option value="1">Опция 7.3</option>
+					</optgroup>
+				</select>
+			</label>
+		</div>
+	</div>
 
 	<!--
 
@@ -174,7 +227,6 @@
 			</div>
 		</div>
 		-->
-</div>
 
 <script>
 
