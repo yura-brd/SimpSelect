@@ -606,7 +606,11 @@ export class SimpleSelectItemDOM {
       dataAttr += ` data-sel-opt-disabled="${option.disabled}"`;
 
       if (this.options.isAlwaysOpen) {
-        dataAttr += ' data-sssssssssssssss="fff" tabindex="0"';
+        if (option.disabled && !this.options.isAlwaysOpenShowDisabledTabindex) {
+          dataAttr += ' tabindex="-1"';
+        } else {
+          dataAttr += ' tabindex="0"';
+        }
       } else {
         dataAttr += ' tabindex="-1"';
       }

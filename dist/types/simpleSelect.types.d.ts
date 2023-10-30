@@ -31,6 +31,7 @@ export interface ISimpleSelectOptions {
     isOnlyPlaceholder: boolean;
     isUp: boolean;
     isAlwaysOpen: boolean;
+    isAlwaysOpenShowDisabledTabindex: boolean;
     detectNative?: () => boolean;
     callbackInitialization?: (item: SimpleSelectItem) => void;
     callbackInitialized?: (item: SimpleSelectItem) => void;

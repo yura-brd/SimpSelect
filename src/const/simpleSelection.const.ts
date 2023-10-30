@@ -31,6 +31,7 @@ export const simpleSelectionOptions: ISimpleSelectOptions = {
   isUp: false,
 
   isAlwaysOpen: false,
+  isAlwaysOpenShowDisabledTabindex: false,
 
   floatWidth: 767,
   isCloneClass: true,
