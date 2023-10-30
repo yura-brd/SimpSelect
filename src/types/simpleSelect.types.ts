@@ -28,6 +28,8 @@ export interface ISimpleSelectOptions {
 
   floatWidth?: number;
 
+  isRemoveTop: boolean,
+
   sepChars: string;
 
   selectAll: boolean;

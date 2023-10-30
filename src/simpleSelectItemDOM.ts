@@ -167,6 +167,9 @@ export class SimpleSelectItemDOM {
     if (this.$select.hasAttribute('data-simple-is-only-placeholder')) {
       this.options.isOnlyPlaceholder = ifTrueDataAttr(this.$select.getAttribute('data-simple-is-only-placeholder'));
     }
+    if (this.$select.hasAttribute('data-simple-remove-top')) {
+      this.options.isRemoveTop = ifTrueDataAttr(this.$select.getAttribute('data-simple-remove-top'));
+    }
 
     if (this.$select.hasAttribute('data-simple-always-open')) {
       this.options.isAlwaysOpen = ifTrueDataAttr(this.$select.getAttribute('data-simple-always-open'));
@@ -203,7 +206,7 @@ export class SimpleSelectItemDOM {
   }
 
   toggleTabIndex(isOpen: boolean) {
-    const tabIndex = isOpen ? 0 : -1;
+    const tabIndex = isOpen || this.options.isAlwaysOpen ? 0 : -1;
 
     if (this.state.getState('isFloat')) {
       if (isOpen) {
@@ -242,7 +245,10 @@ export class SimpleSelectItemDOM {
     this.elemTopBody.tabIndex = this.isDisabled ? -1 : 0;
 
     this.createIcon();
-    this.elemTop.appendChild(this.elemTopBody);
+
+    if (!this.options.isRemoveTop) {
+      this.elemTop.appendChild(this.elemTopBody);
+    }
     let resClassesWrap = initClass;
     if (this.options.isCloneClass) {
       resClassesWrap += ` ${this.cloneClasses}`;
@@ -384,6 +390,10 @@ export class SimpleSelectItemDOM {
   }
 
   private createTitleHTML() {
+    if (this.options.isRemoveTop) {
+      return;
+    }
+
     if (!this.elemTitle) {
       this.elemTitle = document.createElement('div');
       let classesTitle = getClass('title');
@@ -584,6 +594,7 @@ export class SimpleSelectItemDOM {
       }
 
       let dataAttr = `data-sel-group-id="${data.idGroup}"`;
+      dataAttr += 'data-sel-opt-item';
       dataAttr += ` data-sel-position="${option.position}"`;
       dataAttr += ` data-sel-id="${option.id}"`;
 
@@ -591,9 +602,14 @@ export class SimpleSelectItemDOM {
         dataAttr += ` data-sel-value="${option.value}"`;
       }
 
-      dataAttr += ' data-sel-opt-item=""';
       dataAttr += ` data-sel-opt-checked="${option.checked}"`;
       dataAttr += ` data-sel-opt-disabled="${option.disabled}"`;
+
+      if (this.options.isAlwaysOpen) {
+        dataAttr += ' data-sssssssssssssss="fff" tabindex="0"';
+      } else {
+        dataAttr += ' tabindex="-1"';
+      }
 
       result += `<li  class="${classLi}" ${dataAttr}>`;
       const createLiBodyRes = this.createLiBody(option, this.$select.options[option.position]);

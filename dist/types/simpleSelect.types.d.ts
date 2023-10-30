@@ -14,12 +14,14 @@ export interface ISimpleSelectOptions {
     countShowSelected: number;
     isConfirmInMulti: boolean;
     isConfirmInMultiOkClickOutside: boolean;
+    searchTypeInput: string;
     isSearch: boolean;
     isSearchInDropdown: boolean;
     nativeOnDevice: string[];
     locale: ISimpleSelectLocale;
     debounceTime?: number;
     floatWidth?: number;
+    isRemoveTop: boolean;
     sepChars: string;
     selectAll: boolean;
     selectAllAfterClose: boolean;

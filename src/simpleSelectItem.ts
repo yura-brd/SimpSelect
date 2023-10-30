@@ -130,6 +130,26 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     if (this.elemDropDownClose) {
       this.elemDropDownClose.onclick = this.closeHandler.bind(this);
     }
+
+    if (this.elemListBody) {
+      this.elemListBody.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+          const target = e.target as HTMLLIElement;
+          if (target && toCamelCase('sel-opt-item') in target.dataset) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.changeClickItem(target);
+
+            // set active (focus) element
+            const oldId = target.dataset[toCamelCase('sel-position')];
+            const newEl: HTMLElement | null = this.elemListBody!.querySelector(`[data-sel-position="${oldId}"]`);
+            if (newEl) {
+              newEl.focus();
+            }
+          }
+        }
+      });
+    }
   }
 
   debounce<T extends (
@@ -251,7 +271,8 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
             this.multiDebounceChange();
           }
         } else {
-          option.selected = !option.selected;
+          // option.selected = !option.selected;
+          option.selected = true;
           this.createList();
           this.state.setState('isOpen', false);
           this.triggerInit();
@@ -318,14 +339,16 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       e.stopPropagation();
       this.keyBoardChangeChecked(e.key === 'ArrowDown');
     }
-    if (e.key === 'Enter') {
-      const target = e.target as HTMLLIElement;
-      if (target && toCamelCase('sel-opt-item') in target.dataset) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.changeClickItem(target);
-      }
-    }
+    // if (e.key === 'Enter') {
+    //   const target = e.target as HTMLLIElement;
+    //   console.log('yura target', target);
+    //   console.log('yura target', toCamelCase('sel-opt-item') in target.dataset);
+    //   if (target && toCamelCase('sel-opt-item') in target.dataset) {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     this.changeClickItem(target);
+    //   }
+    // }
   }
 
   keyBoardChangeChecked(isDown: boolean) {
