@@ -18,6 +18,7 @@ export interface ISimpleSelectOptions {
   isConfirmInMulti: boolean;
   isConfirmInMultiOkClickOutside: boolean;
 
+  searchTypeInput: string;
   isSearch: boolean;
   isSearchInDropdown: boolean;
   nativeOnDevice: string[];

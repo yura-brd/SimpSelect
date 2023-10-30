@@ -505,7 +505,7 @@ export class SimpleSelectItemDOM {
       return;
     }
     this.elemInputSearch = document.createElement('input');
-    this.elemInputSearch.type = 'search';
+    this.elemInputSearch.type = this.options.searchTypeInput;
     this.elemInputSearch.tabIndex = -1;
     this.elemInputSearch.autocomplete = 'off';
     this.elemInputSearch.ariaAutoComplete = 'none';

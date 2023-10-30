@@ -13,6 +13,7 @@ export const simpleSelectLocale: ISimpleSelectLocale = {
 };
 export const simpleSelectionOptions: ISimpleSelectOptions = {
   isSearch: false,
+  searchTypeInput: 'search',
   isSearchInDropdown: false,
 
   countShowSelected: 3,
