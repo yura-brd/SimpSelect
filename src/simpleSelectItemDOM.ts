@@ -184,12 +184,15 @@ export class SimpleSelectItemDOM {
     this.createList(false);
     this.createHTML();
 
+    this.state.subscribe('filterStr', (_val: IOptionItems[]) => {
+      this.createListHTML(true);
+    });
     this.state.subscribe('items', (_val: IOptionItems[]) => {
-      this.createListHTML();
+      this.createListHTML(true);
       this.createTitleHTML();
     });
     this.state.subscribe('isOpen', (val: boolean) => {
-      this.createListHTML();
+      this.createListHTML(false);
       this.createTitleHTML();
 
       this.toggleTabIndex(val);
@@ -449,7 +452,33 @@ export class SimpleSelectItemDOM {
     }
   }
 
-  protected createListHTML() {
+  private filterList() {
+    let val = this.state.getState('filterStr');
+    const itemsInit = this.state.getState('items');
+    if (!val) {
+      return itemsInit;
+    }
+
+    val = val.toLowerCase();
+    const items:IOptionItems[] = cloneObj(itemsInit);
+
+    items.forEach((group) => {
+      let isShowGroup = false;
+      group.items.forEach((item) => {
+        if (item.title.toLowerCase().indexOf(val) >= 0) {
+          isShowGroup = true;
+          item.isShowFilter = true;
+        } else {
+          item.isShowFilter = false;
+        }
+      });
+      group.isShowFilter = isShowGroup;
+    });
+
+    return items;
+  }
+
+  protected createListHTML(isFilter = false) {
     if (!this.elemListBody) {
       return;
     }
@@ -458,8 +487,8 @@ export class SimpleSelectItemDOM {
     let countCheckedItems = 0;
     let countCheckedFullItems = 0;
 
-    // this.items.forEach(group => {
-    this.state.getState('items').forEach((group:IOptionItems) => {
+    const items = isFilter ? this.filterList() : this.state.getState('items');
+    items.forEach((group:IOptionItems) => {
       if (!group.isGroup) {
         const {
           result, countShow, countChecked, countCheckedFull,

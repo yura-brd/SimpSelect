@@ -37,7 +37,6 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     getSelect(): HTMLSelectElement;
     protected handlerChangeChecked(): void;
     protected createList(isCompare?: boolean): void;
-    private filterList;
     inputSearchHandler(): void;
     detachItem(): void;
 }

@@ -47,7 +47,8 @@ export declare class SimpleSelectItemDOM {
     private createDropDown;
     private createIsConfirmInMultiHTML;
     private createTitleHTML;
-    protected createListHTML(): void;
+    private filterList;
+    protected createListHTML(isFilter?: boolean): void;
     private createInputHTML;
     getChecked(): IOptionItem[];
     private createLi;

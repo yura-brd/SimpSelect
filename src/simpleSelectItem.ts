@@ -1,7 +1,6 @@
 import { IItemLocalOptions, ISimpleSelectOptions } from './types/simpleSelect.types';
 import { IOptionItems } from './types/item.types';
 import {
-  cloneObj,
   compareObj,
   getCreateListItem,
   toCamelCase,
@@ -75,9 +74,9 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       }
     });
 
-    this.state.subscribe('filterStr', (val: string) => {
-      this.filterList(val);
-    });
+    // this.state.subscribe('filterStr', (val: string) => {
+    //   this.filterList(val);
+    // });
 
     if (!this.isNative && !this.options.isAlwaysOpen) {
       this.elemTopBody.onclick = this.clickToggleOpen.bind(this);
@@ -468,24 +467,24 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
   }
 
-  private filterList(val: string) {
-    val = val.toLowerCase();
-    const items:IOptionItems[] = cloneObj(this.state.getState('items'));
-
-    items.forEach((group) => {
-      let isShowGroup = false;
-      group.items.forEach((item) => {
-        if (item.title.toLowerCase().indexOf(val) >= 0) {
-          isShowGroup = true;
-          item.isShowFilter = true;
-        } else {
-          item.isShowFilter = false;
-        }
-      });
-      group.isShowFilter = isShowGroup;
-    });
-    this.state.setState('items', items);
-  }
+  // private filterList(val: string) {
+  //   val = val.toLowerCase();
+  //   const items:IOptionItems[] = cloneObj(this.state.getState('items'));
+  //
+  //   items.forEach((group) => {
+  //     let isShowGroup = false;
+  //     group.items.forEach((item) => {
+  //       if (item.title.toLowerCase().indexOf(val) >= 0) {
+  //         isShowGroup = true;
+  //         item.isShowFilter = true;
+  //       } else {
+  //         item.isShowFilter = false;
+  //       }
+  //     });
+  //     group.isShowFilter = isShowGroup;
+  //   });
+  //   this.state.setState('items', items);
+  // }
 
   inputSearchHandler() {
     if (!this.elemInputSearch) {
