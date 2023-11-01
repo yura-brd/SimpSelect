@@ -384,9 +384,15 @@
 	align-items: center;
 	min-height: var(--simpS_li_h);
 }
-.SimpleSel__list_item_body:hover {
-	background-color: var(--simpS_color_light);
+@media (hover: hover) {
+	.SimpleSel__list_item:not(.SimpleSel__list_item--disabled) {
+		.SimpleSel__list_item_body:hover {
+			cursor: pointer;
+			background-color: var(--simpS_color_light);
+		}
+	}
 }
+
 
 .SimpleSel--single .SimpleSel__list_item--checked {
 	background-color: var(--simpS_color_cheked);
