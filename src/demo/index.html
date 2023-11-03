@@ -46,6 +46,26 @@
 
 <div class="items">
 	<div class="item">
+		<select
+		        multiple
+		        data-simple-placeholder="custom width float"
+		        data-simple-float-width="1000"
+		        >
+			<option value="custom-1">custom float 1</option>
+			<option value="custom-2">custom float 2</option>
+		</select>
+	</div>
+	<div class="item">
+		<select
+		        multiple
+		        data-simple-placeholder="none float"
+		        data-simple-float-none="true"
+		        >
+			<option value="custom-none-1">none float 1</option>
+			<option value="custom-none-2">none float 2</option>
+		</select>
+	</div>
+	<div class="item">
 		<select id="select_first"
 
 		        data-simple-placeholder="Custom title"
@@ -279,12 +299,13 @@
     // // detectNative: () => {
     // //   return false;
     // // },
-    // callbackChangeSelect: (e, that) => {
-    //   console.group();
-    //   console.log(e);
-    //   console.log(that);
-    //   console.groupEnd();
-    // },
+    historyMaxSize: 2,
+    callbackChangeSelect: (e, that) => {
+      console.group();
+      // console.log(e);
+      console.log(that.history);
+      console.groupEnd();
+    },
 
     // isUp: true,
     // sepChars: ',',

@@ -1,5 +1,6 @@
 /// <reference types="node" />
 import { IItemLocalOptions, ISimpleSelectOptions } from './types/simpleSelect.types';
+import { IHistoryItem } from './types/item.types';
 import { SimpleSelectItemDOM } from './simpleSelectItemDOM';
 export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     closeOutsideHandler: (e: MouseEvent) => void;
@@ -11,6 +12,7 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     countOpen: number;
     multiDebounceTime: number;
     timeoutDebounceId: NodeJS.Timeout | null;
+    history: IHistoryItem[];
     constructor(select: HTMLSelectElement, options: ISimpleSelectOptions, localOptions: IItemLocalOptions);
     init(): void;
     private handleResizeInit;
@@ -24,6 +26,7 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     resetAllHandler(e: MouseEvent): void;
     triggerSetup(e: MouseEvent): void;
     changeClickItemDom(item: HTMLLIElement): void;
+    addHistory(option: HTMLOptionElement, isCheck: boolean): void;
     changeClickItem(item: HTMLLIElement): void;
     multiDebounceChange(): void;
     triggerInit(): void;

@@ -79,6 +79,19 @@ export default class SimpleSelect {
   createMethods(select: SimpleSelectItem) {
     const self = this;
     return {
+      getHistory: () => select.history,
+      getHistoryLast: () => {
+        if (select.history.length) {
+          return select.history[select.history.length - 1];
+        }
+        return null;
+      },
+      getHistoryFirst: () => {
+        if (select.history.length) {
+          return select.history[0];
+        }
+        return null;
+      },
       getNativeSelect: () => select.getSelect(),
       reload() {
         self.rebuild(select);

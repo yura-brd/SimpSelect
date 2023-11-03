@@ -23,6 +23,7 @@ export interface ISimpleSelectOptions {
     floatWidth?: number;
     isRemoveTop: boolean;
     sepChars: string;
+    historyMaxSize: number;
     selectAll: boolean;
     selectAllAfterClose: boolean;
     resetAll: boolean;

@@ -55,6 +55,8 @@ export class SimpleSelectItemDOM {
 
   elemTitle!: HTMLDivElement; // not native
 
+  confirmWrap: HTMLElement | null = null; // not native
+
   confirmOk: HTMLButtonElement | null = null; // not native
 
   confirmNo: HTMLButtonElement | null = null; // not native
@@ -169,6 +171,17 @@ export class SimpleSelectItemDOM {
     }
     if (this.$select.hasAttribute('data-simple-remove-top')) {
       this.options.isRemoveTop = ifTrueDataAttr(this.$select.getAttribute('data-simple-remove-top'));
+    }
+
+    if (this.$select.hasAttribute('data-simple-float-none')) {
+      this.isFloatWidth = false;
+      this.options.floatWidth = 0;
+    }
+    if (this.$select.hasAttribute('data-simple-float-width')) {
+      const newWidth = Number(this.$select.dataset[toCamelCase('simple-float-width')]);
+      if (newWidth) {
+        this.options.floatWidth = newWidth;
+      }
     }
 
     if (this.$select.hasAttribute('data-simple-always-open')) {
@@ -369,13 +382,13 @@ export class SimpleSelectItemDOM {
   }
 
   private createIsConfirmInMultiHTML() {
-    const confirm = document.createElement('div');
+    this.confirmWrap = document.createElement('div');
 
     const classesItem = getClass('bottom_control');
     this.confirmOk = createButton();
     this.confirmNo = createButton();
-    confirm.appendChild(this.confirmOk);
-    confirm.appendChild(this.confirmNo);
+    this.confirmWrap.appendChild(this.confirmOk);
+    this.confirmWrap.appendChild(this.confirmNo);
 
     this.confirmOk.innerHTML = this.options.locale.ok;
     this.confirmNo.innerHTML = this.options.locale.cansel;
@@ -387,9 +400,9 @@ export class SimpleSelectItemDOM {
     if (!this.options.isConfirmInMulti) {
       classes += ` ${getClass('hide', true, classes)}`;
     }
-    confirm.className = classes;
+    this.confirmWrap.className = classes;
 
-    this.elemDropDown?.appendChild(confirm);
+    this.elemDropDown?.appendChild(this.confirmWrap);
   }
 
   private createTitleHTML() {

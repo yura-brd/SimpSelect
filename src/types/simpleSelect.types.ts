@@ -32,6 +32,8 @@ export interface ISimpleSelectOptions {
 
   sepChars: string;
 
+  historyMaxSize: number;
+
   selectAll: boolean;
   selectAllAfterClose: boolean;
   resetAll: boolean;

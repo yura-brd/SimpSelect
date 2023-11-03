@@ -24,3 +24,10 @@ export interface ICreateLiReturn {
 }
 
 export type selectorType = string | HTMLSelectElement | NodeListOf<HTMLSelectElement> | HTMLSelectElement[];
+
+export interface IHistoryItem {
+  value: string;
+  text: string;
+  selected: boolean;
+  indexOption: number;
+}

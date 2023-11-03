@@ -1,5 +1,5 @@
 import { IItemLocalOptions, ISimpleSelectOptions } from './types/simpleSelect.types';
-import { IOptionItems } from './types/item.types';
+import { IHistoryItem, IOptionItems } from './types/item.types';
 import {
   compareObj,
   getCreateListItem,
@@ -26,6 +26,8 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
   multiDebounceTime = 0;
 
   timeoutDebounceId: NodeJS.Timeout | null = null;
+
+  history: IHistoryItem[] = [];
 
   constructor(select: HTMLSelectElement, options: ISimpleSelectOptions, localOptions: IItemLocalOptions) {
     super(select, options, localOptions);
@@ -189,7 +191,12 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       if (!option || option.disabled) {
         return;
       }
-      option.selected = item.dataset[toCamelCase('sel-opt-checked')] === 'true';
+      const isSelected = item.dataset[toCamelCase('sel-opt-checked')] === 'true';
+
+      if (isSelected !== option.selected) {
+        this.addHistory(option, isSelected);
+      }
+      option.selected = isSelected;
     });
     this.state.setState('isOpen', false);
     this.triggerInit();
@@ -255,6 +262,20 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
   }
 
+  addHistory(option: HTMLOptionElement, isCheck: boolean) {
+    if (this.options.historyMaxSize > 0) {
+      this.history.push({
+        value: option.value,
+        text: option.innerHTML,
+        selected: isCheck,
+        indexOption: option.index,
+      });
+      if (this.history.length > this.options.historyMaxSize) {
+        this.history = this.history.slice(this.history.length - this.options.historyMaxSize);
+      }
+    }
+  }
+
   changeClickItem(item: HTMLLIElement) {
     if (item) {
       const pos = Number(item.dataset[toCamelCase('sel-position')]) || 0;
@@ -264,7 +285,9 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
           if (this.options.isConfirmInMulti || this.isFloatWidth) {
             this.changeClickItemDom(item);
           } else {
-            option.selected = !option.selected;
+            const nextSelected = !option.selected;
+            option.selected = nextSelected;
+            this.addHistory(option, nextSelected);
             this.changeClickItemDom(item);
             this.createList();
             this.multiDebounceChange();
@@ -272,6 +295,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
         } else {
           // option.selected = !option.selected;
           option.selected = true;
+          this.addHistory(option, true);
           this.createList();
           this.state.setState('isOpen', false);
           this.triggerInit();

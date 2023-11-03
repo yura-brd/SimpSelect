@@ -324,7 +324,10 @@
 	bottom: 0;
 }
 .SimpleSel__bottom_controls--hide {
-	display: none !important;
+	display: none;
+}
+.SimpleSel--float .SimpleSel__bottom_controls--hide{
+	display: flex;
 }
 .SimpleSel__bottom_control--hide {
 	display: none;

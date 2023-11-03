@@ -25,6 +25,7 @@ export declare class SimpleSelectItemDOM {
     elemListBody: HTMLUListElement | null;
     elemInputSearch: HTMLInputElement | null;
     elemTitle: HTMLDivElement;
+    confirmWrap: HTMLElement | null;
     confirmOk: HTMLButtonElement | null;
     confirmNo: HTMLButtonElement | null;
     elemControl: HTMLDivElement | null;

@@ -19,6 +19,8 @@ export const simpleSelectionOptions: ISimpleSelectOptions = {
   countShowSelected: 3,
   isOnlyPlaceholder: false,
 
+  historyMaxSize: 0,
+
   isRemoveTop: false,
 
   isConfirmInMulti: false,
