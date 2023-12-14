@@ -1,0 +1,12 @@
+.items {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+	margin: 20px auto;
+	max-width: 600px;
+}
+.item {
+	display: block;
+	width: 250px;
+}
