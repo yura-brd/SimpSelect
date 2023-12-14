@@ -17,10 +17,10 @@ npm install simp-select --save
 ```
 Or you can load it via a script tag as follows:
 ```
-<script src="https://unpkg.com/simp-select@1.0.17/dist/simpleSelect.js" />
-<script src="https://unpkg.com/simp-select@1.0.17/dist/polyfill.js" /> - for IE 11
+<script src="https://unpkg.com/simp-select@1.0.17/dist/simpleSelect.js" ></script>
+<script src="https://unpkg.com/simp-select@1.0.17/dist/polyfill.js" ></script> - for IE 11
 Or get last version
-<script src="https://unpkg.com/simp-select" />
+<script src="https://unpkg.com/simp-select"></script>
 ```
 ## Importing
 ### ES6
