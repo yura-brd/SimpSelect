@@ -37,7 +37,7 @@ var SimpSelect = require('simp-select');
 the variable `SimpSelect` attached to `window` or `this` depending on what environment you are using
 
 ## API
-#### `new ScrollToVertical(selector, <options>)`
+#### `new SimpSelect(selector, <options>)`
 
 | Property                                                             | Value                                                                                                                                                                                                               |
 |----------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -78,7 +78,7 @@ the variable `SimpSelect` attached to `window` or `this` depending on what envir
 | **callbackInitialization: (item:SimpleSelectItem) => void**          | Before initialization                                                                                                                                                                                               |
 | **callbackInitialized**:(item:SimpleSelectItem) => void;             | After initialization                                                                                                                                                                                                |
 | **callbackOpen**: (item:SimpleSelectItem) => void;                   | Open dropdown                                                                                                                                                                                                       |
-| **callbackClose**:Open dropdown                                      | Close dropdown                                                                                                                                                                                                      |
+| **callbackClose**: (item:SimpleSelectItem) => void;                  | Close dropdown                                                                                                                                                                                                      |
 | **callbackDestroyInit**: (item:SimpleSelectItem) => void;            | Before destroy SimpSelect                                                                                                                                                                                           |
 | **callbackDestroy**: (item:SimpleSelectItem) => void;                | After destroy SimpSelect                                                                                                                                                                                            |
 | **callbackChangeSelect** :(e: Event, item:SimpleSelectItem) => void; | Change SimpSelect (change options)                                                                                                                                                                                  |
