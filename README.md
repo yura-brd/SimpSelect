@@ -117,6 +117,10 @@ import SimpleSelect from 'simp-select';
 
 new SimpleSelect('select');
 ```
+
+## Demo
+View Live [Demo Here](https://yura-brd.github.io/SimpSelect/).
+
 ## Browser Support
 Supported on all modern browsers
 
