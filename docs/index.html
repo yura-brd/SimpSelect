@@ -11,238 +11,1153 @@
 
 	<link rel="stylesheet" href="https://unpkg.com/simp-select@1.0.17/dist/style.css">
 	<script src="https://unpkg.com/simp-select"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.11/beautify.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.11/beautify-css.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.11/beautify-html.min.js"></script>
 </head>
 <body>
+<script>
+  const options = {
+    "indent_size": 4,
+    "html": {
+      "end_with_newline": false,
+	    "attributes": {
 
-<div class="items">
-	<div class="item">
-		<select
-				multiple
-				data-simple-placeholder="custom width float"
-				data-simple-float-width="1000"
-		>
-			<option value="custom-1">custom float 1</option>
-			<option value="custom-2">custom float 2</option>
-		</select>
-	</div>
-	<div class="item">
-		<select
-				multiple
-				data-simple-placeholder="none float"
-				data-simple-float-none="true"
-		>
-			<option value="custom-none-1">none float 1</option>
-			<option value="custom-none-2">none float 2</option>
-		</select>
-	</div>
-	<div class="item">
-		<select id="select_first"
+	    },
+      "indent_size": 2,
+      "indent_char": " ",
+      "wrap_attributes": "force-aligned",
+      "beautifiers": [
+        "JS-Beautify"
+      ],
+      "js": {
+        "indent_size": 2
+      },
+      "css": {
+        "indent_size": 2
+      }
+    },
+    "css": {
+      "indent_size": 1
+    },
+    "js": {
+      "preserve-newlines": true
+    }
+  }
 
-		        data-simple-placeholder="Custom title"
-		        data-simple-is-only-placeholder="true"
-		        multiple>
-			<option value="a1">a 1</option>
-			<option value="a2">a 2</option>
-			<option value="a3">a 3</option>
-			<option value="a4">a 4</option>
-			<option value="a5">a 5</option>
-		</select>
-	</div>
-	<div class="item">
-		<select multiple
-		        data-simple-placeholder="custom placeholder"
-		        data-simple-is-confirm="true"
-		        data-simple-count-shows-selected="3">
-			<option value="a1"
-			        data-simple-html-before="<span>|before| </span>"
-			        data-simple-html-after="<span> |after|</div>"
-			>b 1</option>
-			<option value="a22" disabled="disabled">b 2 dis</option>
-			<option value="a3">b 3</option>
-			<option value="a4">b 4</option>
-			<option value="a5">b 5</option>
-		</select>
-	</div>
-	<div class="item" >
-		<select id="select_second"
-		        data-simple-is-confirm="false"
+  function getHtml(id) {
+    return hljs.highlight(html_beautify(document.getElementById(id).innerHTML, options),
+      { language: 'html' }
+    ).value
+  }
+  function pasteCode(data) {
+    const codeElem = document.getElementById(data.codeId);
 
-		        data-simple-reset-all="false"
-		        data-simple-select-all="true"
-		        data-simple-item-html-before="<span>before</span>"
-		        multiple data-simple-debounce-time="1000">
-			<optgroup label="Группа 1">
-				<option value="1.1">multiple Опция 1.1</option>
-			</optgroup>
-			<optgroup label="Группа 2">
-				<option value="2.1">multiple Опция 2.1</option>
-				<option value="2.2">multiple Опция 2.2</option>
-			</optgroup>
-			<optgroup label="Группа 3" disabled>
-				<option value="3.1">multiple Опция 3.1</option>
-				<option value="3.2">multiple Опция 3.2</option>
-				<option value="3.3">multiple Опция 3.3</option>
-			</optgroup>
-		</select>
-	</div>
+    codeElem.innerHTML = getHtml(data.firstId);
 
-	<div class="item">
-		<select
+    if (data.secondId) {
+      let lineBreak;
+      if ('lineBreak' in data) {
+        lineBreak = data.lineBreak;
+      } else if( 'lineBreakText' in data ) {
+        lineBreak = '\n\n' + data.lineBreakText + '\n\n';
+      } else {
+        lineBreak = '\n\n';
+      }
+      codeElem.innerHTML += lineBreak;
+      codeElem.innerHTML += getHtml(data.secondId);
+    }
+  }
+  function getSelectValues(select) {
+    var result = [];
+    var options = select && select.options;
+    var opt;
 
-				data-simple-select-search-dropdown="true"
-				data-simple-show-checkbox="true"
-				class="color_red"
-				data-simple-add-classes="class1"
+    for (var i=0, iLen=options.length; i<iLen; i++) {
+      opt = options[i];
 
-				data-simple-select-search="false"
-		>
-			<optgroup label="Группа 1">
-				<option value="1">Опция 1.1</option>
-			</optgroup>
-			<optgroup label="Группа 2">
-				<option value="1">Опция 2.1</option>
-				<option value="1">Опция 2.2</option>
-			</optgroup>
-			<optgroup label="Группа 3" disabled>
-				<option value="1">Опция 3.1</option>
-				<option value="1">Опция 3.2</option>
-				<option value="1">Опция 3.3</option>
-			</optgroup>
-		</select>
-	</div>
-	<div class="item">
-		<select
-				multiple
+      if (opt.selected) {
+        result.push(opt.value || opt.text);
+      }
+    }
+    return result;
+  }
+</script>
+<div class="container">
+	<details>
+		<summary class="description">Select/multiselect without setting</summary>
 
-				data-simple-select-search="true"
-				data-simple-placeholder="multi and search"
-		>
-			<option value="1">multi 1.1</option>
-			<option value="1">multi 2.1</option>
-			<option value="1">multi 2.2</option>
-			<option value="1">multi 3.1</option>
-			<option value="1">multi 3.2</option>
-			<option value="1">multi 3.3</option>
-		</select>
-	</div>
+		<pre class="code"><code class="language-html" id="code_1"></code></pre>
 
-	<div class="item">
-		<select
-				data-simple-add-classes="class1 class2"
-				data-simple-item-html-before="<div>before</div>"
-				data-simple-item-html-after="<div>after</div>"
-				data-simple-select-search-dropdown="true"
-				data-simple-up="true"
-		>
-			<option>Опция 5.1</option>
-			<option>Опция 5.2</option>
-		</select>
-	</div>
-
-</div>
-
-<div>
-	<p>Group checkbox</p>
+	</details>
 
 	<div class="items">
-		<label class="item">
+		<div class="item" id="example_1_1">
+			<select class="jsSimpSelect">
+				<option value="item-1">Select 1</option>
+				<option value="item-2">Select 2</option>
+				<option value="item-3">Select 3</option>
+				<option value="item-4">Select 4</option>
+			</select>
+		</div>
+		<div class="item" id="example_1_2">
 			<select
-					data-simple-select-search-dropdown="true"
-					data-simple-show-checkbox="true"
-					data-simple-always-open="true"
-					class="color_red"
-					data-simple-add-classes="class1"
+					class="jsSimpSelect"
+	        multiple
+	        data-simple-placeholder="Multiselect"
+			>
+				<option value="item-1">Multiselect 1</option>
+				<option value="item-2">Multiselect 2</option>
+				<option value="item-3">Multiselect 3</option>
+				<option value="item-4">Multiselect 4</option>
+			</select>
+		</div>
+	</div>
+	<script>
+    pasteCode({
+      codeId: 'code_1',
+      firstId: 'example_1_1',
+      secondId: 'example_1_2',
+      lineBreakText: '\nMultiselect:'
+    });
+	</script>
+</div>
 
-					data-simple-select-search="false"
+<div class="container">
+	<details>
+		<summary class="description">Custom FLOAT (min 1500px) </summary>
+		<pre class="code"><code class="language-html" id="code_2"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_2_1">
+			<select
+					class="jsSimpSelect"
+					multiple
+					data-simple-placeholder="custom width float"
+					data-simple-float-width="1500"
 			>
-				<optgroup label="Группа 1">
-					<option value="1">Опция 6.1</option>
+				<option value="custom-1">custom float 1</option>
+				<option value="custom-2">custom float 2</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_2_2">
+			<select
+					id="example_2_2_select"
+					multiple
+					data-simple-placeholder="custom width float"
+			>
+				<option value="custom-1">custom float 2-1</option>
+				<option value="custom-2">custom float 2-2</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_2_2_select', {
+            floatWidth: 1500
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_2',
+        firstId: 'example_2_1',
+        secondId: 'example_2_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+
+<div class="container">
+	<details>
+		<summary class="description">Cansel FLOAT (default <= 767)</summary>
+		<pre class="code"><code class="language-html" id="code_3"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_3_1">
+			<select
+					class="jsSimpSelect"
+					multiple
+					data-simple-float-none="true"
+					data-simple-placeholder="Cansel float"
+			>
+				<optgroup label="Group 1" >
+					<option value="none float">Cansel float - 1.1</option>
+					<option value="none float">Cansel float - 1.2</option>
 				</optgroup>
-				<optgroup label="Группа 2">
-					<option value="1">Опция 6.1</option>
-					<option value="1">Опция 6.2</option>
-				</optgroup>
-				<optgroup label="Группа 3" disabled>
-					<option value="1">Опция 6.1</option>
-					<option value="1">Опция 6.2</option>
-					<option value="1">Опция 6.3</option>
+				<optgroup label="Group 2" >
+					<option value="none float">Cansel float - 1.1.1</option>
+					<option value="none float">Cansel float - 1.2.2</option>
 				</optgroup>
 			</select>
-		</label>
-		<label class="item">
+		</div>
+
+		<div class="item" id="example_3_2">
 			<select
-					data-simple-select-search="true"
-					data-simple-always-open="true"
+					multiple
+					id="example_3_2_select"
+					data-simple-placeholder="custom width float"
+			>
+				<option value="none float">Cansel float - 2.1</option>
+				<option value="none float">Cansel float - 2.2</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_3_2_select', {
+            floatWidth: 0
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_3',
+        firstId: 'example_2_1',
+        secondId: 'example_2_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+<div class="container">
+	<details>
+		<summary class="description">Not show selected titles</summary>
+		<pre class="code"><code class="language-html" id="code_4"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item_full"  id="example_4">
+			<select
+					class="jsSimpSelect"
+					data-simple-is-only-placeholder="true"
+					data-simple-placeholder="Always show this title"
+	        multiple>
+				<option value="a1">Item 1</option>
+				<option value="a2">Item 2</option>
+				<option value="a3">Item 3</option>
+				<option value="a4">Item 4</option>
+				<option value="a5">Item 5</option>
+			</select>
+		</div>
+
+
+		<script>
+      pasteCode({
+        codeId: 'code_4',
+        firstId: 'example_4',
+      });
+		</script>
+	</div>
+</div>
+
+
+<div class="container">
+	<details>
+		<summary class="description">Confirm selected</summary>
+		<pre class="code"><code class="language-html" id="code_5"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item_full" id="example_5_1">
+			<select multiple
+			        class="jsSimpSelect"
+			        data-simple-placeholder="custom placeholder"
+			        data-simple-is-confirm="true"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2" disabled="disabled">Item 2 disabled</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+			</select>
+		</div>
+		<script>
+      pasteCode({
+        codeId: 'code_5',
+        firstId: 'example_5_1',
+      });
+		</script>
+	</div>
+</div>
+
+<div class="container">
+	<details>
+		<summary class="description">Confirm selected (js initialization)</summary>
+		<pre class="code"><code class="language-html" id="code_6"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_6_1">
+			<select multiple
+			        id="example_6_1_select"
+			        data-simple-placeholder="custom placeholder"
+			        data-simple-is-confirm="true"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2" disabled="disabled">Item 2 disabled</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_6_1_select', {
+            isConfirmInMulti: true,
+          })
+        })
+			</script>
+		</div>
+		<div class="item" id="example_6_2">
+			<select multiple
+			        id="example_6_2_select"
+			        data-simple-placeholder="custom placeholder"
+			        data-simple-is-confirm="true"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2" disabled="disabled">Item 2 disabled</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_6_2_select', {
+            isConfirmInMulti: true,
+            isConfirmInMultiOkClickOutside: true
+          })
+        })
+			</script>
+		</div>
+		<script>
+      pasteCode({
+        codeId: 'code_6',
+        firstId: 'example_6_1',
+        secondId: 'example_6_2',
+        lineBreakText: '\n<strong>Confirm by click outside:<strong>'
+      });
+		</script>
+	</div>
+</div>
+
+<div class="container">
+	<details>
+		<summary class="description">Show number of selected titles (default: 3)</summary>
+		<pre class="code"><code class="language-html" id="code_7"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_7_1">
+			<select multiple
+			        class="jsSimpSelect"
+			        data-simple-placeholder="custom placeholder"
+			        data-simple-count-shows-selected="2"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+			</select>
+		</div>
+		<div class="item" id="example_7_2">
+			<select multiple
+			        id="example_7_2_select"
+			        data-simple-placeholder="custom placeholder"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2 </option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_7_2_select', {
+            countShowSelected: 2
+          })
+        })
+			</script>
+		</div>
+		<script>
+      pasteCode({
+        codeId: 'code_7',
+        firstId: 'example_7_1',
+        secondId: 'example_7_2',
+      });
+		</script>
+	</div>
+</div>
+
+
+<div class="container">
+	<details>
+		<summary class="description">HTML content (after and before) in option (only DOM elements)</summary>
+		<pre class="code"><code class="language-html" id="code_8"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_8_1">
+			<select
+					class="jsSimpSelect"
 					multiple
 			>
-				<optgroup label="Группа 1">
-					<option value="1">Опция 7.1</option>
-				</optgroup>
-				<optgroup label="Группа 2">
-					<option value="1">Опция 7.1</option>
-					<option value="1">Опция 7.2</option>
-				</optgroup>
-				<optgroup label="Группа 3" disabled>
-					<option value="1">Опция 7.1</option>
-					<option value="1">Опция 7.2</option>
-					<option value="1">Опция 7.3</option>
-				</optgroup>
+				<option value="item 1"
+				        data-simple-html-before="<span>|before| </span>"
+				        data-simple-html-after="<span> |after|</div>"
+				>Item 1</option>
+				<option value="item 2"
+				        data-simple-html-after="<strong> |after|</strong>"
+				>Item 2</option>
+				<option value="item 3"
+				        data-simple-html-before="<span> |before|</div>"
+				>Item 3</option>
+				<option value="item 4">Item 4</option>
+				<option value="item 5"
+				        data-simple-html-before="<i>|before| </i>"
+				        data-simple-html-after="<span> |after|</div>"
+				>Item 5</option>
 			</select>
-		</label>
-		<label class="item">
+		</div>
+		<div class="item" id="example_8_2">
 			<select
-					data-simple-select-search-dropdown="true"
-					data-simple-always-open="true"
-					data-simple-remove-top="true"
+					class="jsSimpSelect"
+			>
+				<option value="item 1"
+				        data-simple-html-before="<span>|before| </span>"
+				        data-simple-html-after="<span> |after|</div>"
+				>Item 1</option>
+				<option value="item 2"
+				        data-simple-html-after="<strong> |after|</strong>"
+				>Item 2</option>
+				<option value="item 3"
+				        data-simple-html-before="<span> |before|</div>"
+				>Item 3</option>
+				<option value="item 4">Item 4</option>
+				<option value="item 5"
+				        data-simple-html-before="<i>|before| </i>"
+				        data-simple-html-after="<span> |after|</div>"
+				>Item 5</option>
+			</select>
+		</div>
+
+
+		<script>
+      pasteCode({
+        codeId: 'code_8',
+        firstId: 'example_8_1',
+        secondId: 'example_8_2',
+      });
+		</script>
+	</div>
+</div>
+
+<div class="container">
+	<details>
+		<summary class="description">HTML content (after and before) for all options (only DOM elements) </summary>
+		<pre class="code"><code class="language-html" id="code_8_3"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_8_3">
+			<select
+					class="jsSimpSelect"
+					data-simple-item-html-before="<span style='margin-right: 10px'>before</span>"
 					multiple
 			>
+				<option value="item 1">Item 1</option>
+				<option value="item 2">Item 2</option>
+				<option value="item 3">Item 3</option>
+				<option value="item 4">Item 4</option>
+				<option value="item 4">Item 4</option>
+
+			</select>
+		</div>
+		<div class="item" id="example_8_4">
+			<select
+					class="jsSimpSelect"
+					multiple
+					data-simple-item-html-after="<span style='padding-left: 10px; color: darkorange'>after</span>"
+			>
+				<option value="item 1">Item 1</option>
+				<option value="item 2">Item 2</option>
+				<option value="item 3">Item 3</option>
+				<option value="item 4">Item 4</option>
+				<option value="item 4">Item 4</option>
+
+			</select>
+		</div>
+
+
+		<script>
+      pasteCode({
+        codeId: 'code_8_3',
+        firstId: 'example_8_3',
+        secondId: 'example_8_3',
+      });
+		</script>
+	</div>
+</div>
+
+
+<div class="container">
+	<details>
+		<summary class="description">Select All</summary>
+		<pre class="code"><code class="language-html" id="code_9"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_9_1">
+			<select
+					class="jsSimpSelect"
+					multiple
+					data-simple-placeholder="Select all"
+			>
 				<optgroup label="Группа 1">
-					<option value="1">Опция 8.1</option>
+					<option value="1.1">multiple Опция 1.1</option>
 				</optgroup>
 				<optgroup label="Группа 2">
-					<option value="1" disabled>Опция 8.1</option>
-					<option value="1">Опция 8.2</option>
+					<option value="2.1">multiple Опция 2.1</option>
+					<option value="2.2">multiple Опция 2.2</option>
 				</optgroup>
 				<optgroup label="Группа 3" disabled>
-					<option value="1">Опция 8.1</option>
-					<option value="1">Опция 8.2</option>
-					<option value="1">Опция 8.3</option>
+					<option value="3.1">multiple Опция 3.1</option>
+					<option value="3.2">multiple Опция 3.2</option>
+					<option value="3.3">multiple Опция 3.3</option>
 				</optgroup>
 			</select>
-		</label>
+		</div>
+
+		<div class="item" id="example_9_2">
+			<select
+					multiple
+					id="example_9_2_select"
+					data-simple-placeholder="Select all"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_9_2_select', {
+            selectAll: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_9',
+        firstId: 'example_9_1',
+        secondId: 'example_9_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+<div class="container">
+	<details>
+		<summary class="description">Reset All</summary>
+		<pre class="code"><code class="language-html" id="code_10"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_10_1">
+			<select
+					class="jsSimpSelect"
+					multiple
+					data-simple-reset-all="true"
+					data-simple-placeholder="Reset all"
+			>
+				<optgroup label="Группа 1">
+					<option value="1.1">multiple Опция 1.1</option>
+				</optgroup>
+				<optgroup label="Группа 2">
+					<option value="2.1">multiple Опция 2.1</option>
+					<option value="2.2">multiple Опция 2.2</option>
+				</optgroup>
+				<optgroup label="Группа 3" disabled>
+					<option value="3.1">multiple Опция 3.1</option>
+					<option value="3.2">multiple Опция 3.2</option>
+					<option value="3.3">multiple Опция 3.3</option>
+				</optgroup>
+			</select>
+		</div>
+
+		<div class="item" id="example_10_2">
+			<select
+					multiple
+					id="example_10_2_select"
+					data-simple-placeholder="Reset all"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_10_2_select', {
+            resetAll: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_10',
+        firstId: 'example_10_1',
+        secondId: 'example_10_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+<div class="container">
+	<details>
+		<summary class="description">Select and Reset All</summary>
+		<pre class="code"><code class="language-html" id="code_11"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_11_1">
+			<select
+					class="jsSimpSelect"
+					multiple
+					data-simple-select-all="true"
+					data-simple-reset-all="true"
+					data-simple-placeholder="Select and reset"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3" disabled>Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_11_2">
+			<select
+					multiple
+					id="example_11_2_select"
+					data-simple-placeholder="Select and reset"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_11_2_select', {
+            selectAll: true,
+            resetAll: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_11',
+        firstId: 'example_11_1',
+        secondId: 'example_11_2',
+        lineBreakText: 'OR'
+      });
+		</script>
 	</div>
 </div>
 
 
 
+
+<div class="container">
+	<details>
+		<summary class="description">Debounce time (or at closing)</summary>
+		<pre class="code"><code class="language-html" id="code_12"></code></pre>
+	</details>
+
+	<div class="items jsDebounceChange">
+		<div class="item" id="example_12_1">
+			<select
+					class="jsSimpSelect"
+					multiple
+					data-simple-debounce-time="1000"
+					data-simple-placeholder="Debounce 1000ms"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_12_2">
+			<select
+					id="example_12_2_select"
+					multiple
+					data-simple-placeholder="Debounce 1500ms"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_12_2_select', {
+            debounceTime: 1500
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+			document.querySelectorAll('.jsDebounceChange select').forEach(sel => {
+        sel.addEventListener('change', () => {
+          alert(`select update. New values: ${getSelectValues(sel)}`)
+        })
+			})
+      pasteCode({
+        codeId: 'code_12',
+        firstId: 'example_12_1',
+        secondId: 'example_12_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+
+<div class="container">
+	<details>
+		<summary class="description">Search</summary>
+		<pre class="code"><code class="language-html" id="code_13"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_13_1">
+			<select
+					class="jsSimpSelect"
+					data-simple-select-search="true"
+					data-simple-placeholder="Search"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_13_2">
+			<select
+					id="example_13_2_select"
+					multiple
+					data-simple-placeholder="Search"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_13_2_select', {
+            isSearch: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_13',
+        firstId: 'example_13_1',
+        secondId: 'example_13_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+<div class="container">
+	<details>
+		<summary class="description">Search in dropdown</summary>
+		<pre class="code"><code class="language-html" id="code_14"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_14_1">
+			<select
+					class="jsSimpSelect"
+					data-simple-select-search-dropdown="true"
+					data-simple-placeholder="Search in dropdown"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_14_2">
+			<select
+					id="example_14_2_select"
+					multiple
+					data-simple-placeholder="Search in dropdown"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_14_2_select', {
+            isSearchInDropdown: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_14',
+        firstId: 'example_14_1',
+        secondId: 'example_14_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+
+
+
+<div class="container">
+	<details>
+		<summary class="description">Show checkbox for select</summary>
+		<pre class="code"><code class="language-html" id="code_15"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item_full" id="example_15_1">
+			<select
+					class="jsSimpSelect"
+					data-simple-show-checkbox="true"
+			>
+				<optgroup label="Группа 1">
+					<option value="1">Опция 1.1</option>
+				</optgroup>
+				<optgroup label="Группа 2">
+					<option value="1">Опция 2.1</option>
+					<option value="1">Опция 2.2</option>
+				</optgroup>
+				<optgroup label="Группа 3" disabled>
+					<option value="1">Опция 3.1</option>
+					<option value="1">Опция 3.2</option>
+					<option value="1">Опция 3.3</option>
+				</optgroup>
+			</select>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_15',
+        firstId: 'example_15_1',
+      });
+		</script>
+	</div>
+</div>
+
+
+
+<div class="container">
+	<details>
+		<summary class="description">Add classes for wrapper</summary>
+		<pre class="code"><code class="language-html" id="code_16"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item_full" id="example_16_1">
+			<select
+					class="jsSimpSelect"
+					data-simple-add-classes="custom_class_1 custom_class_2"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_16',
+        firstId: 'example_16_1',
+      });
+		</script>
+	</div>
+</div>
+
+
+
+
+<div class="container">
+	<details>
+		<summary class="description">Dropdown up</summary>
+		<pre class="code"><code class="language-html" id="code_17"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_17_1">
+			<select
+					multiple
+					class="jsSimpSelect"
+					data-simple-up="true"
+					data-simple-placeholder="Dropdown up"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+		<div class="item" id="example_17_2">
+			<select
+					multiple
+					data-simple-placeholder="Dropdown up"
+					id="example_17_2_select"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_17_2_select', {
+            isUp: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_17',
+        firstId: 'example_17_1',
+        secondId: 'example_17_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+
+
+
+<div class="container">
+	<details>
+		<summary class="description">Dropdown always open</summary>
+		<pre class="code"><code class="language-html" id="code_18"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_18_1">
+			<select
+					multiple
+					class="jsSimpSelect"
+					data-simple-always-open="true"
+					data-simple-placeholder="Dropdown always open"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_18_2">
+			<select
+					multiple
+					id="example_18_2_select"
+					data-simple-placeholder="Dropdown always open"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_18_2_select', {
+            isAlwaysOpen: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_18',
+        firstId: 'example_18_1',
+        secondId: 'example_18_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+
+<div class="container">
+	<details>
+		<summary class="description">Dropdown always open and remove top (Title, arrow, search) </summary>
+		<pre class="code"><code class="language-html" id="code_19"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_19_1">
+			<select
+					multiple
+					class="jsSimpSelect"
+					data-simple-always-open="true"
+					data-simple-remove-top="true"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_19_2">
+			<select
+					multiple
+					id="example_19_2_select"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_19_2_select', {
+            isAlwaysOpen: true,
+            isRemoveTop: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_19',
+        firstId: 'example_19_1',
+        secondId: 'example_19_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+<!--
+
+<div class="container">
+	<details>
+		<summary class="description">TILE</summary>
+		<pre class="code"><code class="language-html" id="code_"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_">
+			<select
+					class="jsSimpSelect"
+					multiple
+			>
+			</select>
+		</div>
+
+		<div class="item" id="example_">
+			<select
+					multiple
+					data-simple-placeholder="custom width float"
+			>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          // new SimpleSelect('#example_2_2_select', {
+          //   floatWidth: 1500
+          // })
+        })
+			</script>
+		</div>
+
+		<script>
+      // pasteCode({
+      //   codeId: 'code_2',
+      //   firstId: 'example_2_1',
+      //   secondId: 'example_2_2',
+      //   lineBreakText: 'OR'
+      // });
+		</script>
+	</div>
+</div>
+-->
 
 
 <script>
-
-  new SimpleSelect('select', {
-    // callbackOpen: (item) => {
-    //   console.log('open', item);
-    // },
-    // callbackClose: (item) => {
-    //   console.log('close', item);
-    // },
-    // callbackDestroy: (item) => {
-    //   console.log('callbackDestroy', item);
-    // },
-    // // detectNative: () => {
-    // //   return false;
-    // // },
-    historyMaxSize: 10,
-    callbackChangeSelect: (e, that) => {
-      console.group();
-      // console.log(e);
-      console.log(that.history);
-      console.groupEnd();
-    },
-  })
-
-
+  new SimpleSelect('.jsSimpSelect')
 </script>
+
+
+
 
 </body>
 </html>

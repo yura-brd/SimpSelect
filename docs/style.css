@@ -1,12 +1,29 @@
+.container {
+	max-width: 800px;
+	margin: 50px auto;
+}
 .items {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 10px;
 	margin: 20px auto;
-	max-width: 600px;
 }
 .item {
 	display: block;
-	width: 250px;
+	width: 350px;
+}
+.item_full {
+	display: block;
+	width: 700px;
+}
+
+.code {
+	padding: 10px;
+	background-color: #c7c7c7;
+}
+
+.description {
+	font-size: 18px;
+	font-weight: bold;
 }
