@@ -215,8 +215,14 @@ export class SimpleSelectItemDOM {
       const cls = getClass('float', true);
       if (val) {
         this.elemWrap.classList.add(cls);
+        if (!document.body.classList.contains(this.bodyOpenClass) && this.state.getState('isOpen')) {
+          document.body.classList.add(this.bodyOpenClass);
+        }
       } else {
         this.elemWrap.classList.remove(cls);
+        if (document.body.classList.contains(this.bodyOpenClass)) {
+          document.body.classList.remove(this.bodyOpenClass);
+        }
       }
     });
   }
@@ -391,7 +397,7 @@ export class SimpleSelectItemDOM {
     this.confirmWrap.appendChild(this.confirmNo);
 
     this.confirmOk.innerHTML = this.options.locale.ok;
-    this.confirmNo.innerHTML = this.options.locale.cansel;
+    this.confirmNo.innerHTML = this.options.locale.cancel;
 
     this.confirmOk.className = `${classesItem} ${getClass('ok', true, classesItem)}`;
     this.confirmNo.className = `${classesItem} ${getClass('no', true, classesItem)}`;

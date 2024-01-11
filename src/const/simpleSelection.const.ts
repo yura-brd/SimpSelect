@@ -7,7 +7,7 @@ export const simpleSelectLocale: ISimpleSelectLocale = {
   selected: 'Selected:',
   all: 'all',
   ok: 'Ok',
-  cansel: 'Cansel',
+  cancel: 'Cancel',
   selectAll: 'Select all',
   resetAll: 'Reset all',
 };

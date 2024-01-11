@@ -178,7 +178,7 @@
 
 <div class="container">
 	<details>
-		<summary class="description">Cansel FLOAT (default <= 767)</summary>
+		<summary class="description">Cancel FLOAT (default <= 767)</summary>
 		<pre class="code"><code class="language-html" id="code_3"></code></pre>
 	</details>
 
@@ -188,15 +188,15 @@
 					class="jsSimpSelect"
 					multiple
 					data-simple-float-none="true"
-					data-simple-placeholder="Cansel float"
+					data-simple-placeholder="Cancel float"
 			>
 				<optgroup label="Group 1" >
-					<option value="none float">Cansel float - 1.1</option>
-					<option value="none float">Cansel float - 1.2</option>
+					<option value="none float">Cancel float - 1.1</option>
+					<option value="none float">Cancel float - 1.2</option>
 				</optgroup>
 				<optgroup label="Group 2" >
-					<option value="none float">Cansel float - 1.1.1</option>
-					<option value="none float">Cansel float - 1.2.2</option>
+					<option value="none float">Cancel float - 1.1.1</option>
+					<option value="none float">Cancel float - 1.2.2</option>
 				</optgroup>
 			</select>
 		</div>
@@ -207,8 +207,8 @@
 					id="example_3_2_select"
 					data-simple-placeholder="custom width float"
 			>
-				<option value="none float">Cansel float - 2.1</option>
-				<option value="none float">Cansel float - 2.2</option>
+				<option value="none float">Cancel float - 2.1</option>
+				<option value="none float">Cancel float - 2.2</option>
 			</select>
 			<script>
         window.addEventListener('load', () => {
@@ -940,62 +940,6 @@
 
 
 
-<div class="container">
-	<details>
-		<summary class="description">Dropdown up</summary>
-		<pre class="code"><code class="language-html" id="code_17"></code></pre>
-	</details>
-
-	<div class="items">
-		<div class="item" id="example_17_1">
-			<select
-					multiple
-					class="jsSimpSelect"
-					data-simple-up="true"
-					data-simple-placeholder="Dropdown up"
-			>
-				<option value="Item 1">Item 1</option>
-				<option value="Item 2">Item 2</option>
-				<option value="Item 3">Item 3</option>
-				<option value="Item 4">Item 4</option>
-				<option value="Item 5">Item 5</option>
-				<option value="Item 6">Item 6</option>
-			</select>
-		</div>
-		<div class="item" id="example_17_2">
-			<select
-					multiple
-					data-simple-placeholder="Dropdown up"
-					id="example_17_2_select"
-			>
-				<option value="Item 1">Item 1</option>
-				<option value="Item 2">Item 2</option>
-				<option value="Item 3">Item 3</option>
-				<option value="Item 4">Item 4</option>
-				<option value="Item 5">Item 5</option>
-				<option value="Item 6">Item 6</option>
-			</select>
-			<script>
-        window.addEventListener('load', () => {
-          new SimpleSelect('#example_17_2_select', {
-            isUp: true
-          })
-        })
-			</script>
-		</div>
-
-		<script>
-      pasteCode({
-        codeId: 'code_17',
-        firstId: 'example_17_1',
-        secondId: 'example_17_2',
-        lineBreakText: 'OR'
-      });
-		</script>
-	</div>
-</div>
-
-
 
 
 <div class="container">
@@ -1107,6 +1051,253 @@
 	</div>
 </div>
 
+
+
+<div class="container">
+	<details>
+		<summary class="description">Locale</summary>
+		<pre class="code"><code class="language-html" id="code_20"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_20">
+			<select
+					multiple
+					id="example_20_select"
+					data-simple-placeholder="locale Ukraine"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_20_select', {
+            isSearch: true,
+            selectAll: true,
+            resetAll: true,
+            isConfirmInMulti: true,
+            locale: {
+              noSearch: 'Немає збігів для',
+              searchText: 'Пошук',
+              title: 'Виберіть',
+              selected: 'Вибране:',
+              all: 'Все',
+              ok: 'Ok',
+              Cancel: 'Скасувати',
+              selectAll: 'Вибрати все',
+              resetAll: 'Скинути все',
+            }
+          })
+        })
+			</script>
+		</div>
+		<div class="item" id="example_20_1">
+			<select
+					multiple
+					id="example_20_1_select"
+					data-simple-placeholder="locale Russian"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_20_1_select', {
+            isSearch: true,
+            selectAll: true,
+            resetAll: true,
+            isConfirmInMulti: true,
+            locale: {
+              noSearch: 'Нет совпадений для',
+              searchText: 'Поиск',
+              title: 'Выберите',
+              selected: 'Избранное:',
+              all: 'Все',
+              ok: 'Ok',
+              Cancel: 'Отменить',
+              selectAll: 'Выбрать все',
+              resetAll: 'Сбросить все',
+            }
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_20',
+        firstId: 'example_20',
+        secondId: 'example_20_1',
+      });
+		</script>
+	</div>
+</div>
+
+
+
+<div class="container">
+	<details>
+		<summary class="description">list native On Device (default: 'Android', 'BlackBerry', 'iPhone', 'iPad', 'iPod', 'Opera Mini', 'IEMobile', 'Silk')</summary>
+		<pre class="code"><code class="language-html" id="code_21"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_21_1">
+			<select
+					multiple
+					id="example_21_select"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_21_select', {
+            nativeOnDevice: []
+          })
+        })
+			</script>
+		</div>
+
+
+		<script>
+      pasteCode({
+        codeId: 'code_21',
+        firstId: 'example_21_1',
+      });
+		</script>
+	</div>
+</div>
+
+
+
+<div class="container">
+	<details>
+		<summary class="description">detect Native (return boolean)</summary>
+		<pre class="code"><code class="language-html" id="code_22"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_22_1">
+			<select
+					multiple
+					id="example_22_select"
+					data-simple-placeholder="Always native"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_22_select', {
+            detectNative: function () {
+              return true;
+            }
+          })
+        })
+			</script>
+		</div>
+		<div class="item" id="example_22_2">
+			<select
+					multiple
+					id="example_22_2_select"
+					data-simple-placeholder="Never native"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_22_2_select', {
+            detectNative: function () {
+              return false;
+            }
+          })
+        })
+			</script>
+		</div>
+
+
+		<script>
+      pasteCode({
+        codeId: 'code_22',
+        firstId: 'example_22_1',
+        secondId: 'example_22_2',
+        lineBreakText: 'OR'
+
+      });
+		</script>
+	</div>
+</div>
+
+
+
+<div class="container">
+	<details>
+		<summary class="description">Dropdown up</summary>
+		<pre class="code"><code class="language-html" id="code_17"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_17_1">
+			<select
+					multiple
+					class="jsSimpSelect"
+					data-simple-up="true"
+					data-simple-placeholder="Dropdown up"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+		<div class="item" id="example_17_2">
+			<select
+					multiple
+					data-simple-placeholder="Dropdown up"
+					id="example_17_2_select"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_17_2_select', {
+            isUp: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_17',
+        firstId: 'example_17_1',
+        secondId: 'example_17_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+
 <!--
 
 <div class="container">
@@ -1149,6 +1340,7 @@
 		</script>
 	</div>
 </div>
+
 -->
 
 

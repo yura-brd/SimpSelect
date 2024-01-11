@@ -7,7 +7,7 @@ export interface ISimpleSelectLocale {
   selected: string;
   all: string;
   ok: string;
-  cansel: string;
+  cancel: string;
 
   resetAll: string;
   selectAll: string;

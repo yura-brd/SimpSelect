@@ -17,8 +17,8 @@ npm install simp-select --save
 ```
 Or you can load it via a script tag as follows:
 ```
-<script src="https://unpkg.com/simp-select@1.0.17/dist/simpleSelect.js" ></script>
-<script src="https://unpkg.com/simp-select@1.0.17/dist/polyfill.js" ></script> - for IE 11
+<script src="https://unpkg.com/simp-select@1.0.18/dist/simpleSelect.js" ></script>
+<script src="https://unpkg.com/simp-select@1.0.18/dist/polyfill.js" ></script> - for IE 11
 Or get last version
 <script src="https://unpkg.com/simp-select"></script>
 ```
@@ -46,7 +46,7 @@ the variable `SimpSelect` attached to `window` or `this` depending on what envir
 | **countShowSelected**:number*                                        | <p>default: **3**  </p> Show count selected options. If more then this count, showed template: Selected: 4<p>Or - `data-simple-count-shows-selected="3"` - in select</p>                                            |
 | **isSearch**:boolean*                                                | <p>default: **false**  </p>  Show input for filter items <p>Or - `data-simple-select-search="true"` - in select</p>                                                                                                 |
 | **isSearchInDropdown**:boolean*                                      | <p>default: **false**  </p>  Show search input inside dropdown <p>Or - `data-simple-select-search-dropdown="true"` - in select</p>                                                                                  |
-| **isConfirmInMulti**:boolean*                                        | <p>default: **false**  </p>  Show buttons `OK` and `Cansel`.  Only Multiselect <p>Or `data-simple-is-confirm="true" - in select`</>                                                                                 |
+| **isConfirmInMulti**:boolean*                                        | <p>default: **false**  </p>  Show buttons `OK` and `Cancel`.  Only Multiselect <p>Or `data-simple-is-confirm="true" - in select`</>                                                                                 |
 | **isConfirmInMultiOkClickOutside**:boolean                           | <p>default: **false**  </p> Click outside like click by button `OK`. Only if `isConfirmInMulti=true`                                                                                                                |
 | **nativeOnDevice**:string[]                                          | <p>default: **'Android', 'BlackBerry', 'iPhone', 'iPad', 'iPod', 'Opera Mini', 'IEMobile', 'Silk'**  </p> The system default select list is rendered on the matched device(Check useragent ).                       |
 | **debounceTime**:number*                                             | <p>default: **0**  </p> The change event will not be triggered immediately, but after a specified amount of time. <p>Or `data-simple-debounce-time="1000"` in select</p>                                            |
@@ -104,7 +104,7 @@ const simpleSelectLocale: = {
   selected: 'Selected:',
   all: 'all',
   ok: 'Ok',
-  cansel: 'Cansel',
+  cancel: 'Cancel',
   selectAll: 'Select all',
   resetAll: 'Reset all',
 };
