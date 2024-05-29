@@ -3,7 +3,7 @@ import { IHistoryItem, IOptionItems } from './types/item.types';
 import {
   compareObj,
   getCreateListItem,
-  toCamelCase,
+  toCamelCase, triggerCustomEvent,
   triggerInputEvent,
 } from './utils/simpleSelection.utils';
 import { SimpleSelectItemDOM } from './simpleSelectItemDOM';
@@ -20,6 +20,8 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
   handleResize!: (e: MediaQueryList | null) => void; // not native
 
   mql: MediaQueryList | null = null;
+
+  isInitialized = false;
 
   countOpen = 0;
 
@@ -38,6 +40,10 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     this.init();
     super.initDom();
     this.initAfterDom();
+
+    setTimeout(() => {
+      this.isInitialized = true;
+    }, 10);
   }
 
   init() {
@@ -64,6 +70,11 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
 
     this.state.subscribe('isOpen', (val: IOptionItems[]) => {
+      if (this.isInitialized) {
+        triggerCustomEvent(this.$select, `${val ? 'open' : 'close'}.before`, {
+          item: this,
+        });
+      }
       this.toggleOpenHandler();
       if (!val && this.options.isConfirmInMulti) {
         this.createList();
@@ -73,6 +84,12 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
           this.elemInputSearch.value = '';
           this.state.setState('filterStr', '');
         }
+      }
+
+      if (this.isInitialized) {
+        triggerCustomEvent(this.$select, `${val ? 'open' : 'close'}.after`, {
+          item: this,
+        });
       }
     });
 
@@ -200,11 +217,14 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     });
     this.state.setState('isOpen', false);
     this.triggerInit();
+    triggerCustomEvent(this.$select, 'multiConfirm', { item: this });
   }
 
   confirmNoHandler(e:MouseEvent) {
     e.preventDefault();
     this.state.setState('isOpen', false);
+
+    triggerCustomEvent(this.$select, 'multiCancel', { item: this });
   }
 
   closeHandler(e:MouseEvent) {
@@ -225,6 +245,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       this.state.setState('isOpen', false);
     }
     this.triggerInit();
+    triggerCustomEvent(this.$select, 'selectAll', { item: this });
   }
 
   resetAllHandler(e:MouseEvent) {
@@ -240,6 +261,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       this.state.setState('isOpen', false);
     }
     this.triggerInit();
+    triggerCustomEvent(this.$select, 'resetAll', { item: this });
   }
 
   // click for LI
@@ -273,6 +295,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       if (this.history.length > this.options.historyMaxSize) {
         this.history = this.history.slice(this.history.length - this.options.historyMaxSize);
       }
+      triggerCustomEvent(this.$select, 'updateHistory', { item: this, history: this.history });
     }
   }
 

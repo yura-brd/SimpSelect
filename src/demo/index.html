@@ -168,6 +168,21 @@
 			<option>Опция 5.2</option>
 		</select>
 	</div>
+	<div class="item">
+		<select
+				multiple
+				data-simple-reset-all="true"
+				data-simple-select-all="true"
+				data-simple-is-confirm="true"
+				data-simple-placeholder="Custom events"
+				id="customEvents"
+		>
+			<option value="custom-events-1">none events 1</option>
+			<option value="custom-events-2">none events 2</option>
+			<option value="custom-events-3">none events 2</option>
+			<option value="custom-events-4">none events 2</option>
+		</select>
+	</div>
 
 </div>
 
@@ -285,6 +300,34 @@
 		-->
 
 <script>
+	const $customEvents = document.getElementById('customEvents');
+  $customEvents.addEventListener('change', (e) => {
+    console.log('change', e);
+  });
+  $customEvents.addEventListener('simpSelect:createListBuild', (e) => {
+    console.log('createListBuild', e);
+  });
+  $customEvents.addEventListener('simpSelect:open.before', (e) => {
+    console.log('open.before', e);
+  });
+  $customEvents.addEventListener('simpSelect:open.after', (e) => {
+    console.log('open.after', e);
+  });
+  $customEvents.addEventListener('simpSelect:close.before', (e) => {
+    console.log('close.before', e);
+  });
+  $customEvents.addEventListener('simpSelect:close.after', (e) => {
+    console.log('close.after', e);
+  });
+  $customEvents.addEventListener('simpSelect:selectAll', (e) => {
+    console.log('selectAll', e);
+  });
+  $customEvents.addEventListener('simpSelect:resetAll', (e) => {
+    console.log('resetAll', e);
+  });
+  $customEvents.addEventListener('simpSelect:updateHistory', (e) => {
+    console.log('updateHistory', e);
+  });
 
   const sel = new SimpleSelect('select', {
     // callbackOpen: (item) => {

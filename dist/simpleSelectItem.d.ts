@@ -9,6 +9,7 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     searchHandler: (e: Event) => void;
     handleResize: (e: MediaQueryList | null) => void;
     mql: MediaQueryList | null;
+    isInitialized: boolean;
     countOpen: number;
     multiDebounceTime: number;
     timeoutDebounceId: NodeJS.Timeout | null;

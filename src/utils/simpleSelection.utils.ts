@@ -1,9 +1,14 @@
 import { IOptionItem, IOptionItems } from '../types/item.types';
 import { initClass } from '../const/simpleSelection.const';
+import { SimpleSelectItemDOM } from '../simpleSelectItemDOM';
 
 export const toCamelCase = (input:string):string => input.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 
 export const removeExtraSpaces = (str:string):string => str.replace(/\s+/g, ' ').trim();
+export const clearSpaceAndEmptyAttr = (str:string):string => str.replace(/\s+|=""/g, '');
+
+// eslint-disable-next-line max-len
+export const compareStringWithClearSpace = (str1:string, str2:string):boolean => clearSpaceAndEmptyAttr(str1) === clearSpaceAndEmptyAttr(str2);
 
 export const createDataAttr = (name: string):string => `data-${name}`;
 
@@ -13,6 +18,19 @@ export const ifTrueDataAttr = (attr: string | null): boolean => {
   }
   return attr === 'true' || attr === '1';
 };
+
+type triggerCustomEventType = 'open.before' | 'open.after' | 'close.before' | 'close.after' | 'createListBuild'
+  | 'resetAll' | 'selectAll' | 'multiConfirm' | 'multiCancel' | 'updateHistory';
+type triggerCustomEventDataType = {
+  item: SimpleSelectItemDOM,
+  [key: string]: any
+};
+export function triggerCustomEvent(element: HTMLElement, type: triggerCustomEventType, data: triggerCustomEventDataType) {
+  const myCustomEvent = new CustomEvent(`simpSelect:${type}`, {
+    detail: data,
+  });
+  element.dispatchEvent(myCustomEvent);
+}
 
 export function triggerInputEvent(element: HTMLElement, type = 'change') {
   try {

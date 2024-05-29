@@ -1,11 +1,21 @@
 import { IOptionItems } from '../types/item.types';
+import { SimpleSelectItemDOM } from '../simpleSelectItemDOM';
 export declare const toCamelCase: (input: string) => string;
 export declare const removeExtraSpaces: (str: string) => string;
+export declare const clearSpaceAndEmptyAttr: (str: string) => string;
+export declare const compareStringWithClearSpace: (str1: string, str2: string) => boolean;
 export declare const createDataAttr: (name: string) => string;
 export declare const ifTrueDataAttr: (attr: string | null) => boolean;
+type triggerCustomEventType = 'open.before' | 'open.after' | 'close.before' | 'close.after' | 'createListBuild' | 'resetAll' | 'selectAll' | 'multiConfirm' | 'multiCancel' | 'updateHistory';
+type triggerCustomEventDataType = {
+    item: SimpleSelectItemDOM;
+    [key: string]: any;
+};
+export declare function triggerCustomEvent(element: HTMLElement, type: triggerCustomEventType, data: triggerCustomEventDataType): void;
 export declare function triggerInputEvent(element: HTMLElement, type?: string): void;
 export declare const getCreateListItem: (item: HTMLSelectElement | HTMLOptGroupElement, idGroup: string, isGroup: boolean) => IOptionItems;
 export declare const getClass: (cls: string, mod?: boolean, classInit?: string) => string;
 export declare const compareObj: <T1, T2>(obj1: T1, obj2: T2) => boolean;
 export declare const cloneObj: <T>(obj: T) => T;
 export declare const createButton: () => HTMLButtonElement;
+export {};

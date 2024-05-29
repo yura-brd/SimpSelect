@@ -1310,6 +1310,114 @@
 </div>
 
 
+
+
+<div class="container">
+	<details>
+		<summary class="description">Custom Dom Events</summary>
+		<pre class="code"><code class="language-html" id="code_24">
+window.addEventListener('load', () => {
+  new SimpleSelect('#example_24_select', {
+    isUp: true
+  })
+  const $customEvents = document.getElementById('example_24_select');
+  $customEvents.addEventListener('change', (e) => {
+    console.log('change', e);
+  });
+  $customEvents.addEventListener('simpSelect:createListBuild', (e) => {
+    console.log('createListBuild', e);
+  });
+  $customEvents.addEventListener('simpSelect:open.before', (e) => {
+    console.log('open.before', e);
+  });
+  $customEvents.addEventListener('simpSelect:open.after', (e) => {
+    console.log('open.after', e);
+  });
+  $customEvents.addEventListener('simpSelect:close.before', (e) => {
+    console.log('close.before', e);
+  });
+  $customEvents.addEventListener('simpSelect:close.after', (e) => {
+    console.log('close.after', e);
+  });
+  $customEvents.addEventListener('simpSelect:selectAll', (e) => {
+    console.log('selectAll', e);
+  });
+  $customEvents.addEventListener('simpSelect:resetAll', (e) => {
+    console.log('resetAll', e);
+  });
+  $customEvents.addEventListener('simpSelect:updateHistory', (e) => {
+    console.log('updateHistory', e);
+  });
+})
+		</code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_24">
+			<select
+					multiple
+					data-simple-reset-all="true"
+					data-simple-select-all="true"
+					data-simple-is-confirm="true"
+					data-simple-placeholder="Custom Dom Events"
+					id="example_24_select"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_24_select', {
+            isUp: true
+          })
+          const $customEvents = document.getElementById('example_24_select');
+          $customEvents.addEventListener('change', (e) => {
+            console.log('change', e);
+          });
+          $customEvents.addEventListener('simpSelect:createListBuild', (e) => {
+            console.log('createListBuild', e);
+          });
+          $customEvents.addEventListener('simpSelect:open.before', (e) => {
+            console.log('open.before', e);
+          });
+          $customEvents.addEventListener('simpSelect:open.after', (e) => {
+            console.log('open.after', e);
+          });
+          $customEvents.addEventListener('simpSelect:close.before', (e) => {
+            console.log('close.before', e);
+          });
+          $customEvents.addEventListener('simpSelect:close.after', (e) => {
+            console.log('close.after', e);
+          });
+          $customEvents.addEventListener('simpSelect:selectAll', (e) => {
+            console.log('selectAll', e);
+          });
+          $customEvents.addEventListener('simpSelect:resetAll', (e) => {
+            console.log('resetAll', e);
+          });
+          $customEvents.addEventListener('simpSelect:updateHistory', (e) => {
+            console.log('updateHistory', e);
+          });
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_17',
+        firstId: 'example_17_1',
+        secondId: 'example_17_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+
 <!--
 
 <div class="container">
