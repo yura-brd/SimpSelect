@@ -6,7 +6,7 @@ export declare const clearSpaceAndEmptyAttr: (str: string) => string;
 export declare const compareStringWithClearSpace: (str1: string, str2: string) => boolean;
 export declare const createDataAttr: (name: string) => string;
 export declare const ifTrueDataAttr: (attr: string | null) => boolean;
-type triggerCustomEventType = 'open.before' | 'open.after' | 'close.before' | 'close.after' | 'createListBuild' | 'resetAll' | 'selectAll' | 'multiConfirm' | 'multiCancel' | 'updateHistory';
+type triggerCustomEventType = 'initialized' | 'open.before' | 'open.after' | 'close.before' | 'close.after' | 'createListBuild' | 'resetAll' | 'selectAll' | 'multiConfirm' | 'multiCancel' | 'updateHistory';
 type triggerCustomEventDataType = {
     item: SimpleSelectItemDOM;
     [key: string]: any;

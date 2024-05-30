@@ -1,6 +1,6 @@
 import { IItemLocalOptions, ISimpleSelectOptions } from './types/simpleSelect.types';
 import {
-  cloneObj,
+  cloneObj, compareObj,
   compareStringWithClearSpace,
   createButton,
   getClass,
@@ -9,7 +9,9 @@ import {
   toCamelCase,
   triggerCustomEvent,
 } from './utils/simpleSelection.utils';
-import { ICreateLiReturn, IOptionItem, IOptionItems } from './types/item.types';
+import {
+  ICreateLiReturn, IDataForCompareOptions, IOptionItem, IOptionItems,
+} from './types/item.types';
 import { store } from './utils/store';
 import { initClass } from './const/simpleSelection.const';
 
@@ -514,7 +516,15 @@ export class SimpleSelectItemDOM {
     let countCheckedFullItems = 0;
 
     const items = isFilter ? this.filterList() : this.state.getState('items');
+    const dataForCompare: IDataForCompareOptions[] = [];
     items.forEach((group:IOptionItems) => {
+      group.items.forEach((i) => {
+        dataForCompare.push({
+          value: i.value,
+          checked: i.checked,
+          disabled: i.disabled,
+        });
+      });
       if (!group.isGroup) {
         const {
           result, countShow, countChecked, countCheckedFull,
@@ -527,7 +537,9 @@ export class SimpleSelectItemDOM {
         const {
           result, countShow, countChecked, countCheckedFull,
         } = this.createLi(group);
-        resBodyList += `<div class="${getClass('group_items')}">`;
+        let groupAttrs = `data-count-show="${countShow}" `;
+        groupAttrs += `data-count-checked="${countChecked}" `;
+        resBodyList += `<div class="${getClass('group_items')}" ${groupAttrs} data-simple-select-gruop>`;
         resBodyList += result;
         resBodyList += '</div>';
 
@@ -553,7 +565,16 @@ export class SimpleSelectItemDOM {
 
     resBodyList = removeExtraSpaces(resBodyList);
 
-    if (!compareStringWithClearSpace(this.elemListBody.innerHTML, resBodyList)) {
+    const dataForCompare2: IDataForCompareOptions[] = [];
+    this.elemListBody.querySelectorAll('[data-sel-opt-item]').forEach((i: Element) => {
+      dataForCompare2.push({
+        value: i.getAttribute('data-sel-value'),
+        checked: i.getAttribute('data-sel-opt-checked') === 'true',
+        disabled: i.getAttribute('data-sel-opt-disabled') === 'true',
+      });
+    });
+    // if (!compareStringWithClearSpace(this.elemListBody.innerHTML, resBodyList)) {
+    if (!compareObj(dataForCompare, dataForCompare2)) {
       this.elemListBody.innerHTML = resBodyList;
       triggerCustomEvent(this.$select, 'createListBuild', {
         item: this,

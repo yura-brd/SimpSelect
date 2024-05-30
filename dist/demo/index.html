@@ -26,6 +26,9 @@
   $customEvents.addEventListener('change', (e) => {
     console.log('change', e);
   });
+  $customEvents.addEventListener('simpSelect:initialized', (e) => {
+    console.log('createListBuild', e);
+  });
   $customEvents.addEventListener('simpSelect:createListBuild', (e) => {
     console.log('createListBuild', e);
   });

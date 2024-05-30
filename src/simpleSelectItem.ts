@@ -43,6 +43,9 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
     setTimeout(() => {
       this.isInitialized = true;
+      triggerCustomEvent(this.$select, 'initialized', {
+        item: this,
+      });
     }, 10);
   }
 
@@ -275,12 +278,21 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
   }
 
   changeClickItemDom(item: HTMLLIElement) {
+    const wrapGroup = item.closest('[data-simple-select-gruop]');
     if (item.dataset[toCamelCase('sel-opt-checked')] === 'true') {
       item.dataset[toCamelCase('sel-opt-checked')] = 'false';
       item.classList.remove('SimpleSel__list_item--checked');
+      if (wrapGroup) {
+        const cur = Number(wrapGroup.getAttribute('data-count-checked')) || 1;
+        wrapGroup.setAttribute('data-count-checked', (cur - 1).toString());
+      }
     } else {
       item.dataset[toCamelCase('sel-opt-checked')] = 'true';
       item.classList.add('SimpleSel__list_item--checked');
+      if (wrapGroup) {
+        const cur = Number(wrapGroup.getAttribute('data-count-checked')) || 0;
+        wrapGroup.setAttribute('data-count-checked', (cur + 1).toString());
+      }
     }
   }
 
@@ -387,8 +399,6 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
     // if (e.key === 'Enter') {
     //   const target = e.target as HTMLLIElement;
-    //   console.log('yura target', target);
-    //   console.log('yura target', toCamelCase('sel-opt-item') in target.dataset);
     //   if (target && toCamelCase('sel-opt-item') in target.dataset) {
     //     e.preventDefault();
     //     e.stopPropagation();

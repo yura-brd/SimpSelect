@@ -28,3 +28,8 @@ export interface IHistoryItem {
     selected: boolean;
     indexOption: number;
 }
+export interface IDataForCompareOptions {
+    value: string | number | null;
+    checked: boolean;
+    disabled: boolean;
+}

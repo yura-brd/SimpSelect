@@ -19,7 +19,7 @@ export const ifTrueDataAttr = (attr: string | null): boolean => {
   return attr === 'true' || attr === '1';
 };
 
-type triggerCustomEventType = 'open.before' | 'open.after' | 'close.before' | 'close.after' | 'createListBuild'
+type triggerCustomEventType = 'initialized' | 'open.before' | 'open.after' | 'close.before' | 'close.after' | 'createListBuild'
   | 'resetAll' | 'selectAll' | 'multiConfirm' | 'multiCancel' | 'updateHistory';
 type triggerCustomEventDataType = {
   item: SimpleSelectItemDOM,
