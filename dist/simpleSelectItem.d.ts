@@ -10,12 +10,14 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     handleResize: (e: MediaQueryList | null) => void;
     mql: MediaQueryList | null;
     isInitialized: boolean;
+    isFirstOpen: boolean;
     countOpen: number;
     multiDebounceTime: number;
     timeoutDebounceId: NodeJS.Timeout | null;
     history: IHistoryItem[];
     constructor(select: HTMLSelectElement, options: ISimpleSelectOptions, localOptions: IItemLocalOptions);
     init(): void;
+    scrollToFirstChecked(): void;
     private handleResizeInit;
     private initAfterDom;
     debounce<T extends (...args: never[]) => void>(func: T, delay: number): (...args: Parameters<T>) => void;

@@ -23,6 +23,8 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
   isInitialized = false;
 
+  isFirstOpen = false;
+
   countOpen = 0;
 
   multiDebounceTime = 0;
@@ -73,6 +75,20 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
 
     this.state.subscribe('isOpen', (val: IOptionItems[]) => {
+      /** stroll to first checked by open */
+      if (val && this.elemListBody) {
+        const { isScrollToCheckedFirst, isScrollToCheckedAlways } = this.options;
+        if (!this.isFirstOpen && isScrollToCheckedFirst && !isScrollToCheckedAlways) {
+          this.scrollToFirstChecked();
+        }
+        if (isScrollToCheckedAlways) {
+          this.scrollToFirstChecked();
+        }
+      }
+      if (val && !this.isFirstOpen) {
+        this.isFirstOpen = true;
+      }
+
       if (this.isInitialized) {
         triggerCustomEvent(this.$select, `${val ? 'open' : 'close'}.before`, {
           item: this,
@@ -103,6 +119,15 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     if (!this.isNative && !this.options.isAlwaysOpen) {
       this.elemTopBody.onclick = this.clickToggleOpen.bind(this);
       this.elemTopBody.onkeyup = this.clickToggleOpen.bind(this);
+    }
+  }
+
+  scrollToFirstChecked() {
+    if (this.elemListBody && this.elemDropDownWrap) {
+      const firstChecked: HTMLElement | null = this.elemListBody.querySelector('[data-sel-opt-checked="true"]');
+      if (firstChecked) {
+        this.elemDropDownWrap.scrollTop = firstChecked.offsetTop;
+      }
     }
   }
 

@@ -17,8 +17,8 @@ npm install simp-select --save
 ```
 Or you can load it via a script tag as follows:
 ```
-<script src="https://unpkg.com/simp-select@1.1.1/dist/simpleSelect.js" ></script>
-<script src="https://unpkg.com/simp-select@1.1.1/dist/polyfill.js" ></script> - for IE 11
+<script src="https://unpkg.com/simp-select@1.1.2/dist/simpleSelect.js" ></script>
+<script src="https://unpkg.com/simp-select@1.1.2/dist/polyfill.js" ></script> - for IE 11
 Or get last version
 <script src="https://unpkg.com/simp-select"></script>
 ```
@@ -66,6 +66,8 @@ the variable `SimpSelect` attached to `window` or `this` depending on what envir
 | **changeBodyLi**:function                                            | <p>default: **none**</p>  Custom <li>(body) item renderer                                                                                                                                                           |
 | **locale**:{key: string}                                             | <p>default: **simpleSelectLocale** **</p>  Object of locales. **                                                                                                                                                    |
 | **historyMaxSize**: number                                           | <p>default: **0** </p>  Maximum number of saved changes.                                                                                                                                                            |
+| **isScrollToCheckedFirst**: boolean                                  | <p>default: **true** </p>  Scroll to the first element. This works only on the first opening.                                                                                                                       |
+| **isScrollToCheckedAlways**: boolean                                 | <p>default: **false** </p> Scroll to the first element. This works on each opening.                                                                                                                                 |
 | ***Options only DOM elements***                                      |                                                                                                                                                                                                                     |
 | **data-simple-placeholder="text": Select**                           | Replace default placeholder (locale.title)                                                                                                                                                                          |
 | **data-simple-item-html-before="<div>before</div>: Select**          | Add HTML before content (for item Li)                                                                                                                                                                               |

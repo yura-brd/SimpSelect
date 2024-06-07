@@ -34,6 +34,8 @@ export interface ISimpleSelectOptions {
     isAlwaysOpen: boolean;
     isAlwaysOpenShowDisabledTabindex: boolean;
     detectNative?: () => boolean;
+    isScrollToCheckedFirst: boolean;
+    isScrollToCheckedAlways: boolean;
     callbackInitialization?: (item: SimpleSelectItem) => void;
     callbackInitialized?: (item: SimpleSelectItem) => void;
     callbackOpen?: (item: SimpleSelectItem) => void;
