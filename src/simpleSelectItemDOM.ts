@@ -444,13 +444,16 @@ export class SimpleSelectItemDOM {
     let title:string = this.titlePlaceholder;
     if (itemsChecked.length && !this.options.isOnlyPlaceholder) {
       let attrTitle = '';
+      let attrTitleText = '';
       itemsChecked.forEach((item, index) => {
         if (index !== 0) {
           attrTitle += `${this.options.sepChars}<span class="${getClass('sep_space', true)}">&nbsp;</span>`;
+          attrTitleText += `${this.options.sepChars} `;
         }
         attrTitle += `${item.title}`;
+        attrTitleText += `${item.title}`;
       });
-      this.elemTop.title = attrTitle;
+      this.elemTop.title = attrTitleText;
 
       let maxShow = this.options.countShowSelected;
       const maxShowAttr = Number(this.$select.dataset.simpleCountShowsSelected);
