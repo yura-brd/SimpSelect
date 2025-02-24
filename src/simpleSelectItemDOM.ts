@@ -526,6 +526,7 @@ export class SimpleSelectItemDOM {
           value: i.value,
           checked: i.checked,
           disabled: i.disabled,
+          isShowFilter: i.isShowFilter,
         });
       });
       if (!group.isGroup) {

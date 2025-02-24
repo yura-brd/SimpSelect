@@ -32,4 +32,5 @@ export interface IDataForCompareOptions {
     value: string | number | null;
     checked: boolean;
     disabled: boolean;
+    isShowFilter?: boolean;
 }
