@@ -6,6 +6,7 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     closeOutsideHandler: (e: MouseEvent) => void;
     closeEscHandler: (e: KeyboardEvent) => void;
     changeListener: (e: Event) => void;
+    selectKeyDownListener: (e: KeyboardEvent) => void;
     searchHandler: (e: Event) => void;
     handleResize: (e: MediaQueryList | null) => void;
     mql: MediaQueryList | null;
@@ -38,8 +39,10 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     closeEscHandlerInit(e: KeyboardEvent): void;
     keyBoardChangeChecked(isDown: boolean): void;
     searchHandlerInit(e: Event): void;
+    private toggleOpen;
     toggleOpenHandler(): void;
     private changeListenerInit;
+    private selectKeyDownInit;
     getSelect(): HTMLSelectElement;
     protected handlerChangeChecked(): void;
     protected createList(isCompare?: boolean): void;

@@ -15,6 +15,8 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
   changeListener!: (e:Event) => void; // not native
 
+  selectKeyDownListener!: (e:KeyboardEvent) => void; // not native
+
   searchHandler!: (e:Event) => void; // not native
 
   handleResize!: (e: MediaQueryList | null) => void; // not native
@@ -53,7 +55,15 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
   init() {
     this.changeListener = this.changeListenerInit.bind(this);
+    this.selectKeyDownListener = this.selectKeyDownInit.bind(this);
+
     this.$select.addEventListener('change', this.changeListener);
+    this.$select.addEventListener('keydown', this.selectKeyDownListener);
+    /**
+     * TODO
+     * onkeydawn by native select
+     *    this.isNative ; - Enter - убрать открывющееся меню
+     */
 
     this.searchHandler = this.searchHandlerInit.bind(this);
     this.closeOutsideHandler = this.closeOutsideHandlerInit.bind(this);
@@ -470,6 +480,11 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     this.state.setState('filterStr', value);
   }
 
+  private toggleOpen() {
+    const isOpen = this.state.getState('isOpen');
+    this.state.setState('isOpen', !isOpen);
+  }
+
   toggleOpenHandler() {
     const isOpen = this.state.getState('isOpen');
 
@@ -516,6 +531,16 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
 
     this.createList(true);
+  }
+
+  private selectKeyDownInit(e: KeyboardEvent) {
+    if (this.isNative) {
+      return;
+    }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault(); // Блокируем открытие списка
+      this.toggleOpen();
+    }
   }
 
   public getSelect() {

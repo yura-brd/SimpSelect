@@ -9,6 +9,9 @@
 	--simpS_color_no: red;
 	--simpS_color_placeholder: #5d5c5c;
 	--simpS_color_dis: #8b8b8b;
+	--simpS_dropdownBg: var(--simpS_bg);
+	--simpS_borderColor: var(--simpS_color);
+
 	--simpS_radius: 4px;
 	--simpS_f_size: 16px;
 	--simpS_f_shadow: 0 0 3px 0 var(--simpS_color);
@@ -140,9 +143,9 @@
 	height: var(--simpS_height_top);
 	padding: 5px 0 5px var(--simpS_pad_hor);
 
-	background-color: var(--simpS_bg);
+	background-color: var(--simpS_dropdownBg);
 	color: currentColor;
-	border: 2px solid currentColor;
+	border: 2px solid var(--simpS_borderColor);
 	border-radius: var(--simpS_radius);
 
 	display: flex;
@@ -216,7 +219,7 @@
 	position: absolute;
 	transition: .25s all;
 	width: 100%;
-	border: 1px solid currentColor;
+	border: 1px solid var(--simpS_borderColor);
 	z-index: 3;
 	border-radius: var(--simpS_radius);
 	background-color: var(--simpS_bg);
