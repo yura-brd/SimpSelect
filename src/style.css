@@ -11,6 +11,7 @@
 	--simpS_color_dis: #8b8b8b;
 	--simpS_dropdownBg: var(--simpS_bg);
 	--simpS_borderColor: var(--simpS_color);
+	--simpS_DropDownBorderColor: var(--simpS_borderColor);
 
 	--simpS_radius: 4px;
 	--simpS_f_size: 16px;
@@ -143,7 +144,7 @@
 	height: var(--simpS_height_top);
 	padding: 5px 0 5px var(--simpS_pad_hor);
 
-	background-color: var(--simpS_dropdownBg);
+	background-color: var(--simpS_bg);
 	color: currentColor;
 	border: 2px solid var(--simpS_borderColor);
 	border-radius: var(--simpS_radius);
@@ -219,10 +220,10 @@
 	position: absolute;
 	transition: .25s all;
 	width: 100%;
-	border: 1px solid var(--simpS_borderColor);
+	border: 1px solid var(--simpS_DropDownBorderColor);
 	z-index: 3;
 	border-radius: var(--simpS_radius);
-	background-color: var(--simpS_bg);
+	background-color: var(--simpS_dropdownBg);
 }
 .SimpleSel--body-always_open {
 	max-height: none;
