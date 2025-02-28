@@ -224,6 +224,7 @@
 	z-index: 3;
 	border-radius: var(--simpS_radius);
 	background-color: var(--simpS_dropdownBg);
+	overscroll-behavior: contain;
 }
 .SimpleSel--body-always_open {
 	max-height: none;

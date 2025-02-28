@@ -393,6 +393,17 @@ export class SimpleSelectItemDOM {
     if (this.isMulti) {
       this.createIsConfirmInMultiHTML();
     }
+    // this.elemDropDownWrap.addEventListener('wheel', (e) => {
+    //   const delta = e.deltaY;
+    //   const { scrollTop, scrollHeight, clientHeight } = this.elemDropDownWrap as HTMLDivElement;
+    //
+    //   const atBottom = delta > 0 && scrollTop + clientHeight >= scrollHeight;
+    //   const atTop = delta < 0 && scrollTop <= 0;
+    //
+    //   if (atBottom || atTop) {
+    //     e.preventDefault();
+    //   }
+    // }, { passive: false });
     this.handlerChangeChecked();
   }
 
