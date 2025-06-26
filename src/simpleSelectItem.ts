@@ -557,8 +557,10 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     const newItems:IOptionItems[] = [];
     const group = this.$select.querySelectorAll('optgroup');
     if (group && group.length) {
-      group.forEach((item, ind) => {
-        newItems.push(getCreateListItem(item, (ind + 1).toString(), true));
+      const groupAndOptions = this.$select.querySelectorAll<HTMLOptGroupElement>(':scope > *');
+      groupAndOptions.forEach((item, ind) => {
+        const isGroup = item instanceof HTMLOptGroupElement;
+        newItems.push(getCreateListItem(item, (ind + 1).toString(), isGroup));
       });
     } else {
       newItems.push(getCreateListItem(this.$select, '1', false));

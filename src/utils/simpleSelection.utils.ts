@@ -48,27 +48,46 @@ export function triggerInputEvent(element: HTMLElement, type = 'change') {
   }
 }
 
-export const getCreateListItem = (item: HTMLSelectElement | HTMLOptGroupElement, idGroup: string, isGroup: boolean) => {
-  const options = item.querySelectorAll('option');
-  const items:IOptionItem[] = [];
-  options.forEach((option, ind) => {
-    items.push({
-      id: (ind + 1).toString(),
-      position: option.index,
-      title: option.innerHTML,
-      // value: option.value,
-      value: option.getAttribute('value'),
-      checked: option.selected,
-      disabled: option.disabled,
-      isShowFilter: true,
-    });
-  });
-  const newItem: IOptionItems = {
+export const getCreateItem = (option: HTMLOptionElement, index: number) => ({
+  id: (index + 1).toString(),
+  position: option.index,
+  title: option.innerHTML,
+  value: option.getAttribute('value'),
+  checked: option.selected,
+  disabled: option.disabled,
+  isShowFilter: true,
+});
+
+export const createOptionItems = (isGroup: boolean, idGroup: string, items:IOptionItem[], isShowFilter = true): IOptionItems => {
+  return {
     isGroup,
     idGroup,
     items,
     isShowFilter: true,
   };
+};
+
+export const getCreateListItem = (item: HTMLSelectElement | HTMLOptGroupElement | HTMLOptionElement, idGroup: string, isGroup: boolean) => {
+  // Если есть группы, но может быть option вне группы
+  if (item instanceof HTMLOptionElement) {
+    return createOptionItems(
+      isGroup,
+      idGroup,
+      [getCreateItem(item, 1)],
+      true,
+    );
+  }
+  const options = item.querySelectorAll('option');
+  const items:IOptionItem[] = [];
+  options.forEach((option, ind) => {
+    items.push(getCreateItem(option, ind));
+  });
+  const newItem: IOptionItems = createOptionItems(
+    isGroup,
+    idGroup,
+    items,
+    true,
+  );
   if (item instanceof HTMLOptGroupElement) {
     newItem.titleGroup = item.label || '';
     newItem.isDisabledGroup = item.disabled || false;

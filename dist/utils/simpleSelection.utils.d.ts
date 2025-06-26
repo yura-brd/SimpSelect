@@ -1,4 +1,4 @@
-import { IOptionItems } from '../types/item.types';
+import { IOptionItem, IOptionItems } from '../types/item.types';
 import { SimpleSelectItemDOM } from '../simpleSelectItemDOM';
 export declare const toCamelCase: (input: string) => string;
 export declare const removeExtraSpaces: (str: string) => string;
@@ -13,7 +13,17 @@ type triggerCustomEventDataType = {
 };
 export declare function triggerCustomEvent(element: HTMLElement, type: triggerCustomEventType, data: triggerCustomEventDataType): void;
 export declare function triggerInputEvent(element: HTMLElement, type?: string): void;
-export declare const getCreateListItem: (item: HTMLSelectElement | HTMLOptGroupElement, idGroup: string, isGroup: boolean) => IOptionItems;
+export declare const getCreateItem: (option: HTMLOptionElement, index: number) => {
+    id: string;
+    position: number;
+    title: string;
+    value: string | null;
+    checked: boolean;
+    disabled: boolean;
+    isShowFilter: boolean;
+};
+export declare const createOptionItems: (isGroup: boolean, idGroup: string, items: IOptionItem[], isShowFilter?: boolean) => IOptionItems;
+export declare const getCreateListItem: (item: HTMLSelectElement | HTMLOptGroupElement | HTMLOptionElement, idGroup: string, isGroup: boolean) => IOptionItems;
 export declare const getClass: (cls: string, mod?: boolean, classInit?: string) => string;
 export declare const compareObj: <T1, T2>(obj1: T1, obj2: T2) => boolean;
 export declare const cloneObj: <T>(obj: T) => T;

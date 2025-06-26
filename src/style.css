@@ -360,6 +360,7 @@
 }
 .SimpleSel__group_title {
 	font-weight: bold;
+	cursor: default;
 	display: block;
 	padding: 6px 10px ;
 	margin-bottom: 2px;

@@ -531,6 +531,7 @@ export class SimpleSelectItemDOM {
 
     const items = isFilter ? this.filterList() : this.state.getState('items');
     const dataForCompare: IDataForCompareOptions[] = [];
+    console.log('yura items', items);
     items.forEach((group:IOptionItems) => {
       group.items.forEach((i) => {
         dataForCompare.push({
@@ -540,6 +541,7 @@ export class SimpleSelectItemDOM {
           isShowFilter: i.isShowFilter,
         });
       });
+      if (group.isGroup) {}
       if (!group.isGroup) {
         const {
           result, countShow, countChecked, countCheckedFull,

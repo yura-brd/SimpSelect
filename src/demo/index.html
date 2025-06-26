@@ -128,7 +128,7 @@
 			</optgroup>
 		</select>
 	</div>
-
+111
 	<div class="item">
 		<select
 
@@ -139,8 +139,9 @@
 
 				data-simple-select-search="false"
 		>
+			<option value="">Выбрать</option>
 			<optgroup label="Группа 1">
-				<option value="1">Опция 1.1</option>
+				<option value="1">Группа 1: Опция 1.1</option>
 			</optgroup>
 			<optgroup label="Группа 2">
 				<option value="1">Опция 2.1</option>
@@ -361,7 +362,8 @@
     historyMaxSize: 2,
     callbackChangeSelect: (e, that) => {
       console.group();
-      // console.log(e);
+      console.log('Select: ',e.target);
+      console.log('value',e.target.value);
       console.log(that.history);
       console.groupEnd();
     },
