@@ -554,7 +554,11 @@ export class SimpleSelectItemDOM {
         } = this.createLi(group);
         let groupAttrs = `data-count-show="${countShow}" `;
         groupAttrs += `data-count-checked="${countChecked}" `;
-        resBodyList += `<div class="${getClass('group_items')}" ${groupAttrs} data-simple-select-gruop>`;
+        let classGroup = getClass('group_items');
+        if (group.isDisabledGroup) {
+          classGroup += ` ${getClass('disabled', true, classGroup)}`;
+        }
+        resBodyList += `<div class="${classGroup}" ${groupAttrs} data-simple-select-gruop>`;
         resBodyList += result;
         resBodyList += '</div>';
 
@@ -665,7 +669,7 @@ export class SimpleSelectItemDOM {
     if (data.isGroup) {
       let classGroup = getClass('group');
       if (data.isDisabledGroup) {
-        classGroup += ` ${getClass('disabled', true, 'group')}`;
+        classGroup += ` ${getClass('disabled', true, classGroup)}`;
       }
       result += `<div class="${getClass('group_title')}">${data.titleGroup}</div>`;
       result += `<ul class="${classGroup}">`;
