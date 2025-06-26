@@ -531,17 +531,15 @@ export class SimpleSelectItemDOM {
 
     const items = isFilter ? this.filterList() : this.state.getState('items');
     const dataForCompare: IDataForCompareOptions[] = [];
-    console.log('yura items', items);
     items.forEach((group:IOptionItems) => {
       group.items.forEach((i) => {
         dataForCompare.push({
           value: i.value,
           checked: i.checked,
-          disabled: i.disabled,
+          disabled: i.disabled || !!group.isDisabledGroup,
           isShowFilter: i.isShowFilter,
         });
       });
-      if (group.isGroup) {}
       if (!group.isGroup) {
         const {
           result, countShow, countChecked, countCheckedFull,
@@ -665,8 +663,12 @@ export class SimpleSelectItemDOM {
     }
 
     if (data.isGroup) {
-      result += `<label class="${getClass('group_title')}">${data.titleGroup}</label>`;
-      result += `<ul class="${getClass('group')}">`;
+      let classGroup = getClass('group');
+      if (data.isDisabledGroup) {
+        classGroup += ` ${getClass('disabled', true, 'group')}`;
+      }
+      result += `<div class="${getClass('group_title')}">${data.titleGroup}</div>`;
+      result += `<ul class="${classGroup}">`;
     }
     data.items.forEach((option) => {
       if (!option.isShowFilter) {
@@ -674,6 +676,7 @@ export class SimpleSelectItemDOM {
       }
       countShow++;
       const classLiInit = getClass('list_item');
+      const disabledRes = option.disabled || data.isDisabledGroup;
       let classLi = classLiInit;
       if (option.checked) {
         countChecked++;
@@ -683,7 +686,7 @@ export class SimpleSelectItemDOM {
           countCheckedFull++;
         }
       }
-      if (option.disabled) {
+      if (disabledRes) {
         classLi += ` ${getClass('disabled', true, classLiInit)}`;
       }
       if (!option.value) {
@@ -700,10 +703,10 @@ export class SimpleSelectItemDOM {
       }
 
       dataAttr += ` data-sel-opt-checked="${option.checked}"`;
-      dataAttr += ` data-sel-opt-disabled="${option.disabled}"`;
+      dataAttr += ` data-sel-opt-disabled="${disabledRes}"`;
 
       if (this.options.isAlwaysOpen) {
-        if (option.disabled && !this.options.isAlwaysOpenShowDisabledTabindex) {
+        if (disabledRes && !this.options.isAlwaysOpenShowDisabledTabindex) {
           dataAttr += ' tabindex="-1"';
         } else {
           dataAttr += ' tabindex="0"';

@@ -243,7 +243,8 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
         return;
       }
       const option = options[pos];
-      if (!option || option.disabled) {
+      const disabled = option.disabled || item.getAttribute('data-sel-opt-disabled') === 'true';
+      if (!option || disabled) {
         return;
       }
       const isSelected = item.dataset[toCamelCase('sel-opt-checked')] === 'true';
@@ -273,7 +274,11 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
   selectAllHandler(e:MouseEvent) {
     e.preventDefault();
     Array.from(this.$select.options).forEach((option) => {
-      if (option.disabled) {
+      let { disabled } = option;
+      if (option.closest('optgroup')?.disabled) {
+        disabled = true;
+      }
+      if (disabled) {
         return;
       }
       option.selected = true;
@@ -289,7 +294,11 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
   resetAllHandler(e:MouseEvent) {
     e.preventDefault();
     Array.from(this.$select.options).forEach((option) => {
-      if (option.disabled) {
+      let { disabled } = option;
+      if (option.closest('optgroup')?.disabled) {
+        disabled = true;
+      }
+      if (disabled) {
         return;
       }
       option.selected = false;
@@ -350,7 +359,8 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     if (item) {
       const pos = Number(item.dataset[toCamelCase('sel-position')]) || 0;
       const option = this.$select.options[pos];
-      if (option && !option.disabled) {
+      const disabled = option.disabled || item.getAttribute('data-sel-opt-disabled') === 'true';
+      if (option && !disabled) {
         if (this.isMulti) {
           if (this.options.isConfirmInMulti || this.isFloatWidth) {
             this.changeClickItemDom(item);
