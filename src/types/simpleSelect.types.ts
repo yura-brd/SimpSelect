@@ -40,6 +40,8 @@ export interface ISimpleSelectOptions {
   resetAllAfterClose: boolean;
   isCloneClass: boolean;
 
+  addClasses?: string;
+
   isOnlyPlaceholder: boolean;
   isUp: boolean;
 

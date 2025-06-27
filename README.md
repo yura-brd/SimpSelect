@@ -17,8 +17,8 @@ npm install simp-select --save
 ```
 Or you can load it via a script tag as follows:
 ```
-<script src="https://unpkg.com/simp-select@1.1.10/dist/simpleSelect.js" ></script>
-<script src="https://unpkg.com/simp-select@1.1.10/dist/polyfill.js" ></script> - for IE 11
+<script src="https://unpkg.com/simp-select@1.1.11/dist/simpleSelect.js" ></script>
+<script src="https://unpkg.com/simp-select@1.1.11/dist/polyfill.js" ></script> - for IE 11
 Or get last version
 <script src="https://unpkg.com/simp-select"></script>
 ```
@@ -68,6 +68,7 @@ the variable `SimpSelect` attached to `window` or `this` depending on what envir
 | **historyMaxSize**: number                                           | <p>default: **0** </p>  Maximum number of saved changes.                                                                                                                                                            |
 | **isScrollToCheckedFirst**: boolean                                  | <p>default: **true** </p>  Scroll to the first element. This works only on the first opening.                                                                                                                       |
 | **isScrollToCheckedAlways**: boolean                                 | <p>default: **false** </p> Scroll to the first element. This works on each opening.                                                                                                                                 |
+| **addClasses**: string                                               | <p>default: **''** </p> Add classes for wrapper SimpSelect. <p>Or `data-simple-add-classes="class1 class2"` in select</p>                                                                                           |
 | ***Options only DOM elements***                                      |                                                                                                                                                                                                                     |
 | **data-simple-placeholder="text": Select**                           | Replace default placeholder (locale.title)                                                                                                                                                                          |
 | **data-simple-item-html-before="<div>before</div>: Select**          | Add HTML before content (for item Li)                                                                                                                                                                               |
@@ -91,9 +92,11 @@ the variable `SimpSelect` attached to `window` or `this` depending on what envir
 | **getHistory**:select(DomElement).SimpSelect.getHistory()            | Get history.                                                                                                                                                                                                        |
 | **getHistoryLast**:select(DomElement).SimpSelect.getHistoryLast()    | Get history - last element.                                                                                                                                                                                         |
 | **getHistoryFirst**:select(DomElement).SimpSelect.getHistoryFirst()  | Get history - first element.                                                                                                                                                                                        |
+| **getInstance**:select(DomElement).SimpSelect.getInstance()          | Get instance SimpSelect.                                                                                                                                                                                            |
 | ***const simpleSelect = new SimpleSelect('select')***                | Instance of the SimpleSelect plugin object                                                                                                                                                                          |
 | **getSelectById('ID')**:simpleSelect.getSelectById('ID')             | Get item SimpSelect for ID (data-simple-select-init="ID" - dem element select)                                                                                                                                      |
 | **getSelectFirst()**:simpleSelect.getSelectFirst()                   | Get first item SimpSelect                                                                                                                                                                                           |
+| **getSelects()**:simpleSelect.getSelects()                           | Get list SimpSelect                                                                                                                                                                                                 |
 | **getSelects()**:simpleSelect.getSelects()                           | Get list SimpSelect                                                                                                                                                                                                 |
 
 **Data attributes in DOM element(select) more important than initialization options.*

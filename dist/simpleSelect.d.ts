@@ -14,6 +14,7 @@ export default class SimpleSelect {
     detectMobile(): void;
     private init;
     createMethods(select: SimpleSelectItem): {
+        getInstance: () => SimpleSelectItem;
         getHistory: () => import("./types/item.types").IHistoryItem[];
         getHistoryLast: () => import("./types/item.types").IHistoryItem | null;
         getHistoryFirst: () => import("./types/item.types").IHistoryItem | null;
@@ -29,6 +30,7 @@ export default class SimpleSelect {
     rebuild(selectsItems: SimpleSelectItem): void;
     getSelects(): SimpleSelectItem[];
     getSelectFirst(): {
+        getInstance: () => SimpleSelectItem;
         getHistory: () => import("./types/item.types").IHistoryItem[];
         getHistoryLast: () => import("./types/item.types").IHistoryItem | null;
         getHistoryFirst: () => import("./types/item.types").IHistoryItem | null;
@@ -38,6 +40,7 @@ export default class SimpleSelect {
         detach(): void;
     };
     getSelectById(id: string): {
+        getInstance: () => SimpleSelectItem;
         getHistory: () => import("./types/item.types").IHistoryItem[];
         getHistoryLast: () => import("./types/item.types").IHistoryItem | null;
         getHistoryFirst: () => import("./types/item.types").IHistoryItem | null;

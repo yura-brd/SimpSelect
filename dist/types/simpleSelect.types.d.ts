@@ -29,6 +29,7 @@ export interface ISimpleSelectOptions {
     resetAll: boolean;
     resetAllAfterClose: boolean;
     isCloneClass: boolean;
+    addClasses?: string;
     isOnlyPlaceholder: boolean;
     isUp: boolean;
     isAlwaysOpen: boolean;

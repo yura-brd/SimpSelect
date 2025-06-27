@@ -284,6 +284,9 @@ export class SimpleSelectItemDOM {
     if (this.options.isCloneClass) {
       resClassesWrap += ` ${this.cloneClasses}`;
     }
+    if (this.options.addClasses) {
+      resClassesWrap += ` ${this.options.addClasses}`;
+    }
     if (this.$select.hasAttribute('data-simple-add-classes')) {
       resClassesWrap += ` ${this.$select.getAttribute('data-simple-add-classes')}`;
     }
