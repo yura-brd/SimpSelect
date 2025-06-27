@@ -9,6 +9,7 @@
 	--simpS_color_no: red;
 	--simpS_color_placeholder: #5d5c5c;
 	--simpS_color_dis: #8b8b8b;
+	--simpS_status_bar: rgba(46, 122, 1, 0.67);
 	--simpS_dropdownBg: var(--simpS_bg);
 	--simpS_borderColor: var(--simpS_color);
 	--simpS_DropDownBorderColor: var(--simpS_borderColor);
@@ -449,4 +450,23 @@
 }
 .SimpleSel--float .SimpleSel__list {
 	flex: 1;
+}
+
+
+.SimpleSel__debounce_progress_bar {
+	transition-timing-function: linear;
+	potransition-property: width;
+	width: 0;
+	height: 5px;
+	background-color: var(--simpS_status_bar);
+	transition-duration: 0ms;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+
+}
+.SimpleSel__debounce_progress_bar.this--animating {
+	width: 100%;
+	transition-duration: var(--duration, 1ms);
 }

@@ -29,8 +29,6 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
   countOpen = 0;
 
-  multiDebounceTime = 0;
-
   timeoutDebounceId: NodeJS.Timeout | null = null;
 
   history: IHistoryItem[] = [];
@@ -163,14 +161,6 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
     if (this.options.callbackInitialized) {
       this.options.callbackInitialized(this);
-    }
-
-    if (this.isMulti && !this.options.isConfirmInMulti) {
-      if (toCamelCase('simple-debounce-time') in this.$select.dataset) {
-        this.multiDebounceTime = Number(this.$select.dataset[toCamelCase('simple-debounce-time')]);
-      } else if (this.options.debounceTime || this.options.debounceTime === 0) {
-        this.multiDebounceTime = this.options.debounceTime;
-      }
     }
 
     if (this.multiDebounceTime) {
@@ -370,6 +360,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
             this.addHistory(option, nextSelected);
             this.changeClickItemDom(item);
             this.createList();
+            this.multiDebounceChangeAnimation(true);
             this.multiDebounceChange();
           }
         } else {
@@ -389,7 +380,36 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     this.triggerInit();
   }
 
+  multiDebounceChangeAnimation(isStart: boolean) {
+    if (!this.isDebounceStatusBar || !this.elemDebounceProgressBar) {
+      return;
+    }
+
+    // reset
+    this.elemDebounceProgressBar.classList.remove('this--animating');
+    this.elemDebounceProgressBar.style.setProperty('--duration', '0ms');
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    this.elemDebounceProgressBar.offsetWidth; // принудительная перерисовка (force reflow)
+    if (!isStart) {
+      return;
+    }
+    // start
+    this.elemDebounceProgressBar.style.setProperty('--duration', `${this.multiDebounceTime}ms`);
+    this.elemDebounceProgressBar.classList.add('this--animating');
+
+    // this.elemDebounceProgressBar.style.transitionDuration = '0ms';
+    // this.elemDebounceProgressBar.style.width = '0%';
+    // if (!isStart) {
+    //   return;
+    // }
+    // requestAnimationFrame(() => {
+    //   this.elemDebounceProgressBar!.style.transitionDuration = `${this.multiDebounceTime}ms`;
+    //   this.elemDebounceProgressBar!.style.width = '100%';
+    // });
+  }
+
   triggerInit() {
+    this.multiDebounceChangeAnimation(false);
     triggerInputEvent(this.$select);
   }
 

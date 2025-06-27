@@ -13,7 +13,6 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     isInitialized: boolean;
     isFirstOpen: boolean;
     countOpen: number;
-    multiDebounceTime: number;
     timeoutDebounceId: NodeJS.Timeout | null;
     history: IHistoryItem[];
     constructor(select: HTMLSelectElement, options: ISimpleSelectOptions, localOptions: IItemLocalOptions);
@@ -33,6 +32,7 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     addHistory(option: HTMLOptionElement, isCheck: boolean): void;
     changeClickItem(item: HTMLLIElement): void;
     multiDebounceChange(): void;
+    multiDebounceChangeAnimation(isStart: boolean): void;
     triggerInit(): void;
     clickToggleOpen(e: MouseEvent | KeyboardEvent): void;
     closeOutsideHandlerInit(e: MouseEvent): void;

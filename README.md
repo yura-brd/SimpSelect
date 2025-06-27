@@ -17,8 +17,8 @@ npm install simp-select --save
 ```
 Or you can load it via a script tag as follows:
 ```
-<script src="https://unpkg.com/simp-select@1.1.11/dist/simpleSelect.js" ></script>
-<script src="https://unpkg.com/simp-select@1.1.11/dist/polyfill.js" ></script> - for IE 11
+<script src="https://unpkg.com/simp-select@1.1.12/dist/simpleSelect.js" ></script>
+<script src="https://unpkg.com/simp-select@1.1.12/dist/polyfill.js" ></script> - for IE 11
 Or get last version
 <script src="https://unpkg.com/simp-select"></script>
 ```
@@ -68,6 +68,7 @@ the variable `SimpSelect` attached to `window` or `this` depending on what envir
 | **historyMaxSize**: number                                           | <p>default: **0** </p>  Maximum number of saved changes.                                                                                                                                                            |
 | **isScrollToCheckedFirst**: boolean                                  | <p>default: **true** </p>  Scroll to the first element. This works only on the first opening.                                                                                                                       |
 | **isScrollToCheckedAlways**: boolean                                 | <p>default: **false** </p> Scroll to the first element. This works on each opening.                                                                                                                                 |
+| **isDebounceStatusBar**: boolean                                     | <p>default: **false** </p> Status bar if multiselect has debounce.  <p>Or `data-simple-debounce-status-bar="true"` in select</p>                                                                                    |
 | **addClasses**: string                                               | <p>default: **''** </p> Add classes for wrapper SimpSelect. <p>Or `data-simple-add-classes="class1 class2"` in select</p>                                                                                           |
 | ***Options only DOM elements***                                      |                                                                                                                                                                                                                     |
 | **data-simple-placeholder="text": Select**                           | Replace default placeholder (locale.title)                                                                                                                                                                          |

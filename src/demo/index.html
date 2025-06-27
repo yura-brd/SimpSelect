@@ -112,6 +112,7 @@
 
 		        data-simple-reset-all="false"
 		        data-simple-select-all="true"
+		        data-simple-debounce-status-bar="true"
 		        data-simple-item-html-before="<span>before</span>"
 		        multiple data-simple-debounce-time="1000">
 			<optgroup label="Группа 1">
@@ -123,7 +124,7 @@
 			</optgroup>
 			<optgroup label="Группа 3" disabled>
 				<option value="3.1">multiple Опция 3.1</option>
-				<option value="3.2" selected>multiple Опция 3.2</option>
+				<option value="3.2" >multiple Опция 3.2</option>
 				<option value="3.3">multiple Опция 3.3</option>
 			</optgroup>
 		</select>
@@ -363,6 +364,7 @@
     // // },
     historyMaxSize: 2,
     addClasses: 'testClassWrap',
+    isDebounceStatusBar: false,
     callbackChangeSelect: (e, that) => {
       console.group();
       console.log('Select: ',e.target);

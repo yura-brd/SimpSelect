@@ -20,6 +20,7 @@ export interface ISimpleSelectOptions {
     nativeOnDevice: string[];
     locale: ISimpleSelectLocale;
     debounceTime?: number;
+    isDebounceStatusBar?: boolean;
     floatWidth?: number;
     isRemoveTop: boolean;
     sepChars: string;

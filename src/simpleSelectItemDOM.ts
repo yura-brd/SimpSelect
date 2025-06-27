@@ -76,6 +76,8 @@ export class SimpleSelectItemDOM {
 
   elemResetAll: HTMLButtonElement | null = null; // not native
 
+  elemDebounceProgressBar: HTMLDivElement | null = null; // not native
+
   cloneClasses = '';
 
   isShowCheckbox = false;
@@ -88,6 +90,10 @@ export class SimpleSelectItemDOM {
 
   bodyOpenClass = `${initClass}--body_open`;
 
+  multiDebounceTime = 0;
+
+  isDebounceStatusBar = false;
+
   constructor(select: HTMLSelectElement, options: ISimpleSelectOptions, localOptions: IItemLocalOptions) {
     const { id, isNative } = localOptions;
     this.$select = select;
@@ -96,6 +102,9 @@ export class SimpleSelectItemDOM {
     this.isNative = isNative;
 
     this.options = cloneObj(options);
+    if (this.options.isDebounceStatusBar) {
+      this.isDebounceStatusBar = this.options.isDebounceStatusBar;
+    }
     if (this.options.isCloneClass) {
       this.cloneClasses = this.$select.className;
     }
@@ -143,6 +152,9 @@ export class SimpleSelectItemDOM {
       this.titlePlaceholder = this.options.locale.title;
     }
 
+    if (this.$select.hasAttribute('data-simple-debounce-status-bar')) {
+      this.isDebounceStatusBar = ifTrueDataAttr(this.$select.getAttribute('data-simple-debounce-status-bar'));
+    }
     if (this.$select.hasAttribute('data-simple-reset-all')) {
       this.options.resetAll = ifTrueDataAttr(this.$select.getAttribute('data-simple-reset-all'));
     }
@@ -199,6 +211,15 @@ export class SimpleSelectItemDOM {
       this.isNative = false;
       this.isFloatWidth = false;
       this.options.floatWidth = 0;
+    }
+
+    // set debounce time
+    if (this.isMulti && !this.options.isConfirmInMulti) {
+      if (toCamelCase('simple-debounce-time') in this.$select.dataset) {
+        this.multiDebounceTime = Number(this.$select.dataset[toCamelCase('simple-debounce-time')]);
+      } else if (this.options.debounceTime || this.options.debounceTime === 0) {
+        this.multiDebounceTime = this.options.debounceTime;
+      }
     }
   }
 
@@ -383,6 +404,14 @@ export class SimpleSelectItemDOM {
     this.elemListBody = document.createElement('ul');
 
     this.elemListBody.className = getClass('list');
+
+    /** start MultiSelect debounce animate status */
+    if (this.isMulti && this.isDebounceStatusBar && this.multiDebounceTime) {
+      this.elemDebounceProgressBar = document.createElement('div');
+      this.elemDebounceProgressBar.className = getClass('debounce_progress_bar');
+      this.elemDropDown.append(this.elemDebounceProgressBar);
+    }
+    /** end MultiSelect debounce animate status */
 
     this.elemDropDownWrap.append(this.elemDropDown);
     this.elemWrap.appendChild(this.elemDropDownWrap);
@@ -683,7 +712,7 @@ export class SimpleSelectItemDOM {
       }
       countShow++;
       const classLiInit = getClass('list_item');
-      const disabledRes = option.disabled || data.isDisabledGroup;
+      const disabledRes = !!(option.disabled || data.isDisabledGroup);
       let classLi = classLiInit;
       if (option.checked) {
         countChecked++;

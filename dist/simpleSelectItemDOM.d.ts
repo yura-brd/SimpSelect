@@ -31,12 +31,15 @@ export declare class SimpleSelectItemDOM {
     elemControl: HTMLDivElement | null;
     elemSelectAll: HTMLButtonElement | null;
     elemResetAll: HTMLButtonElement | null;
+    elemDebounceProgressBar: HTMLDivElement | null;
     cloneClasses: string;
     isShowCheckbox: boolean;
     bodyLiHTMLBeforeFromSelect: null | string;
     bodyLiHTMLAfterFromSelect: null | string;
     isFloatWidth: boolean;
     bodyOpenClass: string;
+    multiDebounceTime: number;
+    isDebounceStatusBar: boolean;
     constructor(select: HTMLSelectElement, options: ISimpleSelectOptions, localOptions: IItemLocalOptions);
     optionOverride(): void;
     initDom(): void;

@@ -25,6 +25,7 @@ export interface ISimpleSelectOptions {
   locale: ISimpleSelectLocale;
 
   debounceTime?: number;
+  isDebounceStatusBar?: boolean;
 
   floatWidth?: number;
 
