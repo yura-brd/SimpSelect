@@ -527,10 +527,11 @@ export class SimpleSelectItemDOM {
 
     this.elemTitle.innerHTML = title;
 
+    const classFillValue = getClass('fill_with_value', true);
     if (isSelectedValue) {
-      this.elemWrap.classList.add(getClass('fill_with_value'));
+      this.elemWrap.classList.add(classFillValue);
     } else {
-      this.elemWrap.classList.remove(getClass('fill_with_value'));
+      this.elemWrap.classList.remove(classFillValue);
     }
 
     if (isPlaceholder) {
