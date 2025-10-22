@@ -28,4 +28,5 @@ export declare const getClass: (cls: string, mod?: boolean, classInit?: string) 
 export declare const compareObj: <T1, T2>(obj1: T1, obj2: T2) => boolean;
 export declare const cloneObj: <T>(obj: T) => T;
 export declare const createButton: () => HTMLButtonElement;
+export declare const decodeHtmlEntities: (str: string) => string;
 export {};

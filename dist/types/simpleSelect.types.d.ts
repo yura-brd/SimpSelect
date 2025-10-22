@@ -46,6 +46,8 @@ export interface ISimpleSelectOptions {
     callbackDestroy?: (item: SimpleSelectItem) => void;
     callbackChangeSelect?: (e: Event, item: SimpleSelectItem) => void;
     changeBodyLi?: (liBody: HTMLDivElement, option: HTMLOptionElement) => HTMLElement | string;
+    isNeedFormatTitle?: boolean;
+    formatTitle?: (title: string) => string;
 }
 export interface IItemLocalOptions {
     id: string;

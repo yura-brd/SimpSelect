@@ -52,7 +52,8 @@
 				data-simple-placeholder="custom width float"
 				data-simple-float-width="1000"
 		>
-			<option value="custom-1">custom float 1</option>
+			<option value="">choose</option>
+			<option value="custom-1">custom&nbsp;float&nbsp;1</option>
 			<option value="custom-2">custom float 2</option>
 		</select>
 	</div>
@@ -365,6 +366,10 @@
     historyMaxSize: 2,
     addClasses: 'testClassWrap',
     isDebounceStatusBar: false,
+    // formatTitle: (titleInit) => {
+    //   return titleInit + ' - test'
+    // },
+    isNeedFormatTitle: true,
     callbackChangeSelect: (e, that) => {
       console.group();
       console.log('Select: ',e.target);

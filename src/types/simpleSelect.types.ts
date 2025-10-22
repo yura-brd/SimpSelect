@@ -63,6 +63,9 @@ export interface ISimpleSelectOptions {
   callbackChangeSelect?: (e: Event, item:SimpleSelectItem) => void;
 
   changeBodyLi?: (liBody:HTMLDivElement, option: HTMLOptionElement) => HTMLElement | string;
+
+  isNeedFormatTitle?: boolean;
+  formatTitle?: (title:string) => string;
 }
 // export interface ISimpleSelectOptions extends Required<ISimpleSelectProps> {
 // }

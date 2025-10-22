@@ -1,8 +1,7 @@
 import { IItemLocalOptions, ISimpleSelectOptions } from './types/simpleSelect.types';
 import {
   cloneObj, compareObj,
-  compareStringWithClearSpace,
-  createButton,
+  createButton, decodeHtmlEntities,
   getClass,
   ifTrueDataAttr,
   removeExtraSpaces,
@@ -131,6 +130,9 @@ export class SimpleSelectItemDOM {
     }
     if (options.changeBodyLi) {
       this.options.changeBodyLi = options.changeBodyLi;
+    }
+    if (options.formatTitle) {
+      this.options.formatTitle = options.formatTitle;
     }
 
     if (this.isMulti && this.$select.hasAttribute('data-simple-is-confirm')) {
@@ -484,6 +486,7 @@ export class SimpleSelectItemDOM {
     this.elemTop.title = '';
 
     const isPlaceholder = !itemsChecked.length;
+
     let title:string = this.titlePlaceholder;
     if (itemsChecked.length && !this.options.isOnlyPlaceholder) {
       let attrTitle = '';
@@ -496,6 +499,12 @@ export class SimpleSelectItemDOM {
         attrTitle += `${item.title}`;
         attrTitleText += `${item.title}`;
       });
+
+      if (this.options.formatTitle) {
+        attrTitleText = this.options.formatTitle(attrTitleText);
+      } else if (this.options.isNeedFormatTitle) {
+        attrTitleText = decodeHtmlEntities(attrTitleText);
+      }
       this.elemTop.title = attrTitleText;
 
       let maxShow = this.options.countShowSelected;

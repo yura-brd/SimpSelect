@@ -111,3 +111,9 @@ export const createButton = (): HTMLButtonElement => {
 
   return btn;
 };
+
+export const decodeHtmlEntities = (str: string): string => {
+  const div = document.createElement('div');
+  div.innerHTML = str;
+  return div.textContent || div.innerText || '';
+};
