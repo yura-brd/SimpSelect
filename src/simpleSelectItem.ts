@@ -546,6 +546,9 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
       if (this.timeoutDebounceId) {
         clearTimeout(this.timeoutDebounceId);
+        this.timeoutDebounceId = null;
+        this.multiDebounceChangeAnimation(false);
+
         this.triggerInit();
       }
 
