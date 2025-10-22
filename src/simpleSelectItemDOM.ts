@@ -487,6 +487,8 @@ export class SimpleSelectItemDOM {
 
     const isPlaceholder = !itemsChecked.length;
 
+    const isSelectedValue = !!itemsChecked.filter((item) => item.value).length;
+
     let title:string = this.titlePlaceholder;
     if (itemsChecked.length && !this.options.isOnlyPlaceholder) {
       let attrTitle = '';
@@ -524,6 +526,13 @@ export class SimpleSelectItemDOM {
     }
 
     this.elemTitle.innerHTML = title;
+
+    if (isSelectedValue) {
+      this.elemWrap.classList.add(getClass('fill_with_value'));
+    } else {
+      this.elemWrap.classList.remove(getClass('fill_with_value'));
+    }
+
     if (isPlaceholder) {
       this.elemTitle.classList.add('SimpleSel__title--placeholder');
       this.elemTitle.classList.remove('SimpleSel__title--fill');
