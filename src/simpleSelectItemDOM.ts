@@ -148,7 +148,6 @@ export class SimpleSelectItemDOM {
 
   optionOverride() {
     const dataPlaceholder = toCamelCase('simple-placeholder');
-    console.log('this.$select.placeholder', this.$select.getAttribute('placeholder'));
     const dsValue = this.$select.dataset[dataPlaceholder];
     const ph = this.$select.getAttribute('placeholder');
     const phTrimmed = ph?.trim(); // ph === null -> phTrimmed === undefined
@@ -689,11 +688,12 @@ export class SimpleSelectItemDOM {
         // this.elemDropDown.prepend(this.elemInputSearch);
         this.elemDropDown.insertBefore(wrapSearch, this.elemDropDown.childNodes[0]);
         this.elemWrap.classList.add(getClass('search_in_dropdown', true));
+        this.elemWrap.dataset.search = 'dropdown';
       }
     } else {
       this.elemInputSearch.className = `${className} ${getClass('top', true, className)}`;
       this.elemTop.appendChild(this.elemInputSearch);
-      this.elemWrap.classList.add(getClass('search_in_top', true));
+      this.elemWrap.dataset.search = 'top';
     }
 
     this.inputSearchHandler();
