@@ -411,7 +411,11 @@ export class SimpleSelectItemDOM {
     if (this.isMulti && this.isDebounceStatusBar && this.multiDebounceTime) {
       this.elemDebounceProgressBar = document.createElement('div');
       this.elemDebounceProgressBar.className = getClass('debounce_progress_bar');
-      this.elemDropDown.append(this.elemDebounceProgressBar);
+      if (this.options.isDebounceStatusBarBottom) {
+        this.elemDropDown.append(this.elemDebounceProgressBar);
+      } else {
+        this.elemTop.append(this.elemDebounceProgressBar);
+      }
     }
     /** end MultiSelect debounce animate status */
 

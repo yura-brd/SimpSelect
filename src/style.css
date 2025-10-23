@@ -461,7 +461,7 @@
 	background-color: var(--simpS_status_bar);
 	transition-duration: 0ms;
 	position: absolute;
-	top: 0;
+	bottom: 0;
 	left: 0;
 
 

@@ -17,8 +17,8 @@ npm install simp-select --save
 ```
 Or you can load it via a script tag as follows:
 ```
-<script src="https://unpkg.com/simp-select@1.1.15/dist/simpleSelect.js" ></script>
-<script src="https://unpkg.com/simp-select@1.1.15/dist/polyfill.js" ></script> - for IE 11
+<script src="https://unpkg.com/simp-select@1.1.16/dist/simpleSelect.js" ></script>
+<script src="https://unpkg.com/simp-select@1.1.16/dist/polyfill.js" ></script> - for IE 11
 Or get last version
 <script src="https://unpkg.com/simp-select"></script>
 ```
@@ -69,6 +69,7 @@ the variable `SimpSelect` attached to `window` or `this` depending on what envir
 | **isScrollToCheckedFirst**: boolean                                  | <p>default: **true** </p>  Scroll to the first element. This works only on the first opening.                                                                                                                       |
 | **isScrollToCheckedAlways**: boolean                                 | <p>default: **false** </p> Scroll to the first element. This works on each opening.                                                                                                                                 |
 | **isDebounceStatusBar**: boolean                                     | <p>default: **false** </p> Status bar if multiselect has debounce.  <p>Or `data-simple-debounce-status-bar="true"` in select</p>                                                                                    |
+| **isDebounceStatusBarBottom**: boolean                               | <p>default: **false** </p> Location of the bar status in the dropdown (default in the Top element)                                                                                                                  |
 | **isNeedFormatTitle**: boolean                                       | <p>default: **false** </p> If you need to clear the line for the title                                                                                                                                              |
 | **formatTitle**: function                                            | <p>default: **none** </p> Custom Line Clearing Function for Title                                                                                                                                                   |
 | **addClasses**: string                                               | <p>default: **''** </p> Add classes for wrapper SimpSelect. <p>Or `data-simple-add-classes="class1 class2"` in select</p>                                                                                           |

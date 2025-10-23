@@ -26,6 +26,7 @@ export interface ISimpleSelectOptions {
 
   debounceTime?: number;
   isDebounceStatusBar?: boolean;
+  isDebounceStatusBarBottom?: boolean;
 
   floatWidth?: number;
 
