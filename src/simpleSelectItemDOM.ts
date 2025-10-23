@@ -150,6 +150,8 @@ export class SimpleSelectItemDOM {
     const dataPlaceholder = toCamelCase('simple-placeholder');
     if (this.$select.dataset[dataPlaceholder]) {
       this.titlePlaceholder = this.$select.dataset[dataPlaceholder] || '';
+    } else if ('placeholder' in this.$select && typeof this.$select.placeholder === 'string') {
+      this.titlePlaceholder = this.$select.placeholder;
     } else {
       this.titlePlaceholder = this.options.locale.title;
     }
@@ -686,10 +688,12 @@ export class SimpleSelectItemDOM {
         wrapSearch.appendChild(this.elemInputSearch);
         // this.elemDropDown.prepend(this.elemInputSearch);
         this.elemDropDown.insertBefore(wrapSearch, this.elemDropDown.childNodes[0]);
+        this.elemWrap.classList.add(getClass('search_in_dropdown', true));
       }
     } else {
       this.elemInputSearch.className = `${className} ${getClass('top', true, className)}`;
       this.elemTop.appendChild(this.elemInputSearch);
+      this.elemWrap.classList.add(getClass('search_in_top', true));
     }
 
     this.inputSearchHandler();
