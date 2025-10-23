@@ -148,10 +148,14 @@ export class SimpleSelectItemDOM {
 
   optionOverride() {
     const dataPlaceholder = toCamelCase('simple-placeholder');
-    if (this.$select.dataset[dataPlaceholder]) {
-      this.titlePlaceholder = this.$select.dataset[dataPlaceholder] || '';
-    } else if ('placeholder' in this.$select && typeof this.$select.placeholder === 'string') {
-      this.titlePlaceholder = this.$select.placeholder;
+    console.log('this.$select.placeholder', this.$select.getAttribute('placeholder'));
+    const dsValue = this.$select.dataset[dataPlaceholder];
+    const ph = this.$select.getAttribute('placeholder');
+    const phTrimmed = ph?.trim(); // ph === null -> phTrimmed === undefined
+    if (dsValue) {
+      this.titlePlaceholder = dsValue || '';
+    } else if (phTrimmed) {
+      this.titlePlaceholder = phTrimmed;
     } else {
       this.titlePlaceholder = this.options.locale.title;
     }
@@ -162,11 +166,7 @@ export class SimpleSelectItemDOM {
     if (this.$select.hasAttribute('data-simple-reset-all')) {
       this.options.resetAll = ifTrueDataAttr(this.$select.getAttribute('data-simple-reset-all'));
     }
-    // const dataSelect = toCamelCase('simple-select-all');
-    // if (dataSelect in this.$select.dataset) {
-    //   const resSelect  = this.$select.dataset[dataSelect];
-    //   this.options.selectAll = !(resSelect === 'false' || resSelect === '0');
-    // }
+
     if (this.$select.hasAttribute('data-simple-select-all')) {
       const resSelect = this.$select.getAttribute('data-simple-select-all');
       this.options.selectAll = ifTrueDataAttr(resSelect);
