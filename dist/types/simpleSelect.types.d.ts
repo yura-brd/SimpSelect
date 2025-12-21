@@ -49,6 +49,8 @@ export interface ISimpleSelectOptions {
     changeBodyLi?: (liBody: HTMLDivElement, option: HTMLOptionElement) => HTMLElement | string;
     isNeedFormatTitle?: boolean;
     formatTitle?: (title: string) => string;
+    isSetAttributeSizeMultiple?: boolean;
+    attributeSizeMultiple?: number;
 }
 export interface IItemLocalOptions {
     id: string;

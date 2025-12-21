@@ -45,6 +45,8 @@ export const simpleSelectionOptions: ISimpleSelectOptions = {
   isScrollToCheckedFirst: true,
   isScrollToCheckedAlways: false,
 
+  isSetAttributeSizeMultiple: true,
+  attributeSizeMultiple: 1,
 };
 
 export const nameSelect = 'SimpSelect';

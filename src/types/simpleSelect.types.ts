@@ -67,6 +67,9 @@ export interface ISimpleSelectOptions {
 
   isNeedFormatTitle?: boolean;
   formatTitle?: (title:string) => string;
+
+  isSetAttributeSizeMultiple?: boolean; // default true
+  attributeSizeMultiple?: number; // default 1
 }
 // export interface ISimpleSelectOptions extends Required<ISimpleSelectProps> {
 // }
