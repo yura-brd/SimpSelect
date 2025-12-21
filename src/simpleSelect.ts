@@ -126,7 +126,11 @@ export default class SimpleSelect {
     this.countInit += 1;
     const id = `${this.callCount}-${this.countInit}`;
     select.setAttribute(this.dataNameMark, id);
-    if (select.multiple && this.options.isSetAttributeSizeMultiple) {
+    if (
+      select.multiple
+      && !select.size
+      && this.options.isSetAttributeSizeMultiple
+    ) {
       select.setAttribute('size', this.options.attributeSizeMultiple?.toString() || '1');
     }
     // this.$selects.push(select);

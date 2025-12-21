@@ -17,8 +17,8 @@ npm install simp-select --save
 ```
 Or you can load it via a script tag as follows:
 ```
-<script src="https://unpkg.com/simp-select@1.1.22/dist/simpleSelect.js" ></script>
-<script src="https://unpkg.com/simp-select@1.1.22/dist/polyfill.js" ></script> - for IE 11
+<script src="https://unpkg.com/simp-select@1.1.23/dist/simpleSelect.js" ></script>
+<script src="https://unpkg.com/simp-select@1.1.23/dist/polyfill.js" ></script> - for IE 11
 Or get last version
 <script src="https://unpkg.com/simp-select"></script>
 ```
@@ -73,7 +73,7 @@ the variable `SimpSelect` attached to `window` or `this` depending on what envir
 | **isNeedFormatTitle**: boolean                                       | <p>default: **false** </p> If you need to clear the line for the title                                                                                                                                          |
 | **formatTitle**: function                                            | <p>default: **none** </p> Custom Line Clearing Function for Title                                                                                                                                               |
 | **isSetAttributeSizeMultiple**: boolean                              | <p>default: **''** </p> Add classes for wrapper SimpSelect. <p>Or `data-simple-add-classes="class1 class2"` in select                                                                                           |
-| **attributeSizeMultiple**: number                                    | <p>default: **true** </p> Set attribute "size" for seletct multiple                                                                                                                                             |
+| **attributeSizeMultiple**: number                                    | <p>default: **true** (If the attribute is not set for Select)  </p> Set attribute "size" for seletct multiple                                                                                                   |
 | **addClasses**: string                                               | <p>default: **1** </p> Value for attribute "size" for seletct multiple                                                                                                                                          |
 | ***Options only DOM elements***                                      |                                                                                                                                                                                                                 |
 | **data-simple-placeholder="text": Select**                           | Replace default placeholder (locale.title)                                                                                                                                                                      |
