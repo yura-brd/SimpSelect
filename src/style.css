@@ -12,7 +12,8 @@
 	--simpS_status_bar: rgba(46, 122, 1, 0.67);
 	--simpS_dropdownBg: var(--simpS_bg);
 	--simpS_labelBg: var(--simpS_bg);
-	--simpS_label_pad_hor: 4px;
+	--simpS_label_left: var(--simpS_pad_hor);
+	--simpS_label_pad_hor_active: 4px;
 	--simpS_borderColor: var(--simpS_color);
 	--simpS_DropDownBorderColor: var(--simpS_borderColor);
 
@@ -483,7 +484,7 @@
 .SimpleSel__label {
 	position: absolute;
 	top: 50%;
-	left: var(--simpS_label_pad_hor);
+	left: var(--simpS_label_left);
 	transform: translateY(-50%);
 	transition: all 0.2s ease;
 	pointer-events: none;
@@ -492,5 +493,5 @@
 	top: 0;
 	transform: translateY(-50%);
 	background-color: var(--simpS_labelBg);
-	padding: 0 var(--simpS_label_pad_hor);
+	padding: 0 var(--simpS_label_pad_hor_active);
 }
