@@ -47,6 +47,8 @@ export const simpleSelectionOptions: ISimpleSelectOptions = {
 
   isSetAttributeSizeMultiple: true,
   attributeSizeMultiple: 1,
+
+  isLabelMode: false,
 };
 
 export const nameSelect = 'SimpSelect';

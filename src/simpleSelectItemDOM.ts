@@ -63,6 +63,8 @@ export class SimpleSelectItemDOM {
 
   elemTitle!: HTMLDivElement; // not native
 
+  elemAlwaysLabel!: HTMLDivElement; // not native
+
   confirmWrap: HTMLElement | null = null; // not native
 
   confirmOk: HTMLButtonElement | null = null; // not native
@@ -208,6 +210,11 @@ export class SimpleSelectItemDOM {
       }
     }
 
+    /** Placeholder показывается всегда (не меняется даже если что-то выбрано). Отдельный DOM элемент */
+    if (this.$select.hasAttribute('data-is-label-mode')) {
+      this.options.isLabelMode = ifTrueDataAttr(this.$select.getAttribute('data-is-label-mode'));
+    }
+
     if (this.$select.hasAttribute('data-simple-always-open')) {
       this.options.isAlwaysOpen = ifTrueDataAttr(this.$select.getAttribute('data-simple-always-open'));
 
@@ -324,6 +331,9 @@ export class SimpleSelectItemDOM {
       resClassesWrap += ` ${getClass('up', true)}`;
     }
     resClassesWrap += ` ${this.isMulti ? getClass('multi', true) : getClass('single', true)}`;
+    if (this.options.isLabelMode) {
+      resClassesWrap += ' ' + getClass('label_mode', true);
+    }
     this.elemWrap.className = resClassesWrap;
     this.elemWrap.dataset.countAll = this.$select.options.length.toString();
 
@@ -471,8 +481,33 @@ export class SimpleSelectItemDOM {
   }
 
   private createTitleHTML() {
+    const itemsChecked = this.getChecked();
+    const isSelectedValue = !!itemsChecked.filter((item) => item.value).length;
+    const classFillValue = getClass('fill_with_value', true);
+    const classFillNoValue = getClass('fill_without_value', true);
+    if (isSelectedValue) {
+      this.elemWrap.classList.add(classFillValue);
+      this.elemWrap.classList.remove(classFillNoValue);
+    } else {
+      this.elemWrap.classList.add(classFillNoValue);
+      this.elemWrap.classList.remove(classFillValue);
+    }
+
     if (this.options.isRemoveTop) {
       return;
+    }
+
+    if (this.options.isLabelMode && !this.elemAlwaysLabel) {
+      this.elemAlwaysLabel = document.createElement('div');
+      let classesTitle = getClass('label');
+      if (this.options.isOnlyPlaceholder) {
+        alert('111');
+        classesTitle += ` ${getClass('always-placeholder', true, classesTitle)}`;
+      }
+      this.elemAlwaysLabel.className = classesTitle;
+      this.elemAlwaysLabel.innerHTML = this.titlePlaceholder;
+      // this.elemTopBody.prepend(this.elemTitle);
+      this.elemTopBody.insertBefore(this.elemAlwaysLabel, this.elemTopBody.childNodes[0]);
     }
 
     if (!this.elemTitle) {
@@ -486,13 +521,9 @@ export class SimpleSelectItemDOM {
       this.elemTopBody.insertBefore(this.elemTitle, this.elemTopBody.childNodes[0]);
     }
 
-    const itemsChecked = this.getChecked();
-
     this.elemTop.title = '';
 
     const isPlaceholder = !itemsChecked.length;
-
-    const isSelectedValue = !!itemsChecked.filter((item) => item.value).length;
 
     let title:string = this.titlePlaceholder;
     if (itemsChecked.length && !this.options.isOnlyPlaceholder) {
@@ -532,12 +563,7 @@ export class SimpleSelectItemDOM {
 
     this.elemTitle.innerHTML = title;
 
-    const classFillValue = getClass('fill_with_value', true);
-    if (isSelectedValue) {
-      this.elemWrap.classList.add(classFillValue);
-    } else {
-      this.elemWrap.classList.remove(classFillValue);
-    }
+
 
     if (isPlaceholder) {
       this.elemTitle.classList.add('SimpleSel__title--placeholder');

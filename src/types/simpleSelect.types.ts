@@ -50,6 +50,8 @@ export interface ISimpleSelectOptions {
   isAlwaysOpen: boolean;
   isAlwaysOpenShowDisabledTabindex: boolean;
 
+  isLabelMode: boolean;
+
   detectNative?: () => boolean;
 
   isScrollToCheckedFirst: boolean;

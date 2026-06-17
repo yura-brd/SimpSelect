@@ -11,6 +11,8 @@
 	--simpS_color_dis: #8b8b8b;
 	--simpS_status_bar: rgba(46, 122, 1, 0.67);
 	--simpS_dropdownBg: var(--simpS_bg);
+	--simpS_labelBg: var(--simpS_bg);
+	--simpS_label_pad_hor: 4px;
 	--simpS_borderColor: var(--simpS_color);
 	--simpS_DropDownBorderColor: var(--simpS_borderColor);
 
@@ -468,4 +470,27 @@
 .SimpleSel__debounce_progress_bar.this--animating {
 	width: 100%;
 	transition-duration: var(--duration, 1ms);
+}
+
+/**  **/
+.SimpleSel--label_mode.SimpleSel--fill_without_value {
+	.SimpleSel__title {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+	}
+}
+.SimpleSel__label {
+	position: absolute;
+	top: 50%;
+	left: var(--simpS_pad_hor);
+	transform: translateY(-50%);
+	transition: all 0.2s ease;
+	pointer-events: none;
+}
+.SimpleSel--fill_with_value .SimpleSel__label {
+	top: 0;
+	transform: translateY(-50%);
+	background-color: var(--simpS_labelBg);
+	padding: 0 var(--simpS_label_pad_hor);
 }
