@@ -483,7 +483,7 @@
 .SimpleSel__label {
 	position: absolute;
 	top: 50%;
-	left: var(--simpS_pad_hor);
+	left: var(--simpS_label_pad_hor);
 	transform: translateY(-50%);
 	transition: all 0.2s ease;
 	pointer-events: none;
