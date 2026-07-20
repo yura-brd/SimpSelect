@@ -111,6 +111,7 @@
 .SimpleSel__list_item_icon,
 .SimpleSel__reset_all__icon {
 	width: var(--simpS_size_check);
+	min-width: var(--simpS_size_check);
 	height: var(--simpS_size_check);
 	position: relative;
 	border: 1px solid currentColor;
@@ -219,7 +220,6 @@
 	opacity: 0;
 	visibility: hidden;
 	overflow: hidden;
-	overflow-y: auto;
 	position: absolute;
 	transition: .25s all;
 	width: 100%;
@@ -228,6 +228,7 @@
 	border-radius: var(--simpS_radius);
 	background-color: var(--simpS_dropdownBg);
 	overscroll-behavior: contain;
+
 }
 .SimpleSel--body-always_open {
 	max-height: none;
@@ -235,6 +236,7 @@
 	top: auto;
 	opacity: 1;
 	visibility: visible;
+	overflow-y: auto;
 }
 
 .SimpleSel:not(.SimpleSel--up) .SimpleSel--multi {
@@ -247,6 +249,9 @@
 	margin-bottom: 2px;
 }
 
+.SimpleSel--opened .SimpleSel__body {
+	overflow-y: auto;
+}
 .SimpleSel--open .SimpleSel__body {
 	max-height: 230px;
 	opacity: 1;

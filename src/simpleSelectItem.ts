@@ -540,7 +540,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
       }
     } else {
       this.state.setState('filterList', '');
-      this.elemWrap.classList.remove('SimpleSel--open');
+      this.elemWrap.classList.remove('SimpleSel--open', 'SimpleSel--opened');
       document.removeEventListener('click', this.closeOutsideHandler);
       document.removeEventListener('keyup', this.closeEscHandler);
 

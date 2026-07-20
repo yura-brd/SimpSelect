@@ -332,7 +332,7 @@ export class SimpleSelectItemDOM {
     }
     resClassesWrap += ` ${this.isMulti ? getClass('multi', true) : getClass('single', true)}`;
     if (this.options.isLabelMode) {
-      resClassesWrap += ' ' + getClass('label_mode', true);
+      resClassesWrap += ` ${getClass('label_mode', true)}`;
     }
     this.elemWrap.className = resClassesWrap;
     this.elemWrap.dataset.countAll = this.$select.options.length.toString();
@@ -430,7 +430,16 @@ export class SimpleSelectItemDOM {
     }
     /** end MultiSelect debounce animate status */
 
+    const classOpened = getClass('opened', true);
     this.elemDropDownWrap.append(this.elemDropDown);
+    this.elemDropDownWrap.addEventListener('transitionend', (e) => {
+      if (e.propertyName === 'max-height') {
+        if (this.state.getState('isOpen')) {
+          this.elemWrap.classList.add(classOpened);
+        }
+      }
+    });
+
     this.elemWrap.appendChild(this.elemDropDownWrap);
     this.elemDropDown.appendChild(this.elemListBody);
 
@@ -501,7 +510,6 @@ export class SimpleSelectItemDOM {
       this.elemAlwaysLabel = document.createElement('div');
       let classesTitle = getClass('label');
       if (this.options.isOnlyPlaceholder) {
-        alert('111');
         classesTitle += ` ${getClass('always-placeholder', true, classesTitle)}`;
       }
       this.elemAlwaysLabel.className = classesTitle;
@@ -562,8 +570,6 @@ export class SimpleSelectItemDOM {
     }
 
     this.elemTitle.innerHTML = title;
-
-
 
     if (isPlaceholder) {
       this.elemTitle.classList.add('SimpleSel__title--placeholder');
