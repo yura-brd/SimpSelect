@@ -49,6 +49,16 @@
 .SimpleSel * {
 	box-sizing: border-box;
 }
+
+/*
+ * Авто-перевод браузера оборачивает текст в <font> и пересоздаёт эти узлы.
+ * Если узел, получивший mousedown, удалён из DOM до mouseup, Chrome не генерирует click
+ * и селект не открывается. Делегирование не помогает: события click нет вообще.
+ * Убираем <font> из hit-testing, чтобы целью события был стабильный родитель
+ */
+.SimpleSel font {
+	pointer-events: none;
+}
 .SimpleSel :after,
 .SimpleSel :before {
 	box-sizing: border-box;
