@@ -3,6 +3,7 @@ import {
   cloneObj, compareObj,
   createButton, decodeHtmlEntities,
   getClass,
+  getNativeOptions,
   ifTrueDataAttr,
   removeExtraSpaces,
   toCamelCase,
@@ -335,7 +336,7 @@ export class SimpleSelectItemDOM {
       resClassesWrap += ` ${getClass('label_mode', true)}`;
     }
     this.elemWrap.className = resClassesWrap;
-    this.elemWrap.dataset.countAll = this.$select.options.length.toString();
+    this.elemWrap.dataset.countAll = getNativeOptions(this.$select).length.toString();
 
     this.elemTop.className = getClass('top');
 
@@ -561,7 +562,7 @@ export class SimpleSelectItemDOM {
       if (itemsChecked.length > maxShow) {
         title = `${this.options.locale.selected} ${itemsChecked.length}`;
 
-        if (this.$select.querySelectorAll('option').length === itemsChecked.length) {
+        if (getNativeOptions(this.$select).length === itemsChecked.length) {
           title += ` (${this.options.locale.all})`;
         }
       } else if (attrTitle) {
@@ -618,6 +619,8 @@ export class SimpleSelectItemDOM {
     let countCheckedFullItems = 0;
 
     const items = isFilter ? this.filterList() : this.state.getState('items');
+    // один раз на весь проход: копирование списка option заметно на больших select
+    const nativeOptions = getNativeOptions(this.$select);
     const dataForCompare: IDataForCompareOptions[] = [];
     items.forEach((group:IOptionItems) => {
       group.items.forEach((i) => {
@@ -631,7 +634,7 @@ export class SimpleSelectItemDOM {
       if (!group.isGroup) {
         const {
           result, countShow, countChecked, countCheckedFull,
-        } = this.createLi(group);
+        } = this.createLi(group, nativeOptions);
         resBodyList += result;
         countShowItem += countShow;
         countCheckedItems += countChecked;
@@ -639,7 +642,7 @@ export class SimpleSelectItemDOM {
       } else {
         const {
           result, countShow, countChecked, countCheckedFull,
-        } = this.createLi(group);
+        } = this.createLi(group, nativeOptions);
         let groupAttrs = `data-count-show="${countShow}" `;
         groupAttrs += `data-count-checked="${countChecked}" `;
         let classGroup = getClass('group_items');
@@ -667,7 +670,7 @@ export class SimpleSelectItemDOM {
     this.elemWrap.dataset.countChecked = countCheckedItems.toString();
     this.elemWrap.dataset.countCheckedFull = countCheckedFullItems.toString();
     if (this.isMulti) {
-      this.elemWrap.dataset.checkAllMulti = (this.$select.options.length === countCheckedItems) ? 'yes' : 'no';
+      this.elemWrap.dataset.checkAllMulti = (nativeOptions.length === countCheckedItems) ? 'yes' : 'no';
     }
 
     resBodyList = removeExtraSpaces(resBodyList);
@@ -745,7 +748,7 @@ export class SimpleSelectItemDOM {
     return res;
   }
 
-  private createLi(data: IOptionItems): ICreateLiReturn {
+  private createLi(data: IOptionItems, nativeOptions: HTMLOptionElement[]): ICreateLiReturn {
     let result = '';
     let countShow = 0;
     let countChecked = 0;
@@ -811,7 +814,7 @@ export class SimpleSelectItemDOM {
       }
 
       result += `<li  class="${classLi}" ${dataAttr}>`;
-      const createLiBodyRes = this.createLiBody(option, this.$select.options[option.position]);
+      const createLiBodyRes = this.createLiBody(option, this.findNativeOption(option, nativeOptions));
       result += typeof createLiBodyRes === 'string' ? createLiBodyRes : createLiBodyRes.outerHTML;
       result += '</li>';
     });
@@ -823,7 +826,30 @@ export class SimpleSelectItemDOM {
     };
   }
 
-  private createLiBody(option: IOptionItem, optionNative: HTMLOptionElement): HTMLElement | string {
+  // нативного option может не быть на своей позиции: DOM select могли поменять после построения списка
+  // (авто-перевод браузера, внешний скрипт) - тогда ищем по value
+  private findNativeOption(option: IOptionItem, nativeOptions: HTMLOptionElement[]): HTMLOptionElement | null {
+    const byPosition = nativeOptions[option.position];
+    if (byPosition && byPosition.getAttribute('value') === option.value) {
+      return byPosition;
+    }
+    return nativeOptions.find((native) => native.getAttribute('value') === option.value) || byPosition || null;
+  }
+
+  // запасной option, чтобы changeBodyLi всегда получал элемент, даже если нативный не нашёлся
+  private createFakeOption(option: IOptionItem): HTMLOptionElement {
+    const fake = document.createElement('option');
+    if (option.value !== null) {
+      fake.value = option.value;
+    }
+    fake.innerHTML = option.title;
+    fake.selected = option.checked;
+    fake.disabled = option.disabled;
+
+    return fake;
+  }
+
+  private createLiBody(option: IOptionItem, optionNative: HTMLOptionElement | null): HTMLElement | string {
     const item = document.createElement('div');
 
     item.className = getClass('list_item_body');
@@ -837,7 +863,7 @@ export class SimpleSelectItemDOM {
       res += this.bodyLiHTMLBeforeFromSelect;
     }
 
-    if (optionNative.hasAttribute('data-simple-html-before')) {
+    if (optionNative && optionNative.hasAttribute('data-simple-html-before')) {
       res += optionNative.getAttribute('data-simple-html-before');
     }
 
@@ -845,14 +871,14 @@ export class SimpleSelectItemDOM {
     if (this.bodyLiHTMLAfterFromSelect) {
       res += this.bodyLiHTMLAfterFromSelect;
     }
-    if (optionNative.hasAttribute('data-simple-html-after')) {
+    if (optionNative && optionNative.hasAttribute('data-simple-html-after')) {
       res += optionNative.getAttribute('data-simple-html-after');
     }
 
     item.innerHTML = res;
 
     if (this.options.changeBodyLi) {
-      return this.options.changeBodyLi(item, optionNative);
+      return this.options.changeBodyLi(item, optionNative || this.createFakeOption(option));
     }
     return item;
   }

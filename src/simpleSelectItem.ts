@@ -3,6 +3,8 @@ import { IHistoryItem, IOptionItems } from './types/item.types';
 import {
   compareObj,
   getCreateListItem,
+  getNativeOptions,
+  getOptionsPositions,
   toCamelCase, triggerCustomEvent,
   triggerInputEvent,
 } from './utils/simpleSelection.utils';
@@ -222,7 +224,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
   }
 
   confirmOkBuild() {
-    const { options } = this.$select;
+    const options = getNativeOptions(this.$select);
     if (!this.elemListBody) {
       return;
     }
@@ -233,8 +235,11 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
         return;
       }
       const option = options[pos];
+      if (!option) {
+        return;
+      }
       const disabled = option.disabled || item.getAttribute('data-sel-opt-disabled') === 'true';
-      if (!option || disabled) {
+      if (disabled) {
         return;
       }
       const isSelected = item.dataset[toCamelCase('sel-opt-checked')] === 'true';
@@ -263,7 +268,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
   selectAllHandler(e:MouseEvent) {
     e.preventDefault();
-    Array.from(this.$select.options).forEach((option) => {
+    getNativeOptions(this.$select).forEach((option) => {
       let { disabled } = option;
       if (option.closest('optgroup')?.disabled) {
         disabled = true;
@@ -283,7 +288,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
   resetAllHandler(e:MouseEvent) {
     e.preventDefault();
-    Array.from(this.$select.options).forEach((option) => {
+    getNativeOptions(this.$select).forEach((option) => {
       let { disabled } = option;
       if (option.closest('optgroup')?.disabled) {
         disabled = true;
@@ -348,9 +353,12 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
   changeClickItem(item: HTMLLIElement) {
     if (item) {
       const pos = Number(item.dataset[toCamelCase('sel-position')]) || 0;
-      const option = this.$select.options[pos];
+      const option = getNativeOptions(this.$select)[pos];
+      if (!option) {
+        return;
+      }
       const disabled = option.disabled || item.getAttribute('data-sel-opt-disabled') === 'true';
-      if (option && !disabled) {
+      if (!disabled) {
         if (this.isMulti) {
           if (this.options.isConfirmInMulti || this.isFloatWidth) {
             this.changeClickItemDom(item);
@@ -588,15 +596,17 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
 
   protected createList(isCompare = false) {
     const newItems:IOptionItems[] = [];
+    // позиции считаем один раз по всему select, чтобы они совпадали с getNativeOptions
+    const positions = getOptionsPositions(this.$select);
     const group = this.$select.querySelectorAll('optgroup');
     if (group && group.length) {
       const groupAndOptions = this.$select.querySelectorAll<HTMLOptGroupElement>(':scope > *');
       groupAndOptions.forEach((item, ind) => {
         const isGroup = item instanceof HTMLOptGroupElement;
-        newItems.push(getCreateListItem(item, (ind + 1).toString(), isGroup));
+        newItems.push(getCreateListItem(item, (ind + 1).toString(), isGroup, positions));
       });
     } else {
-      newItems.push(getCreateListItem(this.$select, '1', false));
+      newItems.push(getCreateListItem(this.$select, '1', false, positions));
     }
 
     if (isCompare) {

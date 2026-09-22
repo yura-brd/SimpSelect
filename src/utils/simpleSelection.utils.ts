@@ -48,15 +48,32 @@ export function triggerInputEvent(element: HTMLElement, type = 'change') {
   }
 }
 
-export const getCreateItem = (option: HTMLOptionElement, index: number) => ({
-  id: (index + 1).toString(),
-  position: option.index,
-  title: option.innerHTML,
-  value: option.getAttribute('value'),
-  checked: option.selected,
-  disabled: option.disabled,
-  isShowFilter: true,
-});
+// select.options может не содержать option, если браузер (авто-перевод страницы) обернул их в свой тег.
+// querySelectorAll находит option в любом случае, порядок тот же (порядок в документе)
+export const getNativeOptions = (select: HTMLSelectElement): HTMLOptionElement[] => Array.from(select.querySelectorAll('option'));
+
+export const getOptionsPositions = (select: HTMLSelectElement): Map<HTMLOptionElement, number> => {
+  const positions = new Map<HTMLOptionElement, number>();
+  getNativeOptions(select).forEach((option, ind) => {
+    positions.set(option, ind);
+  });
+  return positions;
+};
+
+export const getCreateItem = (option: HTMLOptionElement, index: number, positions?: Map<HTMLOptionElement, number>) => {
+  const position = positions ? positions.get(option) : undefined;
+
+  return {
+    id: (index + 1).toString(),
+    // option.index возвращает 0, если option вне списка опций select (обёрнут другим тегом)
+    position: position === undefined ? option.index : position,
+    title: option.innerHTML,
+    value: option.getAttribute('value'),
+    checked: option.selected,
+    disabled: option.disabled,
+    isShowFilter: true,
+  };
+};
 
 export const createOptionItems = (isGroup: boolean, idGroup: string, items:IOptionItem[], isShowFilter = true): IOptionItems => {
   return {
@@ -67,20 +84,25 @@ export const createOptionItems = (isGroup: boolean, idGroup: string, items:IOpti
   };
 };
 
-export const getCreateListItem = (item: HTMLSelectElement | HTMLOptGroupElement | HTMLOptionElement, idGroup: string, isGroup: boolean) => {
+export const getCreateListItem = (
+  item: HTMLSelectElement | HTMLOptGroupElement | HTMLOptionElement,
+  idGroup: string,
+  isGroup: boolean,
+  positions?: Map<HTMLOptionElement, number>,
+) => {
   // Если есть группы, но может быть option вне группы
   if (item instanceof HTMLOptionElement) {
     return createOptionItems(
       isGroup,
       idGroup,
-      [getCreateItem(item, 1)],
+      [getCreateItem(item, 1, positions)],
       true,
     );
   }
   const options = item.querySelectorAll('option');
   const items:IOptionItem[] = [];
   options.forEach((option, ind) => {
-    items.push(getCreateItem(option, ind));
+    items.push(getCreateItem(option, ind, positions));
   });
   const newItem: IOptionItems = createOptionItems(
     isGroup,

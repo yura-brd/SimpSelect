@@ -57,6 +57,8 @@ export declare class SimpleSelectItemDOM {
     private createInputHTML;
     getChecked(): IOptionItem[];
     private createLi;
+    private findNativeOption;
+    private createFakeOption;
     private createLiBody;
     protected handlerChangeChecked(): void;
     protected createList(_isCompare: boolean): void;

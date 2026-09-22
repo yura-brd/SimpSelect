@@ -13,7 +13,9 @@ type triggerCustomEventDataType = {
 };
 export declare function triggerCustomEvent(element: HTMLElement, type: triggerCustomEventType, data: triggerCustomEventDataType): void;
 export declare function triggerInputEvent(element: HTMLElement, type?: string): void;
-export declare const getCreateItem: (option: HTMLOptionElement, index: number) => {
+export declare const getNativeOptions: (select: HTMLSelectElement) => HTMLOptionElement[];
+export declare const getOptionsPositions: (select: HTMLSelectElement) => Map<HTMLOptionElement, number>;
+export declare const getCreateItem: (option: HTMLOptionElement, index: number, positions?: Map<HTMLOptionElement, number>) => {
     id: string;
     position: number;
     title: string;
@@ -23,7 +25,7 @@ export declare const getCreateItem: (option: HTMLOptionElement, index: number) =
     isShowFilter: boolean;
 };
 export declare const createOptionItems: (isGroup: boolean, idGroup: string, items: IOptionItem[], isShowFilter?: boolean) => IOptionItems;
-export declare const getCreateListItem: (item: HTMLSelectElement | HTMLOptGroupElement | HTMLOptionElement, idGroup: string, isGroup: boolean) => IOptionItems;
+export declare const getCreateListItem: (item: HTMLSelectElement | HTMLOptGroupElement | HTMLOptionElement, idGroup: string, isGroup: boolean, positions?: Map<HTMLOptionElement, number>) => IOptionItems;
 export declare const getClass: (cls: string, mod?: boolean, classInit?: string) => string;
 export declare const compareObj: <T1, T2>(obj1: T1, obj2: T2) => boolean;
 export declare const cloneObj: <T>(obj: T) => T;
