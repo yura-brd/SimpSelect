@@ -662,8 +662,15 @@ export class SimpleSelectItemDOM {
     const isSearch:string = this.state.getState('filterStr');
 
     if (isSearch && isSearch.length && countShowItem === 0) {
+      // filterStr — ввод пользователя, в innerHTML только экранированным
+      const searchText = isSearch
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
       resBodyList = `<div class="${getClass('no_match')}">`;
-      resBodyList = `${this.options.locale.noSearch} "${isSearch}"`;
+      resBodyList += `${this.options.locale.noSearch} `;
+      resBodyList += `"<span class="${getClass('no_match_text')}">${searchText}</span>"`;
       resBodyList += '</div>';
     }
 

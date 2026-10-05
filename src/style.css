@@ -30,6 +30,10 @@
 	--simpS_btn_bg: #f9f9f9;
 	--simpS_btn_bg_reverse: #eeecec;
 
+	--simpS_no_match_color: var(--simpS_color_placeholder);
+	--simpS_no_match_text_color: var(--simpS_color);
+	--simpS_no_match_text_weight: bold;
+
 }
 .SimpleSel {
 	position: relative;
@@ -509,4 +513,14 @@
 	transform: translateY(-50%);
 	background-color: var(--simpS_labelBg);
 	padding: 0 var(--simpS_label_pad_hor_active);
+}
+
+.SimpleSel__no_match {
+	padding: 5px var(--simpS_pad_hor);
+	color: var(--simpS_no_match_color);
+	word-break: break-word;
+}
+.SimpleSel__no_match_text {
+	color: var(--simpS_no_match_text_color);
+	font-weight: var(--simpS_no_match_text_weight);
 }
