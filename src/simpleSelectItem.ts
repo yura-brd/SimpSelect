@@ -339,7 +339,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     if (this.options.historyMaxSize > 0) {
       this.history.push({
         value: option.value,
-        text: option.innerHTML,
+        text: option.innerHTML.replace(/\s+/g, ' ').trim(),
         selected: isCheck,
         indexOption: option.index,
       });

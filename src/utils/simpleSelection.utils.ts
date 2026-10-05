@@ -67,7 +67,8 @@ export const getCreateItem = (option: HTMLOptionElement, index: number, position
     id: (index + 1).toString(),
     // option.index возвращает 0, если option вне списка опций select (обёрнут другим тегом)
     position: position === undefined ? option.index : position,
-    title: option.innerHTML,
+    // переносы строк и отступы из разметки попадают в title (атрибут) как есть — схлопываем
+    title: option.innerHTML.replace(/\s+/g, ' ').trim(),
     value: option.getAttribute('value'),
     checked: option.selected,
     disabled: option.disabled,
