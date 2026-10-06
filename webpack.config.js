@@ -1,9 +1,23 @@
 const path = require('path');
+const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+// Копия сборки для GitHub Pages (docs/index.html подключает ./lib/*): Pages отдаёт только папку docs
+class CopyToDocsPlugin {
+  apply(compiler) {
+    compiler.hooks.afterEmit.tap('CopyToDocsPlugin', () => {
+      const dir = path.resolve(__dirname, 'docs/lib');
+      fs.mkdirSync(dir, { recursive: true });
+      ['simpleSelect.js', 'style.css'].forEach((file) => {
+        fs.copyFileSync(path.resolve(__dirname, 'dist', file), path.join(dir, file));
+      });
+    });
+  }
+}
 
 module.exports = ({ development }) => ({
   entry: ['./src/simpleSelect.ts'],
@@ -39,6 +53,7 @@ module.exports = ({ development }) => ({
       scriptLoading: "blocking",
       inject: 'head',
     }),
+    ...(development ? [] : [new CopyToDocsPlugin()]),
   ],
 
   module: {

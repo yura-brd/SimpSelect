@@ -9,8 +9,8 @@
 
 	<link rel="stylesheet" href="./style.css">
 
-	<link rel="stylesheet" href="https://unpkg.com/simp-select@1.1.23/dist/style.css">
-	<script src="https://unpkg.com/simp-select@1.1.23/dist/simpleSelect.js"></script>
+	<link rel="stylesheet" href="./lib/style.css">
+	<script src="./lib/simpleSelect.js"></script>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
@@ -771,157 +771,6 @@
 
 <div class="container">
 	<details>
-		<summary class="description">Search</summary>
-		<pre class="code"><code class="language-html" id="code_13"></code></pre>
-	</details>
-
-	<div class="items">
-		<div class="item" id="example_13_1">
-			<select
-					class="jsSimpSelect"
-					data-simple-select-search="true"
-					data-simple-placeholder="Search"
-			>
-				<option value="Item 1">Item 1</option>
-				<option value="Item 2">Item 2</option>
-				<option value="Item 3">Item 3</option>
-				<option value="Item 4">Item 4</option>
-				<option value="Item 5">Item 5</option>
-				<option value="Item 6">Item 6</option>
-			</select>
-		</div>
-
-		<div class="item" id="example_13_2">
-			<select
-					id="example_13_2_select"
-					multiple
-					data-simple-placeholder="Search"
-			>
-				<option value="Item 1">Item 1</option>
-				<option value="Item 2">Item 2</option>
-				<option value="Item 3">Item 3</option>
-				<option value="Item 4">Item 4</option>
-				<option value="Item 5">Item 5</option>
-				<option value="Item 6">Item 6</option>
-			</select>
-			<script>
-        window.addEventListener('load', () => {
-          new SimpleSelect('#example_13_2_select', {
-            isSearch: true
-          })
-        })
-			</script>
-		</div>
-
-		<script>
-      pasteCode({
-        codeId: 'code_13',
-        firstId: 'example_13_1',
-        secondId: 'example_13_2',
-        lineBreakText: 'OR'
-      });
-		</script>
-	</div>
-</div>
-
-<div class="container">
-	<details>
-		<summary class="description">Search in dropdown</summary>
-		<pre class="code"><code class="language-html" id="code_14"></code></pre>
-	</details>
-
-	<div class="items">
-		<div class="item" id="example_14_1">
-			<select
-					class="jsSimpSelect"
-					data-simple-select-search-dropdown="true"
-					data-simple-placeholder="Search in dropdown"
-			>
-				<option value="Item 1">Item 1</option>
-				<option value="Item 2">Item 2</option>
-				<option value="Item 3">Item 3</option>
-				<option value="Item 4">Item 4</option>
-				<option value="Item 5">Item 5</option>
-				<option value="Item 6">Item 6</option>
-			</select>
-		</div>
-
-		<div class="item" id="example_14_2">
-			<select
-					id="example_14_2_select"
-					multiple
-					data-simple-placeholder="Search in dropdown"
-			>
-				<option value="Item 1">Item 1</option>
-				<option value="Item 2">Item 2</option>
-				<option value="Item 3">Item 3</option>
-				<option value="Item 4">Item 4</option>
-				<option value="Item 5">Item 5</option>
-				<option value="Item 6">Item 6</option>
-			</select>
-			<script>
-        window.addEventListener('load', () => {
-          new SimpleSelect('#example_14_2_select', {
-            isSearchInDropdown: true
-          })
-        })
-			</script>
-		</div>
-
-		<script>
-      pasteCode({
-        codeId: 'code_14',
-        firstId: 'example_14_1',
-        secondId: 'example_14_2',
-        lineBreakText: 'OR'
-      });
-		</script>
-	</div>
-</div>
-
-
-
-
-<div class="container">
-	<details>
-		<summary class="description">Show checkbox for select</summary>
-		<pre class="code"><code class="language-html" id="code_15"></code></pre>
-	</details>
-
-	<div class="items">
-		<div class="item_full" id="example_15_1">
-			<select
-					class="jsSimpSelect"
-					data-simple-show-checkbox="true"
-			>
-				<optgroup label="Группа 1">
-					<option value="1">Опция 1.1</option>
-				</optgroup>
-				<optgroup label="Группа 2">
-					<option value="1">Опция 2.1</option>
-					<option value="1">Опция 2.2</option>
-				</optgroup>
-				<optgroup label="Группа 3" disabled>
-					<option value="1">Опция 3.1</option>
-					<option value="1">Опция 3.2</option>
-					<option value="1">Опция 3.3</option>
-				</optgroup>
-			</select>
-		</div>
-
-		<script>
-      pasteCode({
-        codeId: 'code_15',
-        firstId: 'example_15_1',
-      });
-		</script>
-	</div>
-</div>
-
-
-
-<div class="container">
-	<details>
 		<summary class="description">Add classes for wrapper</summary>
 		<pre class="code"><code class="language-html" id="code_16"></code></pre>
 	</details>
@@ -1413,6 +1262,303 @@ window.addEventListener('load', () => {
         firstId: 'example_17_1',
         secondId: 'example_17_2',
         lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+
+
+
+<div class="container">
+	<details>
+		<summary class="description">Show checkbox for select</summary>
+		<pre class="code"><code class="language-html" id="code_15"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item_full" id="example_15_1">
+			<select
+					class="jsSimpSelect"
+					data-simple-show-checkbox="true"
+			>
+				<optgroup label="Группа 1">
+					<option value="1">Опция 1.1</option>
+				</optgroup>
+				<optgroup label="Группа 2">
+					<option value="1">Опция 2.1</option>
+					<option value="1">Опция 2.2</option>
+				</optgroup>
+				<optgroup label="Группа 3" disabled>
+					<option value="1">Опция 3.1</option>
+					<option value="1">Опция 3.2</option>
+					<option value="1">Опция 3.3</option>
+				</optgroup>
+			</select>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_15',
+        firstId: 'example_15_1',
+      });
+		</script>
+	</div>
+</div>
+
+
+<div class="container">
+	<details>
+		<summary class="description">Search</summary>
+		<pre class="code"><code class="language-html" id="code_13"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_13_1">
+			<select
+					class="jsSimpSelect"
+					data-simple-select-search="true"
+					data-simple-placeholder="Search"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_13_2">
+			<select
+					id="example_13_2_select"
+					multiple
+					data-simple-placeholder="Search"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_13_2_select', {
+            isSearch: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_13',
+        firstId: 'example_13_1',
+        secondId: 'example_13_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+<div class="container">
+	<details>
+		<summary class="description">Search in dropdown</summary>
+		<pre class="code"><code class="language-html" id="code_14"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_14_1">
+			<select
+					class="jsSimpSelect"
+					data-simple-select-search-dropdown="true"
+					data-simple-placeholder="Search in dropdown"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_14_2">
+			<select
+					id="example_14_2_select"
+					multiple
+					data-simple-placeholder="Search in dropdown"
+			>
+				<option value="Item 1">Item 1</option>
+				<option value="Item 2">Item 2</option>
+				<option value="Item 3">Item 3</option>
+				<option value="Item 4">Item 4</option>
+				<option value="Item 5">Item 5</option>
+				<option value="Item 6">Item 6</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_14_2_select', {
+            isSearchInDropdown: true
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_14',
+        firstId: 'example_14_1',
+        secondId: 'example_14_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+
+
+
+
+<div class="container">
+	<details>
+		<summary class="description">Search by keyboard layout (searchLayouts): type дщтвщт → London</summary>
+		<pre class="code"><code class="language-html" id="code_25"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_25_1">
+			<select
+					class="jsSimpSelect"
+					data-simple-select-search="true"
+					data-simple-search-layouts="en,ru,uk"
+			>
+				<option value="">City</option>
+				<option value="london">London</option>
+				<option value="paris">Paris</option>
+				<option value="berlin">Berlin</option>
+				<option value="kyiv">Київ</option>
+				<option value="odesa">Одеса</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_25_2">
+			<select
+					id="example_25_2_select"
+					data-simple-select-search="true"
+			>
+				<option value="">City</option>
+				<option value="london">London</option>
+				<option value="paris">Paris</option>
+				<option value="berlin">Berlin</option>
+				<option value="kyiv">Київ</option>
+				<option value="odesa">Одеса</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_25_2_select', {
+            searchLayouts: ['en', 'ru', 'uk']
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_25',
+        firstId: 'example_25_1',
+        secondId: 'example_25_2',
+        lineBreakText: 'OR'
+      });
+		</script>
+	</div>
+</div>
+
+
+<div class="container">
+	<details>
+		<summary class="description">searchLayoutsMode: 'fallback' (default) and 'always': type д → Одеса / Одеса, London, Berlin</summary>
+		<pre class="code"><code class="language-html" id="code_26"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_26_1">
+			<select
+					class="jsSimpSelect"
+					data-simple-select-search="true"
+					data-simple-search-layouts="en,ru,uk"
+					data-simple-search-layouts-mode="fallback"
+			>
+				<option value="">City</option>
+				<option value="london">London</option>
+				<option value="paris">Paris</option>
+				<option value="berlin">Berlin</option>
+				<option value="kyiv">Київ</option>
+				<option value="odesa">Одеса</option>
+			</select>
+		</div>
+
+		<div class="item" id="example_26_2">
+			<select
+					class="jsSimpSelect"
+					data-simple-select-search="true"
+					data-simple-search-layouts="en,ru,uk"
+					data-simple-search-layouts-mode="always"
+			>
+				<option value="">City</option>
+				<option value="london">London</option>
+				<option value="paris">Paris</option>
+				<option value="berlin">Berlin</option>
+				<option value="kyiv">Київ</option>
+				<option value="odesa">Одеса</option>
+			</select>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_26',
+        firstId: 'example_26_1',
+        secondId: 'example_26_2',
+        lineBreakText: '\nalways:'
+      });
+		</script>
+	</div>
+</div>
+
+
+<div class="container">
+	<details>
+		<summary class="description">Custom search (searchFilter): starts with — lo → London, on → nothing</summary>
+		<pre class="code"><code class="language-html" id="code_27"></code></pre>
+	</details>
+
+	<div class="items">
+		<div class="item" id="example_27_1">
+			<select
+					id="example_27_select"
+					data-simple-select-search="true"
+			>
+				<option value="">City</option>
+				<option value="london">London</option>
+				<option value="paris">Paris</option>
+				<option value="berlin">Berlin</option>
+				<option value="kyiv">Київ</option>
+				<option value="odesa">Одеса</option>
+			</select>
+			<script>
+        window.addEventListener('load', () => {
+          new SimpleSelect('#example_27_select', {
+            searchFilter: (title, query) => title.toLowerCase().indexOf(query.toLowerCase()) === 0
+          })
+        })
+			</script>
+		</div>
+
+		<script>
+      pasteCode({
+        codeId: 'code_27',
+        firstId: 'example_27_1',
       });
 		</script>
 	</div>
