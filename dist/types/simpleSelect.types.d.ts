@@ -10,6 +10,7 @@ export interface ISimpleSelectLocale {
     resetAll: string;
     selectAll: string;
 }
+export type ISearchLayout = string | Record<string, string>;
 export interface ISimpleSelectOptions {
     countShowSelected: number;
     isConfirmInMulti: boolean;
@@ -17,6 +18,9 @@ export interface ISimpleSelectOptions {
     searchTypeInput: string;
     isSearch: boolean;
     isSearchInDropdown: boolean;
+    searchLayouts: ISearchLayout[];
+    searchLayoutsMode: 'fallback' | 'always';
+    searchFilter?: (title: string, query: string) => boolean;
     nativeOnDevice: string[];
     locale: ISimpleSelectLocale;
     debounceTime?: number;

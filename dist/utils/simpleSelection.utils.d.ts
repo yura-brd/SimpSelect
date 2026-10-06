@@ -1,4 +1,5 @@
 import { IOptionItem, IOptionItems } from '../types/item.types';
+import { ISearchLayout } from '../types/simpleSelect.types';
 import { SimpleSelectItemDOM } from '../simpleSelectItemDOM';
 export declare const toCamelCase: (input: string) => string;
 export declare const removeExtraSpaces: (str: string) => string;
@@ -31,4 +32,6 @@ export declare const compareObj: <T1, T2>(obj1: T1, obj2: T2) => boolean;
 export declare const cloneObj: <T>(obj: T) => T;
 export declare const createButton: () => HTMLButtonElement;
 export declare const decodeHtmlEntities: (str: string) => string;
+export declare const resolveLayouts: (list: ISearchLayout[]) => string[];
+export declare const getLayoutVariants: (query: string, layouts: string[]) => string[];
 export {};

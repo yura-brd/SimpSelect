@@ -1,4 +1,6 @@
 import { IOptionItem, IOptionItems } from '../types/item.types';
+import { ISearchLayout } from '../types/simpleSelect.types';
+import { keyboardLayouts } from '../const/keyboardLayouts.const';
 import { initClass } from '../const/simpleSelection.const';
 import { SimpleSelectItemDOM } from '../simpleSelectItemDOM';
 
@@ -139,4 +141,40 @@ export const decodeHtmlEntities = (str: string): string => {
   const div = document.createElement('div');
   div.innerHTML = str;
   return div.textContent || div.innerText || '';
+};
+
+// Названия встроенных раскладок -> строки раскладок. Объект — свои раскладки { name: 'строка' }
+export const resolveLayouts = (list: ISearchLayout[]): string[] => {
+  const res: string[] = [];
+  list.forEach((layout) => {
+    if (typeof layout !== 'string') {
+      Object.keys(layout).forEach((name) => res.push(layout[name]));
+    } else if (keyboardLayouts[layout]) {
+      res.push(keyboardLayouts[layout]);
+    } else {
+      console.warn('SimpSelect: unknown keyboard layout: ', layout);
+    }
+  });
+  return res;
+};
+
+// Строка поиска, набранная не в той раскладке: переводим посимвольно (по позиции клавиши) во все остальные раскладки
+export const getLayoutVariants = (query: string, layouts: string[]): string[] => {
+  const res: string[] = [];
+  layouts.forEach((from) => {
+    layouts.forEach((to) => {
+      if (from === to) {
+        return;
+      }
+      let variant = '';
+      for (let i = 0; i < query.length; i++) {
+        const pos = from.indexOf(query[i]);
+        variant += pos >= 0 ? to.charAt(pos) : query[i];
+      }
+      if (variant !== query && res.indexOf(variant) < 0) {
+        res.push(variant);
+      }
+    });
+  });
+  return res;
 };

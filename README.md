@@ -46,6 +46,9 @@ the variable `SimpSelect` attached to `window` or `this` depending on what envir
 | **countShowSelected**:number*                                        | <p>default: **3**  </p> Show count selected options. If more then this count, showed template: Selected: 4<p>Or - `data-simple-count-shows-selected="3"` - in select                                              |
 | **isSearch**:boolean*                                                | <p>default: **false**  </p>  Show input for filter items <p>Or - `data-simple-select-search="true"` - in select                                                                                                   |
 | **isSearchInDropdown**:boolean*                                      | <p>default: **false**  </p>  Show search input inside dropdown <p>Or - `data-simple-select-search-dropdown="true"` - in select                                                                                    |
+| **searchLayouts**:(string \| object)[]*                              | <p>default: **[]** (off)</p> Also search by the query typed in the wrong keyboard layout (`дщтвщт` → `london`). Built-in: `en`, `ru`, `uk`, `he`, `ar`. See [Keyboard layouts](#keyboard-layouts) <p>Or - `data-simple-search-layouts="en,ru"` - in select |
+| **searchLayoutsMode**:'fallback' \| 'always'*                        | <p>default: **'fallback'**</p> `fallback` - other layouts are used only if nothing is found by the typed query. `always` - search by the typed query and all layouts at once <p>Or - `data-simple-search-layouts-mode="always"` - in select |
+| **searchFilter**: (title: string, query: string) => boolean          | <p>default: **none**</p> Custom search. Replaces the built-in search (including `searchLayouts`). `true` - show item                                                                                             |
 | **isConfirmInMulti**:boolean*                                        | <p>default: **false**  </p>  Show buttons `OK` and `Cancel`.  Only Multiselect <p>Or `data-simple-is-confirm="true" - in select`</p>                                                                              |
 | **isConfirmInMultiOkClickOutside**:boolean                           | <p>default: **false**  </p> Click outside like click by button `OK`. Only if `isConfirmInMulti=true`                                                                                                              |
 | **nativeOnDevice**:string[]                                          | <p>default: **'Android', 'BlackBerry', 'iPhone', 'iPad', 'iPod', 'Opera Mini', 'IEMobile', 'Silk'**  </p> The system default select list is rendered on the matched device(Check useragent ).                     |
@@ -145,6 +148,53 @@ const simpleSelectLocale: = {
 };
 ```
 
+
+<a id="keyboard-layouts"></a>
+## Keyboard layouts
+
+Search finds items even if the user forgot to switch the keyboard layout: `дщтвщт` → `London`.
+Off by default.
+
+```js
+new SimpleSelect('select', {
+  isSearch: true,
+  searchLayouts: ['en', 'ru', 'uk'],
+  // searchLayoutsMode: 'always',
+});
+```
+```html
+<select data-simple-select-search="true" data-simple-search-layouts="en,ru,uk">
+```
+
+Always include `en` - the query is translated between the listed layouts.
+
+Built-in: `en`, `ru`, `uk`, `he`, `ar`.
+`ar` is simplified: the `b` key (`لا`, two characters) is not translated.
+
+### Custom layouts
+A layout is a string of 34 lowercase characters in the order of physical keys:
+```
+qwertyuiop[]asdfghjkl;'zxcvbnm,./`
+```
+To skip a key, put the `en` character in its place.
+Pass custom layouts as an object (only in options, not in the data attribute):
+```js
+searchLayouts: ['en', 'ru', { be: "йцукенгшўзх'фывапролджэячсмітьбю.ё" }]
+```
+
+Ready-to-use layouts (not included in the package):
+```js
+{ be: "йцукенгшўзх'фывапролджэячсмітьбю.ё" }  // Belarusian
+{ el: ";ςερτυθιοπ[]ασδφγηξκλ΄'ζχψωβνμ,./`" }  // Greek
+{ ka: "ქწერტყუიოპ[]ასდფგჰჯკლ;'ზხცვბნმ,./`" }  // Georgian
+{ de: "qwertzuiopü+asdfghjklöäyxcvbnm,.-^" }  // German QWERTZ
+{ fr: "azertyuiop^$qsdfghjklmùwxcvbn,;:!²" }  // French AZERTY
+```
+- Kazakh: letters are in the same places as in `ru` - use `ru`.
+- Latin layouts (`de`, `fr`) give little benefit and may add false matches (`y` ↔ `z`).
+
+> ⚠️ `simpleSelect.js` contains non-ASCII characters (layouts) and is saved in **UTF-8**.
+> Serve it with `charset=utf-8` (or the page must be UTF-8), otherwise layout search will not work.
 
 ## Example Usage
 ``` 

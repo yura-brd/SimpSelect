@@ -3,9 +3,11 @@ import {
   cloneObj, compareObj,
   createButton, decodeHtmlEntities,
   getClass,
+  getLayoutVariants,
   getNativeOptions,
   ifTrueDataAttr,
   removeExtraSpaces,
+  resolveLayouts,
   toCamelCase,
   triggerCustomEvent,
 } from './utils/simpleSelection.utils';
@@ -96,6 +98,8 @@ export class SimpleSelectItemDOM {
 
   isDebounceStatusBar = false;
 
+  searchLayouts: string[] = [];
+
   constructor(select: HTMLSelectElement, options: ISimpleSelectOptions, localOptions: IItemLocalOptions) {
     const { id, isNative } = localOptions;
     this.$select = select;
@@ -137,12 +141,17 @@ export class SimpleSelectItemDOM {
     if (options.formatTitle) {
       this.options.formatTitle = options.formatTitle;
     }
+    if (options.searchFilter) {
+      this.options.searchFilter = options.searchFilter;
+    }
 
     if (this.isMulti && this.$select.hasAttribute('data-simple-is-confirm')) {
       this.options.isConfirmInMulti = ifTrueDataAttr(this.$select.getAttribute('data-simple-is-confirm'));
     }
 
     this.optionOverride();
+
+    this.searchLayouts = resolveLayouts(this.options.searchLayouts);
 
     this.isDisabled = this.$select.disabled;
 
@@ -198,6 +207,15 @@ export class SimpleSelectItemDOM {
     }
     if (this.$select.hasAttribute('data-simple-remove-top')) {
       this.options.isRemoveTop = ifTrueDataAttr(this.$select.getAttribute('data-simple-remove-top'));
+    }
+
+    const searchLayouts = this.$select.getAttribute('data-simple-search-layouts');
+    if (searchLayouts !== null) {
+      this.options.searchLayouts = searchLayouts.split(',').map((name) => name.trim()).filter(Boolean);
+    }
+    const searchLayoutsMode = this.$select.getAttribute('data-simple-search-layouts-mode');
+    if (searchLayoutsMode === 'fallback' || searchLayoutsMode === 'always') {
+      this.options.searchLayoutsMode = searchLayoutsMode;
     }
 
     if (this.$select.hasAttribute('data-simple-float-none')) {
@@ -584,29 +602,52 @@ export class SimpleSelectItemDOM {
   }
 
   private filterList() {
-    let val = this.state.getState('filterStr');
+    const filterStr: string = this.state.getState('filterStr');
     const itemsInit = this.state.getState('items');
-    if (!val) {
+    if (!filterStr) {
       return itemsInit;
     }
 
-    val = val.toLowerCase();
     const items:IOptionItems[] = cloneObj(itemsInit);
+    const { searchFilter } = this.options;
+    if (searchFilter) {
+      this.applyFilter(items, (title) => searchFilter(title, filterStr));
+      return items;
+    }
 
+    const val = filterStr.toLowerCase();
+    const variants = getLayoutVariants(val, this.searchLayouts);
+    const isAlways = this.options.searchLayoutsMode === 'always';
+    const matchAny = (queries: string[]) => (title: string) => {
+      const titleLower = title.toLowerCase();
+      return queries.some((query) => titleLower.indexOf(query) >= 0);
+    };
+
+    const isFound = this.applyFilter(items, matchAny(isAlways ? [val].concat(variants) : [val]));
+    // fallback: другие раскладки — только если по введённой строке ничего не нашлось
+    if (!isFound && !isAlways && variants.length) {
+      this.applyFilter(items, matchAny(variants));
+    }
+
+    return items;
+  }
+
+  private applyFilter(items: IOptionItems[], isMatch: (title: string) => boolean): boolean {
+    let isFound = false;
     items.forEach((group) => {
       let isShowGroup = false;
       group.items.forEach((item) => {
-        if (item.title.toLowerCase().indexOf(val) >= 0) {
+        item.isShowFilter = isMatch(item.title);
+        if (item.isShowFilter) {
           isShowGroup = true;
-          item.isShowFilter = true;
-        } else {
-          item.isShowFilter = false;
         }
       });
       group.isShowFilter = isShowGroup;
+      if (isShowGroup) {
+        isFound = true;
+      }
     });
-
-    return items;
+    return isFound;
   }
 
   protected createListHTML(isFilter = false) {

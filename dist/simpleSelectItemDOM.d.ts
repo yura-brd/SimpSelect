@@ -41,6 +41,7 @@ export declare class SimpleSelectItemDOM {
     bodyOpenClass: string;
     multiDebounceTime: number;
     isDebounceStatusBar: boolean;
+    searchLayouts: string[];
     constructor(select: HTMLSelectElement, options: ISimpleSelectOptions, localOptions: IItemLocalOptions);
     optionOverride(): void;
     initDom(): void;
@@ -53,6 +54,7 @@ export declare class SimpleSelectItemDOM {
     private createIsConfirmInMultiHTML;
     private createTitleHTML;
     private filterList;
+    private applyFilter;
     protected createListHTML(isFilter?: boolean): void;
     private createInputHTML;
     getChecked(): IOptionItem[];

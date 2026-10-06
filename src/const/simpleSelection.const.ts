@@ -15,6 +15,8 @@ export const simpleSelectionOptions: ISimpleSelectOptions = {
   isSearch: false,
   searchTypeInput: 'search',
   isSearchInDropdown: false,
+  searchLayouts: [],
+  searchLayoutsMode: 'fallback',
 
   countShowSelected: 3,
   isOnlyPlaceholder: false,

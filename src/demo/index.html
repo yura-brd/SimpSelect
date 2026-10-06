@@ -352,6 +352,59 @@
 		</div>
 	</div>
 
+	<div>
+		<p>Search by keyboard layout</p>
+
+		<div class="items">
+			<div class="item">
+				<small>searchLayouts (fallback): дщтвщт → London, д → Одеса only</small>
+				<select
+						data-simple-select-search="true"
+						data-simple-search-layouts="en,ru,uk"
+				>
+					<option value="">choose</option>
+					<option value="london">London</option>
+					<option value="paris">Paris</option>
+					<option value="berlin">Berlin</option>
+					<option value="madrid">Madrid</option>
+					<option value="kyiv">Київ</option>
+					<option value="odesa">Одеса</option>
+				</select>
+			</div>
+			<div class="item">
+				<small>searchLayoutsMode always: д → Одеса, London, Berlin (д = l)</small>
+				<select
+						data-simple-select-search="true"
+						data-simple-search-layouts="en,ru,uk"
+						data-simple-search-layouts-mode="always"
+				>
+					<option value="">choose</option>
+					<option value="london">London</option>
+					<option value="paris">Paris</option>
+					<option value="berlin">Berlin</option>
+					<option value="madrid">Madrid</option>
+					<option value="kyiv">Київ</option>
+					<option value="odesa">Одеса</option>
+				</select>
+			</div>
+			<div class="item">
+				<small>searchFilter (starts with): lo → London, on → nothing</small>
+				<select
+						id="selectSearchFilter"
+						data-simple-select-search="true"
+				>
+					<option value="">choose</option>
+					<option value="london">London</option>
+					<option value="paris">Paris</option>
+					<option value="berlin">Berlin</option>
+					<option value="madrid">Madrid</option>
+					<option value="kyiv">Київ</option>
+					<option value="odesa">Одеса</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
 	<!--
 
 	<select
@@ -426,6 +479,11 @@
     console.log('updateHistory', e);
   });
 
+  // до общей инициализации — иначе select будет создан без searchFilter
+  new SimpleSelect('#selectSearchFilter', {
+    searchFilter: (title, query) => title.toLowerCase().indexOf(query.toLowerCase()) === 0,
+  });
+
   const sel = new SimpleSelect('select', {
     // callbackOpen: (item) => {
     //   console.log('open', item);
@@ -446,6 +504,7 @@
     //   return titleInit + ' - test'
     // },
     isNeedFormatTitle: true,
+
     callbackChangeSelect: (e, that) => {
       console.group();
       console.log('Select: ',e.target);
