@@ -15,6 +15,7 @@ type triggerCustomEventDataType = {
 export declare function triggerCustomEvent(element: HTMLElement, type: triggerCustomEventType, data: triggerCustomEventDataType): void;
 export declare function triggerInputEvent(element: HTMLElement, type?: string): void;
 export declare const getNativeOptions: (select: HTMLSelectElement) => HTMLOptionElement[];
+export declare const getLabelControl: (label: HTMLLabelElement) => Element | null;
 export declare const getOptionsPositions: (select: HTMLSelectElement) => Map<HTMLOptionElement, number>;
 export declare const getCreateItem: (option: HTMLOptionElement, index: number, positions?: Map<HTMLOptionElement, number>) => {
     id: string;

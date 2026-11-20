@@ -51,6 +51,8 @@ export const simpleSelectionOptions: ISimpleSelectOptions = {
   attributeSizeMultiple: 1,
 
   isLabelMode: false,
+
+  isLabelClickOpen: false,
 };
 
 export const nameSelect = 'SimpSelect';

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### 🚀 Added
+- New `isLabelClickOpen` option (`data-simple-label-click-open`): a click on a `<label>` linked to the select (`for="id"` or a wrapping label) opens the plugin dropdown instead of the browser's native option list. Off by default.
+
+---
+
 ## [1.2.0] - 2026-06-17
 
 ### 🚀 Added

@@ -234,6 +234,10 @@ export class SimpleSelectItemDOM {
       this.options.isLabelMode = ifTrueDataAttr(this.$select.getAttribute('data-is-label-mode'));
     }
 
+    if (this.$select.hasAttribute('data-simple-label-click-open')) {
+      this.options.isLabelClickOpen = ifTrueDataAttr(this.$select.getAttribute('data-simple-label-click-open'));
+    }
+
     if (this.$select.hasAttribute('data-simple-always-open')) {
       this.options.isAlwaysOpen = ifTrueDataAttr(this.$select.getAttribute('data-simple-always-open'));
 

@@ -54,6 +54,18 @@ export function triggerInputEvent(element: HTMLElement, type = 'change') {
 // querySelectorAll находит option в любом случае, порядок тот же (порядок в документе)
 export const getNativeOptions = (select: HTMLSelectElement): HTMLOptionElement[] => Array.from(select.querySelectorAll('option'));
 
+// элемент, которым управляет label (for="id" или первый подходящий потомок); fallback для браузеров без label.control
+export const getLabelControl = (label: HTMLLabelElement): Element | null => {
+  if ('control' in label) {
+    return label.control;
+  }
+  const { htmlFor } = label as HTMLLabelElement;
+  if (htmlFor) {
+    return document.getElementById(htmlFor);
+  }
+  return (label as HTMLElement).querySelector('button, input:not([type="hidden"]), meter, output, progress, select, textarea');
+};
+
 export const getOptionsPositions = (select: HTMLSelectElement): Map<HTMLOptionElement, number> => {
   const positions = new Map<HTMLOptionElement, number>();
   getNativeOptions(select).forEach((option, ind) => {

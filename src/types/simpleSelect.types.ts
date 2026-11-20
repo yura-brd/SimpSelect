@@ -58,6 +58,9 @@ export interface ISimpleSelectOptions {
 
   isLabelMode: boolean;
 
+  // клик по связанному <label> открывает выпадающий список плагина вместо нативного
+  isLabelClickOpen: boolean;
+
   detectNative?: () => boolean;
 
   isScrollToCheckedFirst: boolean;

@@ -8,6 +8,7 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     changeListener: (e: Event) => void;
     selectKeyDownListener: (e: KeyboardEvent) => void;
     searchHandler: (e: Event) => void;
+    labelClickHandler: (e: MouseEvent) => void;
     handleResize: (e: MediaQueryList | null) => void;
     mql: MediaQueryList | null;
     isInitialized: boolean;
@@ -42,6 +43,11 @@ export declare class SimpleSelectItem extends SimpleSelectItemDOM {
     private toggleOpen;
     toggleOpenHandler(): void;
     private changeListenerInit;
+    /**
+     * Клик по <label>, связанному с select (for="id" или обёртка):
+     * гасим нативный список и открываем выпадающий список плагина
+     */
+    private labelClickHandlerInit;
     private selectKeyDownInit;
     getSelect(): HTMLSelectElement;
     protected handlerChangeChecked(): void;

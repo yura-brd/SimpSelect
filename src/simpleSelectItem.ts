@@ -3,6 +3,7 @@ import { IHistoryItem, IOptionItems } from './types/item.types';
 import {
   compareObj,
   getCreateListItem,
+  getLabelControl,
   getNativeOptions,
   getOptionsPositions,
   toCamelCase, triggerCustomEvent,
@@ -20,6 +21,8 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
   selectKeyDownListener!: (e:KeyboardEvent) => void; // not native
 
   searchHandler!: (e:Event) => void; // not native
+
+  labelClickHandler!: (e:MouseEvent) => void; // not native
 
   handleResize!: (e: MediaQueryList | null) => void; // not native
 
@@ -70,6 +73,12 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     this.closeEscHandler = this.closeEscHandlerInit.bind(this);
 
     this.handleResize = this.handleResizeInit.bind(this);
+
+    this.labelClickHandler = this.labelClickHandlerInit.bind(this);
+    if (this.options.isLabelClickOpen && !this.isNative) {
+      // всплытие, а не перехват: closeOutsideHandler, добавленный при открытии, не сработает на этом же клике
+      document.addEventListener('click', this.labelClickHandler);
+    }
 
     if (this.options.callbackInitialization) {
       this.options.callbackInitialization(this);
@@ -574,6 +583,42 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     this.createList(true);
   }
 
+  /**
+   * Клик по <label>, связанному с select (for="id" или обёртка):
+   * гасим нативный список и открываем выпадающий список плагина
+   */
+  private labelClickHandlerInit(e: MouseEvent) {
+    const { target } = e;
+    if (!(target instanceof Element)) {
+      return;
+    }
+    const label = target.closest('label');
+    if (!label || getLabelControl(label) !== this.$select) {
+      return;
+    }
+
+    // select обёрнут в label, клик внутри самого плагина — только не даём открыться нативному списку
+    if (this.elemWrap.contains(target)) {
+      e.preventDefault();
+      return;
+    }
+    if (e.defaultPrevented) {
+      return;
+    }
+    e.preventDefault();
+
+    // уже открыт — закроет closeOutsideHandler (с учётом isConfirmInMultiOkClickOutside)
+    if (this.isDisabled || this.state.getState('isOpen')) {
+      return;
+    }
+    if (!this.options.isRemoveTop) {
+      this.elemTopBody.focus();
+    }
+    if (!this.options.isAlwaysOpen) {
+      this.state.setState('isOpen', true);
+    }
+  }
+
   private selectKeyDownInit(e: KeyboardEvent) {
     if (this.isNative) {
       return;
@@ -651,6 +696,7 @@ export class SimpleSelectItem extends SimpleSelectItemDOM {
     }
     const parentElement = this.elemWrap.parentNode;
     this.$select.removeEventListener('change', this.changeListener);
+    document.removeEventListener('click', this.labelClickHandler);
 
     if (this.elemInputSearch) {
       this.elemInputSearch.removeEventListener('input', this.searchHandler);
